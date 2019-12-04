@@ -842,6 +842,12 @@ ifdef CONFIG_LTO_CLANG
 lto-clang-flags	:= -flto=thin -fvisibility=hidden $(call cc-option, -fsplit-lto-unit)
 
 
+# Limit inlining across translation units to reduce binary size
+LD_FLAGS_LTO_CLANG := -mllvm -import-instr-limit=5
+
+KBUILD_LDFLAGS += $(LD_FLAGS_LTO_CLANG)
+KBUILD_LDFLAGS_MODULE += $(LD_FLAGS_LTO_CLANG)
+
 KBUILD_LDS_MODULE += $(srctree)/scripts/module-lto.lds
 
 # allow disabling only clang LTO where needed
