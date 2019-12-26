@@ -26,26 +26,7 @@
 		gz_main {
 			compatible = "mediatek,trusty-gz";
 		};
-
-#ifndef CONFIG_MTK_NEBULA_VM_SUPPORT
-		irq {
-			compatible = "android,trusty-irq-v1";
-			ppi-interrupt-parent = <&gic>;
-		};
-
-		trusty-virtio {
-			compatible = "android,trusty-virtio-v1";
-			tee_id = <0>;
-		};
-
-		trusty-gz-log {
-			compatible = "android,trusty-gz-log-v1";
-			tee_id = <0>;
-		};
-#endif
 	};
-
-#ifdef CONFIG_MTK_NEBULA_VM_SUPPORT
 	nebula {
 		compatible = "android,nebula-smc-v1";
 		ranges;
@@ -68,5 +49,4 @@
 			tee_id = <1>;
 		};
 	};
-#endif
 };
