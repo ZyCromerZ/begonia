@@ -64,8 +64,8 @@
 		goodix,panel-max-w = <256>;
 		goodix,panel-max-p = <256>;
 		goodix,panel-key-map = <158 172 217>; /*BACK,HOMEPAGE,SEARCH*/
-		goodix,power-on-delay-us = <10000>; /*10ms*/
-		goodix,power-off-delay-us = <5000>;
+		goodix,power-on-delay-us = <5000>; /*5ms*/
+		goodix,power-off-delay-us = <2000>;
 		/*goodix,swap-axis;*/
 		goodix,firmware-version = "6785ae";
 		goodix,config-version = "6785v99";
