@@ -56,7 +56,7 @@ struct interactive_tunables {
 	unsigned int hispeed_freq;
 
 	/* Go to hi speed when CPU load at or above this value. */
-#define DEFAULT_GO_HISPEED_LOAD 99
+#define DEFAULT_GO_HISPEED_LOAD 95
 	unsigned long go_hispeed_load;
 
 	/* Target load. Lower values result in higher CPU speeds. */
@@ -68,7 +68,7 @@ struct interactive_tunables {
 	 * The minimum amount of time to spend at a frequency before we can ramp
 	 * down.
 	 */
-#define DEFAULT_MIN_SAMPLE_TIME (80 * USEC_PER_MSEC)
+#define DEFAULT_MIN_SAMPLE_TIME (8 * USEC_PER_MSEC)
 	unsigned long min_sample_time;
 
 	/* The sample rate of the timer used to increase frequency */
@@ -147,7 +147,7 @@ static spinlock_t speedchange_cpumask_lock;
 #define DEFAULT_TARGET_LOAD 90
 static unsigned int default_target_loads[] = {DEFAULT_TARGET_LOAD};
 
-#define DEFAULT_SAMPLING_RATE (20 * USEC_PER_MSEC)
+#define DEFAULT_SAMPLING_RATE (2 * USEC_PER_MSEC)
 #define DEFAULT_ABOVE_HISPEED_DELAY DEFAULT_SAMPLING_RATE
 static unsigned int default_above_hispeed_delay[] = {
 	DEFAULT_ABOVE_HISPEED_DELAY
