@@ -40,9 +40,6 @@ ccflags-y += -I$(srctree)/drivers/misc/mediatek/base/power/eem_v2/$(MTK_PLATFORM
 ccflags-y += -I$(srctree)/drivers/misc/mediatek/freqhopping/
 ccflags-y += -I$(srctree)/drivers/misc/mediatek/freqhopping/$(CONFIG_MTK_PLATFORM)
 
-ccflags-y += -Wno-unused-variable
-ccflags-y += -Wno-unused-function
-
 ccflags-$(CONFIG_MTK_GPU_SPM_DVFS_SUPPORT) += -DMTK_GPU_SPM
 ccflags-y += -DMT_GPUFREQ_BRINGUP=$(MT_GPUFREQ_BRINGUP)
 ccflags-y += -DMT_GPUFREQ_GED_READY=$(MT_GPUFREQ_GED_READY)

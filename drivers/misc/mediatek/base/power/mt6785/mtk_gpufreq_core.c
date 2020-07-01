@@ -77,7 +77,7 @@ static void __mt_gpufreq_vgpu_set_mode(unsigned int mode);
 static unsigned int __mt_gpufreq_get_cur_vgpu(void);
 static unsigned int __mt_gpufreq_get_cur_freq(void);
 static unsigned int __mt_gpufreq_get_cur_vsram_gpu(void);
-static int __mt_gpufreq_get_opp_idx_by_vgpu(unsigned int vgpu);
+// static int __mt_gpufreq_get_opp_idx_by_vgpu(unsigned int vgpu);
 static unsigned int __mt_gpufreq_get_vsram_gpu_by_vgpu(unsigned int vgpu);
 static unsigned int __mt_gpufreq_get_limited_freq_by_power(
 		unsigned int limited_power);
@@ -267,7 +267,6 @@ extern GED_LOG_BUF_HANDLE gpufreq_ged_log;
  */
 unsigned int mt_gpufreq_target(unsigned int request_idx, bool is_real_idx)
 {
-	int i;
 	unsigned int target_freq;
 	unsigned int target_vgpu;
 	unsigned int target_vsram_gpu;
@@ -2702,7 +2701,6 @@ static unsigned int __mt_gpufreq_get_cur_vgpu(void)
 
 /*
  * get OPP table index by voltage (mV * 100)
- */
 static int __mt_gpufreq_get_opp_idx_by_vgpu(unsigned int vgpu)
 {
 	int i = g_max_opp_idx_num - 1;
@@ -2715,6 +2713,7 @@ static int __mt_gpufreq_get_opp_idx_by_vgpu(unsigned int vgpu)
 out:
 	return i + 1;
 }
+ */
 
 /*
  * calculate vsram_gpu via given vgpu
