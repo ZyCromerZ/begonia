@@ -29,9 +29,9 @@
 
 #include "mali_kbase_pm_always_on.h"
 #include "mali_kbase_pm_coarse_demand.h"
-#if !MALI_CUSTOMER_RELEASE
-#include "mali_kbase_pm_always_on_demand.h"
-#endif
+// #if !MALI_CUSTOMER_RELEASE
+// #include "mali_kbase_pm_always_on_demand.h"
+// #endif
 
 /* Forward definition - see mali_kbase.h */
 struct kbase_device;
@@ -226,9 +226,9 @@ struct kbasep_pm_tick_timer_state {
 union kbase_pm_policy_data {
 	struct kbasep_pm_policy_always_on always_on;
 	struct kbasep_pm_policy_coarse_demand coarse_demand;
-#if !MALI_CUSTOMER_RELEASE
-	struct kbasep_pm_policy_always_on_demand always_on_demand;
-#endif
+// #if !MALI_CUSTOMER_RELEASE
+	// struct kbasep_pm_policy_always_on_demand always_on_demand;
+// #endif
 };
 
 /**
@@ -421,9 +421,9 @@ struct kbase_pm_backend_data {
 /* List of policy IDs */
 enum kbase_pm_policy_id {
 	KBASE_PM_POLICY_ID_COARSE_DEMAND,
-#if !MALI_CUSTOMER_RELEASE
-	KBASE_PM_POLICY_ID_ALWAYS_ON_DEMAND,
-#endif
+// #if !MALI_CUSTOMER_RELEASE
+// 	KBASE_PM_POLICY_ID_ALWAYS_ON_DEMAND,
+// #endif
 	KBASE_PM_POLICY_ID_ALWAYS_ON
 };
 

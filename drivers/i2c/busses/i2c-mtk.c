@@ -39,7 +39,7 @@
 #include <mtk_cpufreq_hybrid.h>
 #endif
 #ifdef CONFIG_MTK_GPU_SPM_DVFS_SUPPORT
-#include <mtk_kbase_spm.h>
+#include "../../misc/mediatek/gpu/gpu_mali/mali_bifrost/mali-r20p0/drivers/gpu/arm/midgard/mali_kbase_hwaccess_pm.h"
 #endif
 #ifdef CONFIG_MTK_TINYSYS_SCP_SUPPORT
 #include <scp_helper.h>
@@ -51,6 +51,18 @@ static struct i2c_dma_info g_dma_regs[I2C_MAX_CHANNEL];
 static struct mt_i2c *g_mt_i2c[I2C_MAX_CHANNEL];
 static struct mtk_i2c_compatible i2c_common_compat;
 
+
+int dvfs_gpu_pm_spin_lock_for_vgpu(void)
+{
+	int ret = 0;
+	return ret;
+}
+
+int dvfs_gpu_pm_spin_unlock_for_vgpu(void)
+{
+	int ret = 0;
+	return ret;
+}
 
 static inline void _i2c_writew(u16 value, struct mt_i2c *i2c, u16 offset)
 {
