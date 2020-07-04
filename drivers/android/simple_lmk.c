@@ -30,7 +30,8 @@ struct victim_info {
 
 /* Pulled from the Android framework. Lower adj means higher priority. */
 static const unsigned short adjs[] = {
-	SHRT_MAX + 1, /* Include all positive adjs in the final range */
+	1001, /* UNKNOWN_ADJ */
+	999, /* CACHED_APP_MAX_ADJ */
 	950, /* CACHED_APP_LMK_FIRST_ADJ */
 	900, /* CACHED_APP_MIN_ADJ */
 	800, /* SERVICE_B_ADJ */
