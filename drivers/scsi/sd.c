@@ -3087,7 +3087,6 @@ static void sd_read_security(struct scsi_disk *sdkp, unsigned char *buffer)
  * Determine the device's preferred I/O size for reads and writes
  * unless the reported value is unreasonably small, large, not a
  * multiple of the physical block size, or simply garbage.
- */
 static bool sd_validate_opt_xfer_size(struct scsi_disk *sdkp,
 				      unsigned int dev_max)
 {
@@ -3134,6 +3133,7 @@ static bool sd_validate_opt_xfer_size(struct scsi_disk *sdkp,
 			opt_xfer_bytes);
 	return true;
 }
+ */
 
 /**
  *	sd_revalidate_disk - called the first time a new disk is seen,

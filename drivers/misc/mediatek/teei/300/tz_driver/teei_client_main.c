@@ -749,13 +749,13 @@ int set_soter_version(void)
 	unsigned int versionlen = 0;
 	char *version = NULL;
 
-	memcpy(&versionlen, message_buff, sizeof(unsigned int));
+	memcpy(&versionlen, (void *)message_buff, sizeof(unsigned int));
 	if (versionlen > 0 && versionlen < 100) {
 		version = kmalloc(versionlen + 1, GFP_KERNEL);
 		if (version == NULL)
 			return -1;
 		memset(version, 0, versionlen + 1);
-		memcpy(version, message_buff + 4, versionlen);
+		memcpy(version, (void *)message_buff + 4, versionlen);
 	} else {
 		return -2;
 	}
@@ -2144,13 +2144,13 @@ static int teei_client_init(void)
 	int ret_code = 0;
 	struct device *class_dev = NULL;
 	int i;
+	struct sched_param param = { .sched_priority = 50 };
 
 	TZ_SEMA_INIT_0(&(capi_mutex));
 
 #ifdef TUI_SUPPORT
 	int pwr_pid = 0;
 #endif
-	struct sched_param param = {.sched_priority = 50 };
 
 	/* IMSG_DEBUG("TEEI Agent Driver Module Init ...\n"); */
 
