@@ -57,6 +57,8 @@
 
 &i2c0 {
 	clock-frequency = <400000>;
+	#address-cells = <1>;
+	#size-cells = <0>;
 
 	gt9886@5d {
 		compatible = "goodix,gt9886";
@@ -251,6 +253,8 @@
 
 &i2c2 {
 	clock-frequency = <400000>;
+	#address-cells = <1>;
+	#size-cells = <0>;
 
 	mtk-usb@60 {
 		compatible = "mediatek,mtk-usb";
@@ -261,6 +265,8 @@
 
 &i2c3 {
 	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
 	nxp@28 {
 		compatible = "qcom,nq-nci";
 		reg = <0x28>;
@@ -286,6 +292,8 @@
 
 /* Begonia Audio SmartPA Begin */
 &i2c6 {
+	#address-cells = <1>;
+	#size-cells = <0>;
 	tfa98xx@34 {
 		status = "ok";
 		compatible = "tfa98xx";

@@ -104,6 +104,8 @@ this file is only for attribution of begonia
 };
 
 &i2c8 {
+	#address-cells = <1>;
+	#size-cells = <0>;
 	smb1351-charger@1d {
 		compatible = "qcom,smb1351-charger";
 		reg = <0x1d>;

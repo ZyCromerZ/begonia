@@ -57,6 +57,8 @@
 
 &i2c0 {
 	clock-frequency = <400000>;
+	#address-cells = <1>;
+	#size-cells = <0>;
 
 	gt9886@5d {
 		compatible = "goodix,gt9886";
@@ -176,6 +178,8 @@
 
 &i2c2 {
 	clock-frequency = <400000>;
+	#address-cells = <1>;
+	#size-cells = <0>;
 
 	mtk-usb@60 {
 		compatible = "mediatek,mtk-usb";
