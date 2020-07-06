@@ -461,28 +461,6 @@ config ARM64_ERRATUM_1024718
 
 	  If unsure, say Y.
 
-config ARM64_ERRATUM_1406411
-	bool "Cortex-A76: 1406411: System might result in data corruption, incorrect program flow or produce other undesirable effects"
-	default y
-	help
-	  This option adds an alternative code sequence to work around ARM
-	  erratum 1406411 on Cortex-A76 parts up to r3p0 when the core is in
-	  debug state.
-
-	  An MSR DSPSR_EL0 instruction that is executed in debug state and
-	  alters the Debug Saved Program Status Register, might fail to update
-	  PSTATE.NZCV, GE values upon exit from debug state. This erratum
-	  applies to both AArch32 (MCR DSPSR) and AArch64 (MSR DSPSR_EL0)
-	  operation.
-
-	  The workaround is to promote set CPUACTLR_EL1[45] to 1 prior to
-	  exiting from debug state.
-	  Please note that this does not necessarily enable the workaround,
-	  as it depends on the alternative framework, which will only patch
-	  the kernel if an affected CPU is detected.
-
-	  If unsure, say Y.
-
 config CAVIUM_ERRATUM_22375
 	bool "Cavium erratum 22375, 24313"
 	default y

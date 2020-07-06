@@ -616,15 +616,6 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
 		ERRATA_MIDR_REV_RANGE(MIDR_CORTEX_A53, 0, 0, 4),
 	},
 #endif
-#ifdef CONFIG_ARM64_ERRATUM_1406411
-	{
-	/* Cortex-A76 r3p0 */
-		.desc = "ARM erratum 1406411",
-		.capability = ARM64_WORKAROUND_1406411,
-		MIDR_RANGE(MIDR_CORTEX_A76, MIDR_CPU_VAR_REV(3, 0),
-				MIDR_CPU_VAR_REV(3, 0)),
-	},
-#endif
 #ifdef CONFIG_CAVIUM_ERRATUM_23154
 	{
 	/* Cavium ThunderX, pass 1.x */
