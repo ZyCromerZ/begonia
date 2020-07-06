@@ -195,7 +195,7 @@ out:
 	return err;
 }
 
-static int recover_quota_data(struct inode *inode, struct page *page)
+static int __maybe_unused recover_quota_data(struct inode *inode, struct page *page)
 {
 	struct f2fs_inode *raw = F2FS_INODE(page);
 	struct iattr attr;
