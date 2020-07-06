@@ -1,0 +1,13 @@
+upstream()
+{
+    branch=$1
+    git checkout $branch && \
+    git pull . 20200706/main --no-ff --no-commit && git commit -s -m "merge Branch '20200706/main' into $branch"
+    git pull . 20200706/upstream --no-ff --no-commit && git commit -s -m "merge Branch '20200706/upstream' into $branch"
+    git checkout 20200706/main
+}
+upstream 20200706/Tercydux
+upstream 20200706/Tercydux-OC
+upstream 20200706/qk-n
+upstream 20200706/qk-l
+git push --all origin_private -f

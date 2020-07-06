@@ -124,3 +124,10 @@ all.config
 
 # fetched Android config fragments
 kernel/configs/android-*.cfg
+
+# ignore tc folder
+AnyKernel/*
+Getclang/*
+GetGcc/*
+GetGccB/*
+out/*

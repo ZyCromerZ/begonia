@@ -1,0 +1,17 @@
+git branch -D \
+20200706/Tercydux-rc \
+20200706/Tercydux-OC-rc \
+20200706/qk-n-rc \
+20200706/qk-l-rc
+upstream()
+{
+    branch=$1
+    git checkout $branch && git checkout -b ${branch}-rc && \
+    git pull . 20200706/upstream-rc --no-ff --no-commit && git commit -s -m "merge Branch '20200706/upstream-rc' into $branch"
+    git checkout 20200706/main
+}
+upstream 20200706/Tercydux
+upstream 20200706/Tercydux-OC
+upstream 20200706/qk-n
+upstream 20200706/qk-l
+git push --all origin_private -f
