@@ -4,11 +4,12 @@ export KBUILD_BUILD_USER="ZyCromerZ"
 export KBUILD_BUILD_HOST="Lnix-$(git log --pretty=format:'%h' -1)"
 export CROSS_COMPILE=/home/zycomerz/Android/gcc/gugel-master/bin/aarch64-linux-android-
 export CROSS_COMPILE_ARM32=/home/zycomerz/Android/gcc/gugel32/bin/arm-linux-androideabi-
+export CCACHE_DIR="/mnt/B66419C964198D6D/ccache"
 MainPath=$(pwd)
 Defconfig="begonia_user_defconfig"
 KERNEL_NAME=$(cat "$MainPath/arch/arm64/configs/$Defconfig" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
 ZIP_KERNEL_VERSION="4.14.$(cat "$MainPath/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//g')$(cat "$(pwd)/Makefile" | grep "EXTRAVERSION =" | sed 's/EXTRAVERSION = *//g')"
-GetCore=$(nproc --all)
+GetCore=16
 TANGGAL=$(date +"%m%d")
 echo "dih . . .";
 make -j$(($GetCore)) O=out clean mrproper  && \
