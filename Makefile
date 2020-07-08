@@ -677,18 +677,6 @@ else
 KBUILD_CFLAGS   += -O3
 endif
 
-# Add polly for clang by default if using clang
-ifeq ($(cc-name),clang)
-KBUILD_CFLAGS	+= $(call cc-option, -mllvm -polly) \
-				$(call cc-option, -mllvm -polly-run-dce) \
-				$(call cc-option, -mllvm -polly-run-inliner) \
-				$(call cc-option, -mllvm -polly-opt-fusion=max) \
-				$(call cc-option, -mllvm -polly-ast-use-context) \
-				$(call cc-option, -mllvm -polly-detect-keep-going) \
-				$(call cc-option, -mllvm -polly-vectorizer=stripmine) \
-				$(call cc-option, -mllvm -polly-invariant-load-hoisting)
-endif
-
 # Tell gcc to never replace conditional load with a non-conditional one
 KBUILD_CFLAGS	+= $(call cc-option,--param=allow-store-data-races=0)
 KBUILD_CFLAGS	+= $(call cc-option,-fno-allow-store-data-races)
