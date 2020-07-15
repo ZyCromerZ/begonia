@@ -1337,7 +1337,7 @@ int hdmi_get_dev_info(int is_sf, void *info)
 		else if (hdmi_reschange == HDMI_VIDEO_2160p_DSC_24Hz)
 			hdmi_info.vsyncFPS = 2400;
 		else
-			hdmi_info.vsyncFPS = 6000;
+			hdmi_info.vsyncFPS = 6500;
 
 		if (copy_to_user(info, &hdmi_info, sizeof(hdmi_info))) {
 			mmprofile_log_ex(ddp_mmp_get_events()->Extd_ErrorInfo,
@@ -1383,7 +1383,7 @@ int hdmi_get_dev_info(int is_sf, void *info)
 		else if (hdmi_reschange == HDMI_VIDEO_2160p_DSC_24Hz)
 			dispif_info->vsyncFPS = 2400;
 		else
-			dispif_info->vsyncFPS = 6000;
+			dispif_info->vsyncFPS = 6500;
 
 		if (dispif_info->displayWidth * dispif_info->displayHeight <=
 		    240 * 432)

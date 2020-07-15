@@ -507,7 +507,7 @@ static void ged_kpi_push_cur_fps_and_detect_app_self_frc(int fps)
 				else if (fps <= 51)
 					fps = 50;
 				else
-					fps = 60;
+					fps = 65;
 
 				if (fps < target_fps_4_main_head)
 					afrc_rst_over_target_cnt++;

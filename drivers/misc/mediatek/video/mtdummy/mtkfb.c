@@ -74,7 +74,7 @@ static u32 fb_yres_update;
 
 unsigned int fb_pa;
 struct fb_info *mtkfb_fbi;
-unsigned int lcd_fps = 6000;
+unsigned int lcd_fps = 6500;
 char mtkfb_lcm_name[256] = { 0 };
 
 bool is_ipoh_bootup;
@@ -564,7 +564,7 @@ static int __parse_tag_videolfb_extra(struct device_node *node)
 		return -1;
 	lcd_fps = of_read_number(prop, 1);
 	if (lcd_fps == 0)
-		lcd_fps = 6000;
+		lcd_fps = 6500;
 
 	prop = (void *)of_get_property(node, "atag,videolfb-vramSize", NULL);
 	if (!prop)
@@ -606,7 +606,7 @@ int __parse_tag_videolfb(struct device_node *node)
 
 		lcd_fps = videolfb_tag->fps;
 		if (lcd_fps == 0)
-			lcd_fps = 6000;
+			lcd_fps = 6500;
 
 		islcmconnected = videolfb_tag->islcmfound;
 		vramsize = videolfb_tag->vram;

@@ -39,12 +39,12 @@ extern void __attribute__((weak)) dfrc_fps_limit_cb(int fps_limit)
 
 extern int __attribute__((weak)) primary_display_get_min_refresh_rate(void)
 {
-	return 60;
+	return 65;
 }
 
 extern int __attribute__((weak)) primary_display_get_max_refresh_rate(void)
 {
-	return 60;
+	return 65;
 }
 
 extern
@@ -717,11 +717,11 @@ long dfrc_get_panel_fps(struct DFRC_DRV_REFRESH_RANGE *range)
 		pr_warn("failed to get panel fps: does not init\n");
 	} else {
 		if (g_fps_info.num == 0) {
-			range->min_fps = 60;
-			range->max_fps = 60;
+			range->min_fps = 65;
+			range->max_fps = 65;
 		} else if (range->index >= g_fps_info.num || range->index < 0) {
-			range->min_fps = 60;
-			range->max_fps = 60;
+			range->min_fps = 65;
+			range->max_fps = 65;
 			res = -EINVAL;
 		} else {
 			range->min_fps = g_fps_info.range[range->index].min_fps;
@@ -1443,12 +1443,12 @@ static void dfrc_adjust_vsync_locked(
 		new_request.num_policy = 0;
 	} else if (expected_policy->mode == DFRC_DRV_MODE_FRR) {
 		dfrc_rdump("use frr mode\n");
-		fps = 60;
+		fps = 65;
 		sw_mode = DFRC_DRV_SW_MODE_CALIBRATED_SW;
 		hw_mode = DFRC_DRV_HW_MODE_DEFAULT;
 		new_request.fps = -1;
 		new_request.mode = DFRC_DRV_MODE_FRR;
-		new_request.sw_fps = 60;
+		new_request.sw_fps = 65;
 		new_request.sw_mode = DFRC_DRV_SW_MODE_CALIBRATED_SW;
 		new_request.valid_info = true;
 		new_request.transient_state = false;
@@ -1814,14 +1814,14 @@ static int dfrc_probe(struct platform_device *pdev)
 		g_fps_info.range[0].min_fps =
 			primary_display_get_min_refresh_rate();
 	} else {
-		g_fps_info.range[0].min_fps = 60;
+		g_fps_info.range[0].min_fps = 65;
 	}
 
 	if (primary_display_get_max_refresh_rate) {
 		g_fps_info.range[0].max_fps =
 			primary_display_get_max_refresh_rate();
 	} else {
-		g_fps_info.range[0].max_fps = 60;
+		g_fps_info.range[0].max_fps = 65;
 	}
 #endif
 
