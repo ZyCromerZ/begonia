@@ -1413,7 +1413,7 @@ static void process_dbg_opt(const char *opt)
 	} else if (!strncmp(opt, "primary_display_ovl_recovery", 25)) {
 		primary_display_ovl_recovery();
 	} else if (!strncmp(opt, "arr_wait_fps_chg", 16)) {
-		unsigned int new_fps = 60;
+		unsigned int new_fps = 65;
 
 		ret = primary_display_wait_fps_change(&new_fps);
 		DISPMSG("debug,fps change to %d\n", new_fps);

@@ -1532,7 +1532,7 @@ int _init_vsync_fake_monitor(int fps)
 	is_fake_timer_inited = 1;
 
 	if (fps == 0)
-		fps = 6000;
+		fps = 6500;
 
 	hrtimer_init(&cmd_mode_update_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
 	cmd_mode_update_timer.function = _DISP_CmdModeTimer_handler;
@@ -3664,8 +3664,8 @@ static int _ovl_fence_release_callback(unsigned long userdata)
 	int real_hrt_level = 0;
 #ifdef MTK_FB_MMDVFS_SUPPORT
 	unsigned long long bandwidth;
-	unsigned int in_fps = 60;
-	unsigned int out_fps = 60;
+	unsigned int in_fps = 65;
+	unsigned int out_fps = 65;
 	int stable = 0;
 #endif
 	unsigned int hrt_idx;
@@ -4415,7 +4415,7 @@ int primary_display_init(char *lcm_name, unsigned int lcm_fps,
 
 	if (use_cmdq) {
 		if (primary_display_is_video_mode() && pgc->dynamic_fps == 0)
-			pgc->dynamic_fps = 60;
+			pgc->dynamic_fps = 65;
 
 		_cmdq_build_trigger_loop();
 		_cmdq_start_trigger_loop();
@@ -4597,7 +4597,7 @@ int primary_display_init(char *lcm_name, unsigned int lcm_fps,
 	}
 
 	pgc->lcm_fps = lcm_fps;
-	pgc->lcm_refresh_rate = 60;
+	pgc->lcm_refresh_rate = 65;
 
 	/* keep lowpower init after setting lcm_fps */
 	primary_display_lowpower_init();
@@ -5221,7 +5221,7 @@ int primary_display_suspend(void)
 	mmprofile_log_ex(ddp_mmp_get_events()->primary_suspend,
 			 MMPROFILE_FLAG_PULSE, 0, 8);
 
-	pgc->lcm_refresh_rate = 60;
+	pgc->lcm_refresh_rate = 65;
 	/* pgc->state = DISP_SLEPT; */
 
 done:
@@ -5357,8 +5357,8 @@ int primary_display_resume(void)
 	int i, skip_update = 0;
 #ifdef MTK_FB_MMDVFS_SUPPORT
 	unsigned long long bandwidth;
-	unsigned int in_fps = 60;
-	unsigned int out_fps = 60;
+	unsigned int in_fps = 65;
+	unsigned int out_fps = 65;
 #endif
 
 	DISPCHECK("%s begin\n", __func__);
@@ -5883,7 +5883,7 @@ skip_resume:
 
 	dpmgr_path_power_off(pgc->dpmgr_handle, CMDQ_DISABLE);
 
-	pgc->lcm_refresh_rate = 60;
+	pgc->lcm_refresh_rate = 65;
 	/* pgc->state = DISP_SLEPT; */
 
 	primary_set_state(DISP_SLEPT);
@@ -10158,7 +10158,7 @@ int primary_display_wait_fps_change(unsigned int *new_fps)
 		atomic_read(&primary_display_fps_chg_trigger));
 	atomic_set(&primary_display_fps_chg_trigger, 0);
 	if (ret < 0) {
-		*new_fps = 60;
+		*new_fps = 65;
 		DISP_PR_INFO("[fps] wait_event unexpectedly, ret:%d\n", ret);
 		return ret;
 	}
@@ -10292,7 +10292,7 @@ unsigned int primary_display_is_support_ARR(void)
 unsigned int primary_display_get_dyn_fps(unsigned int VFP_PORTCH)
 {
 	/*LUT table*/
-	unsigned int fps = 60;
+	unsigned int fps = 65;
 	struct LCM_PARAMS *params;
 	unsigned int i = 0;
 	unsigned int fps_levels = 0;

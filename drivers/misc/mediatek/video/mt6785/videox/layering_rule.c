@@ -326,7 +326,7 @@ static void layering_rule_senario_decision(struct disp_layer_info *disp_info)
 		}
 	}
 
-	l_rule_info.primary_fps = 60;
+	l_rule_info.primary_fps = 65;
 
 	l_rule_info.bound_tb_idx = HRT_BOUND_TYPE_LP4;
 
@@ -555,7 +555,7 @@ void layering_rule_init(void)
 	struct LCM_PARAMS *lcm_param = disp_lcm_get_params(primary_get_lcm());
 #endif
 
-	l_rule_info.primary_fps = 60;
+	l_rule_info.primary_fps = 65;
 	l_rule_info.hrt_idx = 0;
 	register_layering_rule_ops(&l_rule_ops, &l_rule_info);
 

@@ -171,7 +171,7 @@ static struct golden_setting_context *__get_golden_setting_context(void)
 
 	/* default setting */
 	gs_ctx.is_one_layer = 0;
-	gs_ctx.fps = 60;
+	gs_ctx.fps = 65;
 	gs_ctx.is_dc = 0;
 	gs_ctx.is_display_idle = 0;
 	gs_ctx.is_wrot_sram = 0;
@@ -803,7 +803,7 @@ static void _vdo_mode_enter_idle(void)
 #endif
 #ifdef MTK_FB_MMDVFS_SUPPORT
 	unsigned long long bandwidth;
-	unsigned int out_fps = 60;
+	unsigned int out_fps = 65;
 	unsigned int in_fps = 0;
 #endif
 
@@ -894,8 +894,8 @@ static void _vdo_mode_leave_idle(void)
 {
 #ifdef MTK_FB_MMDVFS_SUPPORT
 	unsigned long long bandwidth;
-	unsigned int in_fps = 60;
-	unsigned int out_fps = 60;
+	unsigned int in_fps = 65;
+	unsigned int out_fps = 65;
 #endif
 
 	DISPDBG("[LP]%s\n", __func__);
@@ -981,8 +981,8 @@ static void _cmd_mode_leave_idle(void)
 {
 #ifdef MTK_FB_MMDVFS_SUPPORT
 	unsigned long long bandwidth;
-	unsigned int in_fps = 60;
-	unsigned int out_fps = 60;
+	unsigned int in_fps = 65;
+	unsigned int out_fps = 65;
 	int stable = 0;
 
 	enum DDP_SCENARIO_ENUM scen =
