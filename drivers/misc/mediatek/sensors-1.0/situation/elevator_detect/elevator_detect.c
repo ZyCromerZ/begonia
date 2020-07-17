@@ -78,12 +78,13 @@ static int elevator_detect_recv_data(struct data_unit_t *event, void *reserved)
 	int err = 0;
 	int32_t value[1] = {0};
 
-	if (event->flush_action == FLUSH_ACTION)
+	if (event->flush_action == FLUSH_ACTION) {
 		pr_err("elevator_detect do not support flush\n");
-	else if (event->flush_action == DATA_ACTION)
+	} else if (event->flush_action == DATA_ACTION) { 
 		//err = situation_notify_t(ID_ELEVATOR_DETECT , (int64_t)event->time_stamp);
 		value[0] = event->elevator_data_t.status;
 		err = elevator_data_report_t(value, (int64_t)event->time_stamp);
+	}
 	return err;
 }
 
