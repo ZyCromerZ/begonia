@@ -1259,7 +1259,7 @@ static int _mt_cpufreq_init(struct cpufreq_policy *policy)
 	policy->shared_type = CPUFREQ_SHARED_TYPE_ANY;
 	cpumask_setall(policy->cpus);
 
-	policy->cpuinfo.transition_latency = 1000;
+	policy->cpuinfo.transition_latency = 4000;
 
 #ifdef CPU_DVFS_NOT_READY
 	return 0;

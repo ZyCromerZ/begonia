@@ -2264,10 +2264,10 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
 	policy->min = new_policy->min;
 	policy->max = new_policy->max;
 
-	arch_set_max_freq_scale(policy->cpus, policy->max);
-	arch_set_min_freq_scale(policy->cpus, policy->min);
+	arch_set_max_freq_scale(policy->cpus, new_policy->max);
+	arch_set_min_freq_scale(policy->cpus, new_policy->min);
 
-	trace_cpu_frequency_limits(policy->max, policy->min, policy->cpu);
+	trace_cpu_frequency_limits(new_policy->max, new_policy->min, policy->cpu);
 
 	policy->cached_target_freq = UINT_MAX;
 
