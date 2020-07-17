@@ -53,10 +53,10 @@
  * (to see the precise effective timeslice length of your workload,
  *  run vmstat and monitor the context-switches (cs) field)
  *
- * (default: 6ms * (1 + ilog(ncpus)), units: nanoseconds)
+ * (default: 5ms * (1 + ilog(ncpus)), units: nanoseconds)
  */
-unsigned int sysctl_sched_latency			= 6000000ULL;
-unsigned int normalized_sysctl_sched_latency		= 6000000ULL;
+unsigned int sysctl_sched_latency			= 5000000ULL;
+unsigned int normalized_sysctl_sched_latency		= 5000000ULL;
 
 /*
  * Enable/disable honoring sync flag in energy-aware wakeups.
@@ -117,7 +117,7 @@ unsigned int sysctl_sched_child_runs_first __read_mostly;
 unsigned int sysctl_sched_wakeup_granularity		= 1000000UL;
 unsigned int normalized_sysctl_sched_wakeup_granularity	= 1000000UL;
 
-const_debug unsigned int sysctl_sched_migration_cost	= 33000UL;
+const_debug unsigned int sysctl_sched_migration_cost	= 1000000UL;
 
 #ifdef CONFIG_SCHED_WALT
 unsigned int sysctl_sched_use_walt_cpu_util = 1;

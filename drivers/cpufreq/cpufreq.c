@@ -408,6 +408,11 @@ wait:
 
 	spin_unlock(&policy->transition_lock);
 
+	arch_set_freq_scale(policy->cpus, freqs->new, policy->cpuinfo.max_freq);
+	arch_set_max_freq_scale(policy->cpus, policy->max);
+	arch_set_min_freq_scale(policy->cpus, policy->min);
+	update_cpu_capacity_cpumask(policy->cpus);
+
 	cpufreq_notify_transition(policy, freqs, CPUFREQ_PRECHANGE);
 }
 EXPORT_SYMBOL_GPL(cpufreq_freq_transition_begin);
@@ -2258,6 +2263,11 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
 
 	policy->min = new_policy->min;
 	policy->max = new_policy->max;
+
+	arch_set_max_freq_scale(policy->cpus, new_policy->max);
+	arch_set_min_freq_scale(policy->cpus, new_policy->min);
+
+	trace_cpu_frequency_limits(new_policy->max, new_policy->min, policy->cpu);
 
 	policy->cached_target_freq = UINT_MAX;
 
