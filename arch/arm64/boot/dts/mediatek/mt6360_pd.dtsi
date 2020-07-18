@@ -21,13 +21,8 @@
 		mt-tcpc,rp_level = <0>; /* 0: Default, 1: 1.5, 2: 3.0 */
 		/* 0: Never, 1: Always, 2: EMarkOnly, 3: StartOnly */
 		mt-tcpc,vconn_supply  = <1>;
-#if (CONFIG_MTK_GAUGE_VERSION == 30)
 		/* the number of notifier supply */
 		mt-tcpc,notifier_supply_num = <3>;
-#else
-		/* the number of notifier supply */
-		mt-tcpc,notifier_supply_num = <2>;
-#endif
 		mt6360pd,intr_gpio = <&pio 24 0x0>;
 		mt6360pd,intr_gpio_num = <24>;
 		mt6360pd,pcb_gpio = <&pio 5 0x0>;
