@@ -2109,7 +2109,7 @@ static int ovl_config_l(enum DISP_MODULE_ENUM module,
 		fps = golden_setting->fps;
 	else {
 		DDPDBG("no fps information, set fps as default 60\n");
-		fps = 65;
+		fps = 60;
 	}
 
 	ovl_bw = 0;

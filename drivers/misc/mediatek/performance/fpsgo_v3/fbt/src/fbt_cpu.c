@@ -1222,7 +1222,7 @@ static void fbt_check_var(long loading,
 	next_iter = (*f_iter + 1 + WINDOW) % WINDOW;
 
 	if (target_fps > 50)
-		frame_info[*f_iter].target_fps = 65;
+		frame_info[*f_iter].target_fps = 60;
 	else if (target_fps > 40)
 		frame_info[*f_iter].target_fps = 45;
 	else
