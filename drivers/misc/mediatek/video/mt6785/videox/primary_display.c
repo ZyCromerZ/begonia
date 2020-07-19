@@ -3304,9 +3304,7 @@ static int __primary_check_trigger(void)
 #ifdef CONFIG_MTK_DISPLAY_120HZ_SUPPORT
 		if (od_need_start) {
 			od_need_start = 0;
-			disp_od_start_read(handle);
 		}
-		disp_od_update_status(handle);
 #endif
 		_cmdq_set_config_handle_dirty_mira(handle);
 		_cmdq_flush_config_handle_mira(handle, 0);
@@ -4707,7 +4705,7 @@ static void _display_set_refresh_rate_post_proc(int fps)
 static int request_lcm_refresh_rate_change(int fps)
 {
 #ifdef CONFIG_MTK_DISPLAY_120HZ_SUPPORT
-	static struct cmdqRecStruct *cmdq_handle, cmdq_pre_handle;
+	static struct cmdqRecStruct *cmdq_handle;
 	int ret;
 
 	if (pgc->state == DISP_SLEPT) {
@@ -4733,17 +4731,6 @@ static int request_lcm_refresh_rate_change(int fps)
 			return -EINVAL;
 		}
 	}
-	if (cmdq_pre_handle == NULL) {
-		ret = cmdqRecCreate(CMDQ_SCENARIO_PRIMARY_MEMOUT,
-				    &cmdq_pre_handle);
-		if (ret) {
-			DISPCHECK(
-				"fail to create memout cmdq handle for adjust fps\n");
-			cmdqRecDestroy(cmdq_handle);
-			cmdq_handle = NULL;
-			return -EINVAL;
-		}
-	}
 	primary_display_idlemgr_kick(__func__, 0);
 
 	pgc->request_fps = fps;
@@ -4755,7 +4742,7 @@ static int request_lcm_refresh_rate_change(int fps)
 int _display_set_lcm_refresh_rate(int fps)
 {
 #ifdef CONFIG_MTK_DISPLAY_120HZ_SUPPORT
-	static struct cmdqRecStruct *cmdq_handle, cmdq_pre_handle;
+	static struct cmdqRecStruct *cmdq_handle;
 	disp_path_handle disp_handle;
 	struct disp_ddp_path_config *pconfig = NULL;
 	int ret = 0;
@@ -4765,7 +4752,7 @@ int _display_set_lcm_refresh_rate(int fps)
 		return -EPERM;
 	}
 
-	if (primary_display_get_lcm_max_refresh_rate() <= 60) {
+	if (primary_display_get_lcm_max_refresh_rate() <= 65) {
 		DISPCHECK("not support set lcm rate!!\n");
 		return -EPERM;
 	}
@@ -4785,17 +4772,6 @@ int _display_set_lcm_refresh_rate(int fps)
 		if (ret) {
 			DISPCHECK(
 				"fail to create primary cmdq handle for adjust fps\n");
-			return -EINVAL;
-		}
-	}
-	if (cmdq_pre_handle == NULL) {
-		ret = cmdqRecCreate(CMDQ_SCENARIO_PRIMARY_MEMOUT,
-				    &cmdq_pre_handle);
-		if (ret) {
-			DISPCHECK(
-				"fail to create memout cmdq handle for adjust fps\n");
-			cmdqRecDestroy(cmdq_handle);
-			cmdq_handle = NULL;
 			return -EINVAL;
 		}
 	}
@@ -4833,12 +4809,6 @@ int _display_set_lcm_refresh_rate(int fps)
 	dpmgr_path_ioctl(pgc->dpmgr_handle, cmdq_handle, DDP_PHY_CLK_CHANGE,
 			 &pgc->plcm->params->dsi.PLL_CLOCK);
 	/* OD Enable */
-	if (!od_by_pass) {
-		if (fps == 120)
-			disp_od_set_enabled(cmdq_handle, 1);
-		else
-			disp_od_set_enabled(cmdq_handle, 0);
-	}
 
 	if (pgc->session_mode == DISP_SESSION_DECOUPLE_MODE) {
 		/*
@@ -7393,8 +7363,7 @@ int primary_display_frame_cfg(struct disp_frame_cfg_t *cfg)
 	_primary_path_lock(__func__);
 
 #ifdef CONFIG_MTK_DISPLAY_120HZ_SUPPORT
-	if (pgc->request_fps && HRT_FPS(cfg->overlap_layer_num) == 120)
-		_display_set_lcm_refresh_rate(pgc->request_fps);
+		_display_set_lcm_refresh_rate(120);
 #endif
 
 	/* set input */
