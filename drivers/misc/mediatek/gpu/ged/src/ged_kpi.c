@@ -61,7 +61,7 @@ EXPORT_SYMBOL(ged_kpi_PushAppSelfFcFp_fbt);
 
 #define GED_KPI_MSEC_DIVIDER 1000000
 #define GED_KPI_SEC_DIVIDER 1000000000
-#define GED_KPI_MAX_FPS 65
+#define GED_KPI_MAX_FPS 60
 #define GED_KPI_DEFAULT_FPS_MARGIN 3
 
 typedef enum {
@@ -224,7 +224,7 @@ typedef struct GED_KPI_GPU_TS_TAG {
 
 /* static int display_fps = GED_KPI_MAX_FPS; */
 static int is_game_control_frame_rate;
-static int target_fps_4_main_head = 65;
+static int target_fps_4_main_head = 60;
 static long long vsync_period = GED_KPI_SEC_DIVIDER / GED_KPI_MAX_FPS;
 static GED_LOG_BUF_HANDLE ghLogBuf;
 static struct workqueue_struct *g_psWorkQueue;
@@ -309,7 +309,6 @@ module_param(enable_game_self_frc_detect, int, 0644);
 #endif
 module_param(gx_game_mode, int, 0644);
 module_param(gx_3D_benchmark_on, int, 0644);
-module_param(gx_fps, int, 0444);
 
 int (*ged_kpi_push_game_frame_time_fp_fbt)(
 	pid_t pid,
@@ -452,7 +451,7 @@ static void ged_kpi_push_cur_fps_and_detect_app_self_frc(int fps)
 		fps_records[cur_fps_idx] = fps;
 		if (reset == 0) {
 			if (fps > target_fps_4_main_head + 1 || afrc_rst_cnt_down == 120) {
-				ged_kpi_frc_detection_main_head_reset(65);
+				ged_kpi_frc_detection_main_head_reset(60);
 #ifdef GED_KPI_DEBUG
 				GED_LOGE("[AFRC] reset: %d, %d, afrc_rst: %d, %d\n",
 					fps, target_fps_4_main_head + 1, afrc_rst_cnt_down, afrc_rst_over_target_cnt);
@@ -474,7 +473,7 @@ static void ged_kpi_push_cur_fps_and_detect_app_self_frc(int fps)
 					else if (fps_records[i] <= 51)
 						fps_grp[i] = 50;
 					else
-						fps_grp[i] = 65;
+						fps_grp[i] = 60;
 				}
 
 				for (i = 0; i < GED_KPI_GAME_SELF_FRC_DETECT_MONITOR_WINDOW_SIZE - 1; i++) {
@@ -508,7 +507,7 @@ static void ged_kpi_push_cur_fps_and_detect_app_self_frc(int fps)
 				else if (fps <= 51)
 					fps = 50;
 				else
-					fps = 65;
+					fps = 60;
 
 				if (fps < target_fps_4_main_head)
 					afrc_rst_over_target_cnt++;
@@ -546,7 +545,7 @@ static void ged_kpi_push_cur_fps_and_detect_app_self_frc(int fps)
 #ifdef GED_KPI_DEBUG
 				GED_LOGE("[AFRC] fps_grp: %d, %d, %d\n", fps_grp[0], fps_grp[1], fps_grp[2]);
 #endif
-				if (reset == 0 && fps_grp[0] < 65) {
+				if (reset == 0 && fps_grp[0] < 60) {
 					target_fps_4_main_head = fps_grp[0];
 					is_game_control_frame_rate = 1;
 				} else {

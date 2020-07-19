@@ -293,7 +293,7 @@ void rdma_cal_golden_setting(unsigned int idx, unsigned int bpp,
 	unsigned int mmsys_clk = 315;
 	unsigned int pre_ultra_low_us = 245, pre_ultra_high_us = 255;
 	unsigned int ultra_low_us = 230, ultra_high_us = 245;
-	unsigned int if_fps = 65;
+	unsigned int if_fps = 60;
 	unsigned int FP = 1000;
 
 	/* input variable */

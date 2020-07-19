@@ -220,7 +220,7 @@ int ged_frr_get_fps(int targetPid, uint64_t targetCid)
 	dfrc_get_frr_setting(targetPid, targetCid, &fps, &mode);
 
 	if (mode != DFRC_DRV_MODE_FRR)
-		fps = 65;
+		fps = 60;
 #endif
 	return fps;
 }

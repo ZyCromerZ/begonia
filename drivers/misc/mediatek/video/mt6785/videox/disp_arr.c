@@ -61,7 +61,7 @@ int primary_display_get_cur_refresh_rate(void)
 
 int primary_display_get_max_refresh_rate(void)
 {
-	int fps = 65;
+	int fps = 60;
 	struct LCM_PARAMS *lcm_params = NULL;
 
 	lcm_params = disp_lcm_get_params(primary_get_lcm());

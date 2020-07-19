@@ -1541,7 +1541,7 @@ int _ioctl_wait_self_refresh_trigger(unsigned long arg)
 int _ioctl_wait_fps_change(unsigned long arg)
 {
 	int ret = 0;
-	unsigned int new_fps = 65;
+	unsigned int new_fps = 60;
 	void __user *argp = (void __user *)arg;
 
 	/* reset status & wake-up threads which wait for repainting */

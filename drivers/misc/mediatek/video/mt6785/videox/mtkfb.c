@@ -182,7 +182,7 @@ unsigned int PanDispSettingPending;
 unsigned int PanDispSettingDirty;
 unsigned int PanDispSettingApplied;
 unsigned int need_esd_check;
-unsigned int lcd_fps = 6500;
+unsigned int lcd_fps = 6000;
 wait_queue_head_t screen_update_wq;
 char mtkfb_lcm_name[256] = { 0 };
 #if defined(CONFIG_MTK_DUAL_DISPLAY_SUPPORT) && \
@@ -190,7 +190,7 @@ char mtkfb_lcm_name[256] = { 0 };
 struct fb_info *ext_mtkfb_fb;
 unsigned long ext_fb_pa;
 
-unsigned int ext_lcd_fps = 6500;
+unsigned int ext_lcd_fps = 6000;
 char ext_mtkfb_lcm_name[256] = { 0 };
 #endif
 
@@ -2332,7 +2332,7 @@ static int __parse_tag_videolfb_extra(struct device_node *node)
 		return -1;
 	lcd_fps = of_read_number(prop, 1);
 	if (lcd_fps == 0)
-		lcd_fps = 6500;
+		lcd_fps = 6000;
 
 	prop = (void *)of_get_property(node, "atag,videolfb-vramSize", NULL);
 	if (!prop)
@@ -2375,7 +2375,7 @@ int __parse_tag_videolfb(struct device_node *node)
 
 		lcd_fps = videolfb_tag->fps;
 		if (lcd_fps == 0)
-			lcd_fps = 6500;
+			lcd_fps = 6000;
 
 		islcmconnected = videolfb_tag->islcmfound;
 		vramsize = videolfb_tag->vram;
@@ -2409,7 +2409,7 @@ int __init __parse_tag_ext_videolfb(unsigned long node)
 
 		ext_lcd_fps = tag_ext_videolfb->ext_fps;
 		if (ext_lcd_fps == 0)
-			ext_lcd_fps = 6500;
+			ext_lcd_fps = 6000;
 
 		ext_islcmconnected = tag_ext_videolfb->ext_islcmfound;
 		ext_vramsize = tag_ext_videolfb->ext_vram;

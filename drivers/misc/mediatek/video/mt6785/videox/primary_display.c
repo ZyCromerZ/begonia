@@ -1532,7 +1532,7 @@ int _init_vsync_fake_monitor(int fps)
 	is_fake_timer_inited = 1;
 
 	if (fps == 0)
-		fps = 6500;
+		fps = 6000;
 
 	hrtimer_init(&cmd_mode_update_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
 	cmd_mode_update_timer.function = _DISP_CmdModeTimer_handler;
@@ -3304,7 +3304,9 @@ static int __primary_check_trigger(void)
 #ifdef CONFIG_MTK_DISPLAY_120HZ_SUPPORT
 		if (od_need_start) {
 			od_need_start = 0;
+			disp_od_start_read(handle);
 		}
+		disp_od_update_status(handle);
 #endif
 		_cmdq_set_config_handle_dirty_mira(handle);
 		_cmdq_flush_config_handle_mira(handle, 0);
@@ -3662,8 +3664,8 @@ static int _ovl_fence_release_callback(unsigned long userdata)
 	int real_hrt_level = 0;
 #ifdef MTK_FB_MMDVFS_SUPPORT
 	unsigned long long bandwidth;
-	unsigned int in_fps = 65;
-	unsigned int out_fps = 65;
+	unsigned int in_fps = 60;
+	unsigned int out_fps = 60;
 	int stable = 0;
 #endif
 	unsigned int hrt_idx;
@@ -4413,7 +4415,7 @@ int primary_display_init(char *lcm_name, unsigned int lcm_fps,
 
 	if (use_cmdq) {
 		if (primary_display_is_video_mode() && pgc->dynamic_fps == 0)
-			pgc->dynamic_fps = 65;
+			pgc->dynamic_fps = 60;
 
 		_cmdq_build_trigger_loop();
 		_cmdq_start_trigger_loop();
@@ -4595,7 +4597,7 @@ int primary_display_init(char *lcm_name, unsigned int lcm_fps,
 	}
 
 	pgc->lcm_fps = lcm_fps;
-	pgc->lcm_refresh_rate = 65;
+	pgc->lcm_refresh_rate = 60;
 
 	/* keep lowpower init after setting lcm_fps */
 	primary_display_lowpower_init();
@@ -4705,7 +4707,7 @@ static void _display_set_refresh_rate_post_proc(int fps)
 static int request_lcm_refresh_rate_change(int fps)
 {
 #ifdef CONFIG_MTK_DISPLAY_120HZ_SUPPORT
-	static struct cmdqRecStruct *cmdq_handle;
+	static struct cmdqRecStruct *cmdq_handle, cmdq_pre_handle;
 	int ret;
 
 	if (pgc->state == DISP_SLEPT) {
@@ -4731,6 +4733,17 @@ static int request_lcm_refresh_rate_change(int fps)
 			return -EINVAL;
 		}
 	}
+	if (cmdq_pre_handle == NULL) {
+		ret = cmdqRecCreate(CMDQ_SCENARIO_PRIMARY_MEMOUT,
+				    &cmdq_pre_handle);
+		if (ret) {
+			DISPCHECK(
+				"fail to create memout cmdq handle for adjust fps\n");
+			cmdqRecDestroy(cmdq_handle);
+			cmdq_handle = NULL;
+			return -EINVAL;
+		}
+	}
 	primary_display_idlemgr_kick(__func__, 0);
 
 	pgc->request_fps = fps;
@@ -4742,7 +4755,7 @@ static int request_lcm_refresh_rate_change(int fps)
 int _display_set_lcm_refresh_rate(int fps)
 {
 #ifdef CONFIG_MTK_DISPLAY_120HZ_SUPPORT
-	static struct cmdqRecStruct *cmdq_handle;
+	static struct cmdqRecStruct *cmdq_handle, cmdq_pre_handle;
 	disp_path_handle disp_handle;
 	struct disp_ddp_path_config *pconfig = NULL;
 	int ret = 0;
@@ -4752,7 +4765,7 @@ int _display_set_lcm_refresh_rate(int fps)
 		return -EPERM;
 	}
 
-	if (primary_display_get_lcm_max_refresh_rate() <= 65) {
+	if (primary_display_get_lcm_max_refresh_rate() <= 60) {
 		DISPCHECK("not support set lcm rate!!\n");
 		return -EPERM;
 	}
@@ -4772,6 +4785,17 @@ int _display_set_lcm_refresh_rate(int fps)
 		if (ret) {
 			DISPCHECK(
 				"fail to create primary cmdq handle for adjust fps\n");
+			return -EINVAL;
+		}
+	}
+	if (cmdq_pre_handle == NULL) {
+		ret = cmdqRecCreate(CMDQ_SCENARIO_PRIMARY_MEMOUT,
+				    &cmdq_pre_handle);
+		if (ret) {
+			DISPCHECK(
+				"fail to create memout cmdq handle for adjust fps\n");
+			cmdqRecDestroy(cmdq_handle);
+			cmdq_handle = NULL;
 			return -EINVAL;
 		}
 	}
@@ -4809,6 +4833,12 @@ int _display_set_lcm_refresh_rate(int fps)
 	dpmgr_path_ioctl(pgc->dpmgr_handle, cmdq_handle, DDP_PHY_CLK_CHANGE,
 			 &pgc->plcm->params->dsi.PLL_CLOCK);
 	/* OD Enable */
+	if (!od_by_pass) {
+		if (fps == 120)
+			disp_od_set_enabled(cmdq_handle, 1);
+		else
+			disp_od_set_enabled(cmdq_handle, 0);
+	}
 
 	if (pgc->session_mode == DISP_SESSION_DECOUPLE_MODE) {
 		/*
@@ -5191,7 +5221,7 @@ int primary_display_suspend(void)
 	mmprofile_log_ex(ddp_mmp_get_events()->primary_suspend,
 			 MMPROFILE_FLAG_PULSE, 0, 8);
 
-	pgc->lcm_refresh_rate = 65;
+	pgc->lcm_refresh_rate = 60;
 	/* pgc->state = DISP_SLEPT; */
 
 done:
@@ -5327,8 +5357,8 @@ int primary_display_resume(void)
 	int i, skip_update = 0;
 #ifdef MTK_FB_MMDVFS_SUPPORT
 	unsigned long long bandwidth;
-	unsigned int in_fps = 65;
-	unsigned int out_fps = 65;
+	unsigned int in_fps = 60;
+	unsigned int out_fps = 60;
 #endif
 
 	DISPCHECK("%s begin\n", __func__);
@@ -5853,7 +5883,7 @@ skip_resume:
 
 	dpmgr_path_power_off(pgc->dpmgr_handle, CMDQ_DISABLE);
 
-	pgc->lcm_refresh_rate = 65;
+	pgc->lcm_refresh_rate = 60;
 	/* pgc->state = DISP_SLEPT; */
 
 	primary_set_state(DISP_SLEPT);
@@ -7363,7 +7393,8 @@ int primary_display_frame_cfg(struct disp_frame_cfg_t *cfg)
 	_primary_path_lock(__func__);
 
 #ifdef CONFIG_MTK_DISPLAY_120HZ_SUPPORT
-		_display_set_lcm_refresh_rate(120);
+	if (pgc->request_fps && HRT_FPS(cfg->overlap_layer_num) == 120)
+		_display_set_lcm_refresh_rate(pgc->request_fps);
 #endif
 
 	/* set input */
@@ -10127,7 +10158,7 @@ int primary_display_wait_fps_change(unsigned int *new_fps)
 		atomic_read(&primary_display_fps_chg_trigger));
 	atomic_set(&primary_display_fps_chg_trigger, 0);
 	if (ret < 0) {
-		*new_fps = 65;
+		*new_fps = 60;
 		DISP_PR_INFO("[fps] wait_event unexpectedly, ret:%d\n", ret);
 		return ret;
 	}
@@ -10261,7 +10292,7 @@ unsigned int primary_display_is_support_ARR(void)
 unsigned int primary_display_get_dyn_fps(unsigned int VFP_PORTCH)
 {
 	/*LUT table*/
-	unsigned int fps = 65;
+	unsigned int fps = 60;
 	struct LCM_PARAMS *params;
 	unsigned int i = 0;
 	unsigned int fps_levels = 0;

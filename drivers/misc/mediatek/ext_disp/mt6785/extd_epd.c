@@ -223,7 +223,7 @@ int epd_get_dev_info(int is_sf, void *info)
 		epd_info.isConnected = 1;
 		epd_info.displayMode = DISP_IF_MODE_VIDEO;
 		epd_info.displayType = DISP_IF_EPD;
-		epd_info.vsyncFPS = 6500;
+		epd_info.vsyncFPS = 6000;
 		epd_info.isHwVsyncAvailable = 1;
 
 		if (copy_to_user(info, &epd_info, sizeof(mtk_dispif_info_t))) {
