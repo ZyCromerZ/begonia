@@ -1799,8 +1799,8 @@ static int dfrc_probe(struct platform_device *pdev)
 	dfrc_init_variable();
 
 	g_init_done = 1;
-	g_fps_info.support_120 = 0;
-	g_fps_info.support_90 = 0;
+	g_fps_info.support_120 = 1;
+	g_fps_info.support_90 = 1;
 	g_fps_info.num = 1;
 	g_fps_info.range = vmalloc(sizeof(struct DFRC_DRV_REFRESH_RANGE) *
 					g_fps_info.num);
