@@ -3195,11 +3195,13 @@ void mmc_blk_cmdq_complete_rq(struct request *rq)
 
 	/* softirq dump */
 	cpu = smp_processor_id();
+#ifdef CONFIG_MTK_MMC_DEBUG
 	dbg_add_sirq_log(host, MAGIC_CQHCI_DBG_TYPE_SIRQ,
 			err,
 			cmdq_req->tag,
 			cpu,
 			ctx_info->data_active_reqs);
+#endif
 
 	if ((err || err_resp) && !cmdq_req->skip_err_handling) {
 		pr_notice("%s: %s: txfr error(%d)/resp_err(%d)\n",
