@@ -653,7 +653,7 @@ config LTO_CLANG
 endchoice
 
 config CFI
-	bool
+	bool n
 
 config CFI_PERMISSIVE
 	bool "Use CFI in permissive mode"
