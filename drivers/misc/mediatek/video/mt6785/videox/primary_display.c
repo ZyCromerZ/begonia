@@ -10671,5 +10671,5 @@ int primary_display_set_panel_param(unsigned int param)
 	return ret;
 }
 
-module_param(display_framerate_main, uint, 0664);
-module_param(display_framerate_ext, uint, 0664);
+module_param(display_framerate_main, int, S_IRUGO|S_IWUSR);
+module_param(display_framerate_ext, int, S_IRUGO|S_IWUSR);
