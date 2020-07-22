@@ -817,7 +817,6 @@ endif
 ifdef CONFIG_LTO_CLANG
 # lto-clang-flags	:= -flto -fvisibility=hidden
 lto-clang-flags	:= -flto=thin -fvisibility=hidden $(call cc-option, -fsplit-lto-unit)
-LDFLAGS			+= -plugin-opt,cache-dir=.thinlto-cache
 
 
 # allow disabling only clang LTO where needed
