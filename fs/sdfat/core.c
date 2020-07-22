@@ -33,11 +33,26 @@
 #include <linux/writeback.h>
 #include <linux/kernel.h>
 #include <linux/log2.h>
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 16, 0)
+#include <linux/iversion.h>
+#endif
 
 #include "sdfat.h"
 #include "core.h"
 #include <asm/byteorder.h>
 #include <asm/unaligned.h>
+
+
+/*************************************************************************
+ * FUNCTIONS WHICH HAS KERNEL VERSION DEPENDENCY
+ *************************************************************************/
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 16, 0)
+static inline u64 inode_peek_iversion(struct inode *inode)
+{
+	return inode->i_version;
+}
+#endif
+
 
 /*----------------------------------------------------------------------*/
 /*  Constant & Macro Definitions                                        */
@@ -66,8 +81,8 @@ static inline void __set_sb_dirty(struct super_block *sb)
 void set_sb_dirty(struct super_block *sb)
 {
 	__set_sb_dirty(sb);
-
-
+	// XXX: to be removed later, prints too much output
+	//TMSG("%s finished.\n", __func__);
 }
 
 /*----------------------------------------------------------------------*/
@@ -386,7 +401,7 @@ static s32 __load_upcase_table(struct super_block *sb, u64 sector, u64 num_secto
 
 		for (i = 0; i < sect_size && index <= 0xFFFF; i += 2) {
 			/* FIXME : is __le16 ok? */
-
+			//u16 uni = le16_to_cpu(((__le16*)(tmp_bh->b_data))[i]);
 			u16 uni = get_unaligned_le16((u8 *)tmp_bh->b_data+i);
 
 			checksum = ((checksum & 1) ? 0x80000000 : 0) +
@@ -467,7 +482,7 @@ static s32 __load_default_upcase_table(struct super_block *sb)
 
 	for (i = 0; index <= 0xFFFF && i < SDFAT_NUM_UPCASE*2; i += 2) {
 		/* FIXME : is __le16 ok? */
-
+		//uni = le16_to_cpu(((__le16*)uni_def_upcase)[i>>1]);
 		uni = get_unaligned_le16((u8 *)uni_def_upcase+i);
 		if (skip) {
 			MMSG("skip from 0x%x ", index);
@@ -1210,7 +1225,7 @@ static s32 __resolve_path(struct inode *inode, const u8 *path, CHAIN_T *p_dir, U
 		return -EINVAL;
 
 	sdfat_debug_bug_on(fid->size != i_size_read(inode));
-
+//	fid->size = i_size_read(inode);
 
 	p_dir->dir = fid->start_clu;
 	p_dir->size = (u32)(fid->size >> fsi->cluster_size_bits);
@@ -1956,10 +1971,10 @@ s32 fscore_lookup(struct inode *inode, u8 *path, FILE_ID_T *fid)
 		return ret;
 
 	/* check the validation of hint_stat and initialize it if required */
-	if (dir_fid->version != (u32)(inode->i_version & 0xffffffff)) {
+	if (dir_fid->version != (u32)inode_peek_iversion(inode)) {
 		dir_fid->hint_stat.clu = dir.dir;
 		dir_fid->hint_stat.eidx = 0;
-		dir_fid->version = (u32)(inode->i_version & 0xffffffff);
+		dir_fid->version = (u32)inode_peek_iversion(inode);
 		dir_fid->hint_femp.eidx = -1;
 	}
 
@@ -2529,8 +2544,8 @@ s32 fscore_truncate(struct inode *inode, u64 old_size, u64 new_size)
 		if (num_clusters_new < num_clusters) {
 			< loop >
 		} else {
-
-
+			// num_clusters_new >= num_clusters_phys
+			// FAT truncation is not necessary
 
 			clu.dir = CLUS_EOF;
 			clu.size = 0;
@@ -2903,8 +2918,8 @@ s32 fscore_read_inode(struct inode *inode, DIR_ENTRY_T *info)
 		memset((s8 *) &info->CreateTimestamp, 0, sizeof(DATE_TIME_T));
 		memset((s8 *) &info->ModifyTimestamp, 0, sizeof(DATE_TIME_T));
 		memset((s8 *) &info->AccessTimestamp, 0, sizeof(DATE_TIME_T));
-
-
+		//strcpy(info->NameBuf.sfn, ".");
+		//strcpy(info->NameBuf.lfn, ".");
 
 		dir.dir = fsi->root_dir;
 		dir.flags = 0x01;
@@ -2956,6 +2971,7 @@ s32 fscore_read_inode(struct inode *inode, DIR_ENTRY_T *info)
 	info->CreateTimestamp.Minute = tm.min;
 	info->CreateTimestamp.Second = tm.sec;
 	info->CreateTimestamp.MilliSecond = 0;
+	info->CreateTimestamp.Timezone.value = tm.tz.value;
 
 	fsi->fs_func->get_entry_time(ep, &tm, TM_MODIFY);
 	info->ModifyTimestamp.Year = tm.year;
@@ -2965,6 +2981,7 @@ s32 fscore_read_inode(struct inode *inode, DIR_ENTRY_T *info)
 	info->ModifyTimestamp.Minute = tm.min;
 	info->ModifyTimestamp.Second = tm.sec;
 	info->ModifyTimestamp.MilliSecond = 0;
+	info->ModifyTimestamp.Timezone.value = tm.tz.value;
 
 	memset((s8 *) &info->AccessTimestamp, 0, sizeof(DATE_TIME_T));
 
@@ -3067,6 +3084,7 @@ s32 fscore_write_inode(struct inode *inode, DIR_ENTRY_T *info, s32 sync)
 	fsi->fs_func->set_entry_attr(ep, info->Attr);
 
 	/* set FILE_INFO structure using the acquired DENTRY_T */
+	tm.tz  = info->CreateTimestamp.Timezone;
 	tm.sec  = info->CreateTimestamp.Second;
 	tm.min  = info->CreateTimestamp.Minute;
 	tm.hour = info->CreateTimestamp.Hour;
@@ -3075,6 +3093,7 @@ s32 fscore_write_inode(struct inode *inode, DIR_ENTRY_T *info, s32 sync)
 	tm.year = info->CreateTimestamp.Year;
 	fsi->fs_func->set_entry_time(ep, &tm, TM_CREATE);
 
+	tm.tz  = info->ModifyTimestamp.Timezone;
 	tm.sec  = info->ModifyTimestamp.Second;
 	tm.min  = info->ModifyTimestamp.Minute;
 	tm.hour = info->ModifyTimestamp.Hour;
@@ -3106,7 +3125,7 @@ s32 fscore_write_inode(struct inode *inode, DIR_ENTRY_T *info, s32 sync)
 
 	fs_sync(sb, sync);
 	/* Comment below code to prevent super block update frequently */
-
+	//fs_set_vol_flags(sb, VOL_CLEAN);
 
 	return ret;
 } /* end of fscore_write_inode */
@@ -3146,7 +3165,7 @@ s32 fscore_map_clus(struct inode *inode, u32 clu_offset, u32 *clu, int dest)
 	}
 
 	/* check always request cluster is 1 */
-
+	//ASSERT(num_to_be_allocated == 1);
 
 	sdfat_debug_check_clusters(inode);
 
@@ -3231,7 +3250,7 @@ s32 fscore_map_clus(struct inode *inode, u32 clu_offset, u32 *clu, int dest)
 		}
 
 		/* Reserved cluster dec. */
-
+		// XXX: Inode DA flag needed
 		if (SDFAT_SB(sb)->options.improved_allocation & SDFAT_ALLOC_DELAY) {
 			BUG_ON(reserved_clusters < num_to_be_allocated);
 			reserved_clusters -= num_to_be_allocated;
@@ -3306,7 +3325,7 @@ s32 fscore_map_clus(struct inode *inode, u32 clu_offset, u32 *clu, int dest)
 		if (!(SDFAT_SB(sb)->options.improved_allocation & SDFAT_ALLOC_DELAY)) {
 			inode->i_blocks += num_to_be_allocated << (fsi->cluster_size_bits - sb->s_blocksize_bits);
 		} else {
-
+			// DA의 경우, i_blocks가 이미 증가해있어야 함.
 			BUG_ON(clu_offset >= (inode->i_blocks >> (fsi->cluster_size_bits - sb->s_blocksize_bits)));
 		}
 #if 0

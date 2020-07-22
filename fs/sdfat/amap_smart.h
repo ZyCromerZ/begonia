@@ -110,7 +110,7 @@ typedef struct __AMAP_T {
 /* AU table */
 #define N_AU_PER_TABLE		(int)(PAGE_SIZE / sizeof(AU_INFO_T))
 #define GET_AU(amap, i_AU)	(amap->au_table[(i_AU) / N_AU_PER_TABLE] + ((i_AU) % N_AU_PER_TABLE))
-
+//#define MAX_CLU_PER_AU		(int)(PAGE_SIZE / sizeof(FCLU_NODE_T))
 #define MAX_CLU_PER_AU		(1024)
 
 /* Cold AU bucket <-> # of freeclusters */

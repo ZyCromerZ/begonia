@@ -294,7 +294,7 @@ __defrag_validate_cluster_prev(
 	if (chunk->prev_clus == 0) {
 		/* For the first cluster of a file */
 		dir.dir = GET64_HI(chunk->i_pos);
-		dir.flags = 0x1;
+		dir.flags = 0x1;	// Assume non-continuous
 
 		entry = GET64_LO(chunk->i_pos);
 
@@ -824,7 +824,7 @@ __defrag_update_dirent(
 	int err = 0;
 
 	dir.dir = GET64_HI(chunk->i_pos);
-	dir.flags = 0x1;
+	dir.flags = 0x1;	// Assume non-continuous
 
 	entry = GET64_LO(chunk->i_pos);
 
@@ -1248,7 +1248,7 @@ defrag_check_defrag_required(
 		frag_ratio = ((amap->n_au - amap->n_clean_au) * 100) / amap->n_full_au;
 	else
 		frag_ratio = ((amap->n_au - amap->n_clean_au) * 100) /
-					(fsi->used_clusters * CLUS_PER_AU(sb));
+					(fsi->used_clusters / CLUS_PER_AU(sb) + 1);
 
 	/*
 	 * Wake-up defrag_daemon:

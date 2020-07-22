@@ -2,20 +2,29 @@ export ARCH="arm64"
 export SUBARCH="arm64"
 export KBUILD_BUILD_USER="ZyCromerZ"
 export KBUILD_BUILD_HOST="Lnix-$(git log --pretty=format:'%h' -1)"
-export CROSS_COMPILE=/home/zycomerz/Android/gcc/gugel-master/bin/aarch64-linux-android-
-export CROSS_COMPILE_ARM32=/home/zycomerz/Android/gcc/gugel32/bin/arm-linux-androideabi-
 export CCACHE_DIR="/mnt/B66419C964198D6D/ccache"
 MainPath=$(pwd)
 Defconfig="begonia_user_defconfig"
 KERNEL_NAME=$(cat "$MainPath/arch/arm64/configs/$Defconfig" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
 ZIP_KERNEL_VERSION="4.14.$(cat "$MainPath/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//g')$(cat "$(pwd)/Makefile" | grep "EXTRAVERSION =" | sed 's/EXTRAVERSION = *//g')"
-GetCore=16
+GetCore=$(nproc --all)
 TANGGAL=$(date +"%m%d")
 echo "dih . . .";
-make -j$(($GetCore)) O=out clean mrproper  && \
+MAKE="./makeparallel"
+make -j$(($GetCore)) O=/mnt/B66419C964198D6D/out clean mrproper  && \
 make -j$(($GetCore)) clean mrproper  && \
-rm -rf out && \
-make -j$(($GetCore))  O=out ARCH="arm64" SUBARCH="arm64" "$Defconfig" && \
-make -j$(($GetCore))  O=out CC="ccache /home/zycomerz/Android/clang/clang-9.0.3/bin/clang" \
-                            CLANG_TRIPLE=aarch64-linux-gnu- 
-[ -e $MainPath/out/arch/arm64/boot/Image.gz-dtb ] && cp -af $MainPath/out/arch/arm64/boot/Image.gz-dtb /home/zycomerz/Android/AnyKernel3 && rm -f $MainPath/out/arch/arm64/boot/Image.gz-dtb && cd /home/zycomerz/Android/AnyKernel3  && zip -r ../"[$TANGGAL][Gclang9]$KERNEL_NAME-$ZIP_KERNEL_VERSION.zip" ./ -x /.git/**\* ./anykernel-real.sh ./.gitignore ./LICENSE ./README.md ./spectrum/**\* ./*.zip   2>&1 && cd $MainPath
+rm -rf /mnt/B66419C964198D6D/out && \
+make -j$(($GetCore))  O=/mnt/B66419C964198D6D/out ARCH="arm64" SUBARCH="arm64" "$Defconfig" && \
+make -j$(($GetCore))  O=/mnt/B66419C964198D6D/out CC="ccache /home/zycomerz/Android/clang/clang-9.0.3/bin/clang" \
+                            PATH="/home/zycomerz/Android/clang/clang-9.0.3/bin:${PATH}" \
+                            LD_LIBRARY_PATH="/home/zycomerz/Android/clang/clang-9.0.3/lib64:${LD_LIBRARY_PATH}" \
+                            CROSS_COMPILE=/home/zycomerz/Android/gcc/gugel-master/bin/aarch64-linux-android- \
+                            CROSS_COMPILE_ARM32=/home/zycomerz/Android/gcc/gugel32/bin/arm-linux-androideabi- \
+                            AR=/home/zycomerz/Android/gcc/gugel-master/bin/aarch64-linux-androidkernel-ar \
+                            AS=llvm-as \
+                            NM=llvm-nm \
+                            OBJCOPY=/home/zycomerz/Android/gcc/gugel-master/bin/aarch64-linux-androidkernel-objcopy \
+                            OBJDUMP=llvm-objdump \
+                            STRIP=llvm-strip \
+                            CLANG_TRIPLE=aarch64-linux-gnu-
+[ -e /mnt/B66419C964198D6D/out/arch/arm64/boot/Image.gz-dtb ] && cp -af /mnt/B66419C964198D6D/out/arch/arm64/boot/Image.gz-dtb /home/zycomerz/Android/AnyKernel3 && rm -f /mnt/B66419C964198D6D/out/arch/arm64/boot/Image.gz-dtb && cd /home/zycomerz/Android/AnyKernel3  && zip -r ../"[$TANGGAL][Gclang9]$KERNEL_NAME-$ZIP_KERNEL_VERSION.zip" ./ -x /.git/**\* ./anykernel-real.sh ./.gitignore ./LICENSE ./README.md ./spectrum/**\* ./*.zip   2>&1 && cd $MainPath

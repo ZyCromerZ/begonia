@@ -50,7 +50,7 @@
  * Bcause the size of list_head structure on 64bit increases twofold over 32bit.
  */
 #if (BITS_PER_LONG == 64)
-
+//#define MAX_EST_AU_SECT	(16384) /* upto 8MB */
 #define MAX_EST_AU_SECT	(32768) /* upto 16MB, used more page for list_head */
 #else
 #define MAX_EST_AU_SECT	(32768) /* upto 16MB */
@@ -441,6 +441,7 @@ static void fat_get_entry_time(DENTRY_T *p_entry, TIMESTAMP_T *tp, u8 mode)
 		break;
 	}
 
+	tp->tz.value = 0x00;
 	tp->sec  = (t & 0x001F) << 1;
 	tp->min  = (t >> 5) & 0x003F;
 	tp->hour = (t >> 11);
@@ -1109,7 +1110,7 @@ s32 fat_generate_dos_name_new(struct super_block *sb, CHAIN_T *p_dir, DOS_NAME_T
 	/* example) namei_exfat.c -> NAMEI_~1 - NAMEI_~9 */
 	work[baselen] = '~';
 	for (i = 1; i < 10; i++) {
-
+		// '0' + i = 1 ~ 9 ASCII
 		work[baselen + 1] = '0' + i;
 		err = __fat_find_shortname_entry(sb, p_dir, work, NULL, n_entry_needed);
 		if (err == -ENOENT) {
@@ -1133,7 +1134,7 @@ s32 fat_generate_dos_name_new(struct super_block *sb, CHAIN_T *p_dir, DOS_NAME_T
 	BUG_ON(baselen < 0);
 
 	work[baselen + 4] = '~';
-
+	// 1 ~ 8 ASCII
 	work[baselen + 5] = '1' + tail;
 	while (1) {
 		snprintf(buf, sizeof(buf), "%04X", i & 0xffff);

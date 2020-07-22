@@ -156,7 +156,7 @@ static s32 __fcache_ent_flush(struct super_block *sb, cache_ent_t *bp, u32 sync)
 	if (!(bp->flag & DIRTYBIT))
 		return 0;
 #ifdef CONFIG_SDFAT_DELAYED_META_DIRTY
-
+	// Make buffer dirty (XXX: Naive impl.)
 	if (write_sect(sb, bp->sec, bp->bh, 0))
 		return -EIO;
 
@@ -295,7 +295,7 @@ s32 meta_cache_init(struct super_block *sb)
 	fsi->dcache.keep_list.next = &fsi->dcache.keep_list;
 	fsi->dcache.keep_list.prev = fsi->dcache.keep_list.next;
 
-
+	// Initially, all the BUF_CACHEs are in the LRU list
 	for (i = 0; i < BUF_CACHE_SIZE; i++) {
 		fsi->dcache.pool[i].sec = ~0;
 		fsi->dcache.pool[i].flag = 0;
@@ -426,13 +426,13 @@ static cache_ent_t *__fcache_get(struct super_block *sb)
 		bp = bp_prev;
 		if (bp == &fsi->fcache.lru_list) {
 			DMSG("BD: fat cache flooding\n");
-			fcache_flush(sb, 0);
+			fcache_flush(sb, 0);	// flush all dirty FAT caches
 			bp = fsi->fcache.lru_list.prev;
 		}
 	}
 #endif
-
-
+//	if (bp->flag & DIRTYBIT)
+//       sync_dirty_buffer(bp->bh);
 
 	move_to_mru(bp, &fsi->fcache.lru_list);
 	return bp;
@@ -515,7 +515,7 @@ static s32 __dcache_ent_flush(struct super_block *sb, cache_ent_t *bp, u32 sync)
 	if (!(bp->flag & DIRTYBIT))
 		return 0;
 #ifdef CONFIG_SDFAT_DELAYED_META_DIRTY
-
+	// Make buffer dirty (XXX: Naive impl.)
 	if (write_sect(sb, bp->sec, bp->bh, 0))
 		return -EIO;
 #endif
@@ -564,7 +564,7 @@ u8 *dcache_getblk(struct super_block *sb, u64 sec)
 			return NULL;
 		}
 
-		if (!(bp->flag & KEEPBIT))
+		if (!(bp->flag & KEEPBIT))	// already in keep list
 			move_to_mru(bp, &fsi->dcache.lru_list);
 
 		return bp->bh->b_data;
@@ -676,14 +676,16 @@ s32 dcache_release_all(struct super_block *sb)
 	s32 ret = 0;
 	cache_ent_t *bp;
 	FS_INFO_T *fsi = &(SDFAT_SB(sb)->fsi);
+#ifdef CONFIG_SDFAT_DELAYED_META_DIRTY
 	s32 dirtycnt = 0;
+#endif
 
 	/* Connect list elements:
 	 * LRU list : (A - B - ... - bp_front) + (bp_first + ... + bp_last)
 	 */
 	while (fsi->dcache.keep_list.prev != &fsi->dcache.keep_list) {
 		cache_ent_t *bp_keep = fsi->dcache.keep_list.prev;
-
+		// bp_keep->flag &= ~(KEEPBIT);		// Will be 0-ed later
 		move_to_mru(bp_keep, &fsi->dcache.lru_list);
 	}
 
@@ -706,7 +708,9 @@ s32 dcache_release_all(struct super_block *sb)
 		bp = bp->next;
 	}
 
+#ifdef CONFIG_SDFAT_DELAYED_META_DIRTY
 	DMSG("BD:Release / dirty buf cache: %d (err:%d)", dirtycnt, ret);
+#endif
 	return ret;
 }
 
@@ -725,7 +729,7 @@ s32 dcache_flush(struct super_block *sb, u32 sync)
 	while (fsi->dcache.keep_list.prev != &fsi->dcache.keep_list) {
 		cache_ent_t *bp_keep = fsi->dcache.keep_list.prev;
 
-		bp_keep->flag &= ~(KEEPBIT);
+		bp_keep->flag &= ~(KEEPBIT);		// Will be 0-ed later
 		move_to_mru(bp_keep, &fsi->dcache.lru_list);
 		keepcnt++;
 	}
@@ -734,7 +738,7 @@ s32 dcache_flush(struct super_block *sb, u32 sync)
 	while (bp != &fsi->dcache.lru_list) {
 		if (bp->flag & DIRTYBIT) {
 #ifdef CONFIG_SDFAT_DELAYED_META_DIRTY
-
+			// Make buffer dirty (XXX: Naive impl.)
 			if (write_sect(sb, bp->sec, bp->bh, 0)) {
 				ret = -EIO;
 				break;
@@ -781,7 +785,7 @@ static cache_ent_t *__dcache_get(struct super_block *sb)
 	bp = fsi->dcache.lru_list.prev;
 #ifdef CONFIG_SDFAT_DELAYED_META_DIRTY
 	while (bp->flag & (DIRTYBIT | LOCKBIT)) {
-		cache_ent_t *bp_prev = bp->prev;
+		cache_ent_t *bp_prev = bp->prev; // hold prev
 
 		if (bp->flag & DIRTYBIT) {
 			MMSG("BD: Buf cache => Keep list\n");
@@ -801,8 +805,8 @@ static cache_ent_t *__dcache_get(struct super_block *sb)
 	while (bp->flag & LOCKBIT)
 		bp = bp->prev;
 #endif
-
-
+//	if (bp->flag & DIRTYBIT)
+//       sync_dirty_buffer(bp->bh);
 
 	move_to_mru(bp, &fsi->dcache.lru_list);
 	return bp;

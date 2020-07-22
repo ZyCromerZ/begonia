@@ -98,6 +98,14 @@ typedef struct {
 /*  Type Definitions                                                    */
 /*----------------------------------------------------------------------*/
 /* should be merged it to DATE_TIME_T */
+typedef union {
+	struct {
+		u8 off : 7;
+		u8 valid : 1;
+	};
+	u8 value;
+} TIMEZONE_T;
+
 typedef struct {
 	u16      sec;        /* 0 ~ 59               */
 	u16      min;        /* 0 ~ 59               */
@@ -105,8 +113,8 @@ typedef struct {
 	u16      day;        /* 1 ~ 31               */
 	u16      mon;        /* 1 ~ 12               */
 	u16      year;       /* 0 ~ 127 (since 1980) */
+	TIMEZONE_T tz;
 } TIMESTAMP_T;
-
 
 typedef struct {
 	u16      Year;
@@ -116,16 +124,17 @@ typedef struct {
 	u16      Minute;
 	u16      Second;
 	u16      MilliSecond;
+	TIMEZONE_T Timezone;
 } DATE_TIME_T;
 
 typedef struct {
-	u64      Offset;
-	u64      Size;
+	u64      Offset;    // start sector number of the partition
+	u64      Size;      // in sectors
 } PART_INFO_T;
 
 typedef struct {
-	u32      SecSize;
-	u64      DevSize;
+	u32      SecSize;    // sector size in bytes
+	u64      DevSize;    // block device size in sectors
 } DEV_INFO_T;
 
 typedef struct {
@@ -147,8 +156,8 @@ typedef struct {
 typedef struct {
 	u32      clu;
 	union {
-		u32 off;
-		s32 eidx;
+		u32 off;     // cluster offset
+		s32 eidx;    // entry index
 	};
 } HINT_T;
 
@@ -156,14 +165,14 @@ typedef struct {
 	spinlock_t cache_lru_lock;
 	struct list_head cache_lru;
 	s32 nr_caches;
-	u32 cache_valid_id;
+	u32 cache_valid_id;	// for avoiding the race between alloc and free
 } EXTENT_T;
 
 /* first empty entry hint information */
 typedef struct {
-	s32 eidx;
-	s32 count;
-	CHAIN_T cur;
+	s32 eidx;		// entry index of a directory
+	s32 count;		// count of continuous empty entry
+	CHAIN_T cur;		// the cluster that first empty slot exists in
 } HINT_FEMP_T;
 
 /* file id structure */
@@ -175,20 +184,20 @@ typedef struct {
 	u32 start_clu;
 	u64 size;
 	u8  flags;
-	u8  reserved[3];
-	u32 version;
-	s64 rwoffset;
-	EXTENT_T extent;
-	HINT_T	hint_bmap;
-	HINT_T	hint_stat;
-	HINT_FEMP_T hint_femp;
+	u8  reserved[3];	// padding
+	u32 version;		// the copy of low 32bit of i_version to check the validation of hint_stat
+	s64 rwoffset;		// file offset or dentry index for readdir
+	EXTENT_T extent;	// extent cache for a file
+	HINT_T	hint_bmap;	// hint for cluster last accessed
+	HINT_T	hint_stat;	// hint for entry index we try to lookup next time
+	HINT_FEMP_T hint_femp;	// hint for first empty entry
 } FILE_ID_T;
 
 typedef struct {
 	s8 *lfn;
 	s8 *sfn;
-	s32 lfnbuf_len;
-	s32 sfnbuf_len;
+	s32 lfnbuf_len;	//usally MAX_UNINAME_BUF_SIZE
+	s32 sfnbuf_len; //usally MAX_DOSNAME_BUF_SIZE, used only for vfat, not for exfat
 } DENTRY_NAMEBUF_T;
 
 typedef struct {
@@ -250,42 +259,42 @@ typedef struct {
 } FS_FUNC_T;
 
 typedef struct __FS_INFO_T {
-	s32	 bd_opened;
-	u32      vol_type;
-	u32      vol_id;
-	u64      num_sectors;
-	u32      num_clusters;
-	u32      cluster_size;
+	s32	 bd_opened;              // opened or not
+	u32      vol_type;               // volume FAT type
+	u32      vol_id;                 // volume serial number
+	u64      num_sectors;            // num of sectors in volume
+	u32      num_clusters;           // num of clusters in volume
+	u32      cluster_size;           // cluster size in bytes
 	u32      cluster_size_bits;
-	u32      sect_per_clus;
+	u32      sect_per_clus;        // cluster size in sectors
 	u32      sect_per_clus_bits;
-	u64      FAT1_start_sector;
-	u64      FAT2_start_sector;
-	u64      root_start_sector;
-	u64      data_start_sector;
-	u32      num_FAT_sectors;
-	u32      root_dir;
-	u32      dentries_in_root;
-	u32      dentries_per_clu;
-	u32      vol_flag;
-	struct buffer_head *pbr_bh;
+	u64      FAT1_start_sector;      // FAT1 start sector
+	u64      FAT2_start_sector;      // FAT2 start sector
+	u64      root_start_sector;      // root dir start sector
+	u64      data_start_sector;      // data area start sector
+	u32      num_FAT_sectors;        // num of FAT sectors
+	u32      root_dir;               // root dir cluster
+	u32      dentries_in_root;       // num of dentries in root dir
+	u32      dentries_per_clu;       // num of dentries per cluster
+	u32      vol_flag;               // volume dirty flag
+	struct buffer_head *pbr_bh;      // buffer_head of PBR sector
 
-	u32      map_clu;
-	u32      map_sectors;
-	struct buffer_head **vol_amap;
+	u32      map_clu;                // allocation bitmap start cluster
+	u32      map_sectors;            // num of allocation bitmap sectors
+	struct buffer_head **vol_amap;      // allocation bitmap
 
-	u16      **vol_utbl;
+	u16      **vol_utbl;               // upcase table
 
-	u32      clu_srch_ptr;
-	u32      used_clusters;
+	u32      clu_srch_ptr;           // cluster search pointer
+	u32      used_clusters;          // number of used clusters
 
-	u32      prev_eio;
+	u32      prev_eio;            // block device operation error flag
 
 	FS_FUNC_T   *fs_func;
 	FATENT_OPS_T   *fatent_ops;
 
-	s32       reserved_clusters;
-	void        *amap;
+	s32       reserved_clusters;  // # of reserved clusters (DA)
+	void        *amap;                  // AU Allocation Map
 
 	/* fat cache */
 	struct {
@@ -298,7 +307,7 @@ typedef struct __FS_INFO_T {
 	struct {
 		cache_ent_t pool[BUF_CACHE_SIZE];
 		cache_ent_t lru_list;
-		cache_ent_t keep_list;
+		cache_ent_t keep_list;        // CACHEs in this list will not be kicked by normal lru operations
 		cache_ent_t hash_list[BUF_CACHE_HASH_SIZE];
 	} dcache;
 } FS_INFO_T;

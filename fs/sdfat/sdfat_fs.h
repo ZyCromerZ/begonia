@@ -33,14 +33,17 @@
 #define EXFAT_SUPER_MAGIC       (0x2011BAB0UL)
 #endif /* EXFAT_SUPER_MAGIC */
 
+#ifndef SDFAT_SUPER_MAGIC
 #define SDFAT_SUPER_MAGIC       (0x5EC5DFA4UL)
+#endif /* SDFAT_SUPER_MAGIC */
+
 #define SDFAT_ROOT_INO          1
 
 /* FAT types */
-#define FAT12                   0x01
-#define FAT16                   0x0E
-#define FAT32                   0x0C
-#define EXFAT                   0x07
+#define FAT12                   0x01    // FAT12
+#define FAT16                   0x0E    // Win95 FAT16 (LBA)
+#define FAT32                   0x0C    // Win95 FAT32 (LBA)
+#define EXFAT                   0x07    // exFAT
 
 /* directory file name */
 #define DOS_CUR_DIR_NAME        ".          "
@@ -64,9 +67,9 @@
 #define MAX_UNINAME_BUF_SIZE       (((MAX_NAME_LENGTH+1)*2)+4)
 #define MAX_DOSNAME_BUF_SIZE       ((DOS_NAME_LENGTH+2)+6)
 #define MAX_VFSNAME_BUF_SIZE       ((MAX_NAME_LENGTH+1)*MAX_CHARSET_SIZE)
-#define MAX_CHARSET_SIZE        6
-#define MAX_NAME_LENGTH         255
-#define DOS_NAME_LENGTH         11
+#define MAX_CHARSET_SIZE        6       // max size of multi-byte character
+#define MAX_NAME_LENGTH         255     // max len of file name excluding NULL
+#define DOS_NAME_LENGTH         11      // DOS file name length excluding NULL
 
 #define SECTOR_SIZE_BITS	9	/* VFS sector size is 512 bytes */
 
@@ -92,10 +95,10 @@
 #define FAT_VOL_DIRTY	0x01
 
 /* max number of clusters */
-#define FAT12_THRESHOLD         4087
-#define FAT16_THRESHOLD         65527
-#define FAT32_THRESHOLD         268435457
-#define EXFAT_THRESHOLD         268435457
+#define FAT12_THRESHOLD         4087        // 2^12 - 1 + 2 (clu 0 & 1)
+#define FAT16_THRESHOLD         65527       // 2^16 - 1 + 2
+#define FAT32_THRESHOLD         268435457   // 2^28 - 1 + 2
+#define EXFAT_THRESHOLD         268435457   // 2^28 - 1 + 2
 
 /* dentry types */
 #define MSDOS_DELETED		0xE5	/* deleted mark */
@@ -307,11 +310,11 @@ typedef struct {
 
 /* FAT32 filesystem information sector (512 bytes) */
 typedef struct {
-	__le32	signature1;
+	__le32	signature1;              // aligned
 	__u8	reserved1[480];
-	__le32	signature2;
-	__le32	free_cluster;
-	__le32	next_cluster;
+	__le32	signature2;              // aligned
+	__le32	free_cluster;            // aligned
+	__le32	next_cluster;            // aligned
 	__u8    reserved2[14];
 	__le16	signature3[2];
 } fat32_fsi_t;
@@ -326,14 +329,14 @@ typedef struct {
 	__u8	attr;
 	__u8	lcase;
 	__u8	create_time_ms;
-	__le16	create_time;
-	__le16	create_date;
-	__le16	access_date;
-	__le16	start_clu_hi;
-	__le16	modify_time;
-	__le16	modify_date;
-	__le16	start_clu_lo;
-	__le32	size;
+	__le16	create_time;             // aligned
+	__le16	create_date;             // aligned
+	__le16	access_date;             // aligned
+	__le16	start_clu_hi;            // aligned
+	__le16	modify_time;             // aligned
+	__le16	modify_date;             // aligned
+	__le16	start_clu_lo;            // aligned
+	__le32	size;                    // aligned
 } DOS_DENTRY_T;
 
 /* FAT extended directory entry (32 bytes) */
@@ -343,28 +346,30 @@ typedef struct {
 	__u8	attr;
 	__u8	sysid;
 	__u8	checksum;
-	__le16	unicode_5_10[6];
-	__le16	start_clu;
-	__le16	unicode_11_12[2];
+	__le16	unicode_5_10[6];	// aligned
+	__le16	start_clu;		// aligned
+	__le16	unicode_11_12[2];	// aligned
 } EXT_DENTRY_T;
 
 /* EXFAT file directory entry (32 bytes) */
 typedef struct {
 	__u8	type;
 	__u8	num_ext;
-	__le16	checksum;
-	__le16	attr;
+	__le16	checksum;		// aligned
+	__le16	attr;			// aligned
 	__le16	reserved1;
-	__le16	create_time;
-	__le16	create_date;
-	__le16	modify_time;
-	__le16	modify_date;
-	__le16	access_time;
-	__le16	access_date;
+	__le16	create_time;		// aligned
+	__le16	create_date;		// aligned
+	__le16	modify_time;		// aligned
+	__le16	modify_date;		// aligned
+	__le16	access_time;		// aligned
+	__le16	access_date;		// aligned
 	__u8	create_time_ms;
 	__u8	modify_time_ms;
-	__u8	access_time_ms;
-	__u8	reserved2[9];
+	__u8	create_tz;
+	__u8	modify_tz;
+	__u8	access_tz;
+	__u8	reserved2[7];
 } FILE_DENTRY_T;
 
 /* EXFAT stream extension directory entry (32 bytes) */
@@ -373,19 +378,19 @@ typedef struct {
 	__u8	flags;
 	__u8	reserved1;
 	__u8	name_len;
-	__le16	name_hash;
+	__le16	name_hash;		// aligned
 	__le16	reserved2;
-	__le64	valid_size;
-	__le32	reserved3;
-	__le32	start_clu;
-	__le64	size;
+	__le64	valid_size;		// aligned
+	__le32	reserved3;		// aligned
+	__le32	start_clu;		// aligned
+	__le64	size;			// aligned
 } STRM_DENTRY_T;
 
 /* EXFAT file name directory entry (32 bytes) */
 typedef struct {
 	__u8	type;
 	__u8	flags;
-	__le16	unicode_0_14[15];
+	__le16	unicode_0_14[15];	// aligned
 } NAME_DENTRY_T;
 
 /* EXFAT allocation bitmap directory entry (32 bytes) */
@@ -393,25 +398,25 @@ typedef struct {
 	__u8	type;
 	__u8	flags;
 	__u8	reserved[18];
-	__le32  start_clu;
-	__le64	size;
+	__le32  start_clu;		// aligned
+	__le64	size;			// aligned
 } BMAP_DENTRY_T;
 
 /* EXFAT up-case table directory entry (32 bytes) */
 typedef struct {
 	__u8	type;
 	__u8	reserved1[3];
-	__le32	checksum;
+	__le32	checksum;		// aligned
 	__u8	reserved2[12];
-	__le32	start_clu;
-	__le64	size;
+	__le32	start_clu;		// aligned
+	__le64	size;			// aligned
 } CASE_DENTRY_T;
 
 /* EXFAT volume label directory entry (32 bytes) */
 typedef struct {
 	__u8	type;
 	__u8	label_len;
-	__le16	unicode_0_10[11];
+	__le16	unicode_0_10[11];	// aligned
 	__u8	reserved[8];
 } VOLM_DENTRY_T;
 

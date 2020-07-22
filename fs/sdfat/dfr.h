@@ -21,20 +21,20 @@
 #ifdef	CONFIG_SDFAT_DFR
 
 /* Tuning parameters */
-#define	DFR_MIN_TIMEOUT		 (1 * HZ)
-#define	DFR_DEFAULT_TIMEOUT	 (10 * HZ)
+#define	DFR_MIN_TIMEOUT		 (1 * HZ)	// Minimum timeout for forced-sync
+#define	DFR_DEFAULT_TIMEOUT	 (10 * HZ)	// Default timeout for forced-sync
 
-#define	DFR_DEFAULT_CLEAN_RATIO	 (50)
-#define	DFR_DEFAULT_WAKEUP_RATIO (10)
+#define	DFR_DEFAULT_CLEAN_RATIO	 (50)	// Wake-up daemon when clean AU ratio under 50%
+#define	DFR_DEFAULT_WAKEUP_RATIO (10)	// Wake-up daemon when clean AU ratio under 10%, regardless of frag_ratio
 
-#define	DFR_DEFAULT_FRAG_RATIO	 (130)
+#define	DFR_DEFAULT_FRAG_RATIO	 (130)	// Wake-up daemon when frag_ratio over 130%
 
-#define	DFR_DEFAULT_PACKING_RATIO	(10)
+#define	DFR_DEFAULT_PACKING_RATIO	(10)	// Call allocator with PACKING flag, when clean AU ratio under 10%
 
-#define	DFR_DEFAULT_STOP_RATIO		(98)
+#define	DFR_DEFAULT_STOP_RATIO		(98)	// Stop defrag_daemon when disk used ratio over 98%
 #define	DFR_FULL_RATIO			(100)
 
-#define	DFR_MAX_AU_MOVED		(16)
+#define	DFR_MAX_AU_MOVED		(16)	// Maximum # of AUs for a request
 
 
 /* Debugging support*/
