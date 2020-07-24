@@ -195,7 +195,7 @@ out:
 	return err;
 }
 
-static int __maybe_unused recover_quota_data(struct inode *inode, struct page *page)
+static int recover_quota_data(struct inode *inode, struct page *page)
 {
 	struct f2fs_inode *raw = F2FS_INODE(page);
 	struct iattr attr;
@@ -241,6 +241,11 @@ static int recover_inode(struct inode *inode, struct page *page)
 	int err;
 
 	inode->i_mode = le16_to_cpu(raw->i_mode);
+
+	err = recover_quota_data(inode, page);
+	if (err)
+		return err;
+
 	i_uid_write(inode, le32_to_cpu(raw->i_uid));
 	i_gid_write(inode, le32_to_cpu(raw->i_gid));
 
@@ -279,8 +284,6 @@ static int recover_inode(struct inode *inode, struct page *page)
 				le16_to_cpu(raw->i_gc_failures);
 
 	recover_inline_flags(inode, raw);
-
-	f2fs_mark_inode_dirty_sync(inode, true);
 
 	f2fs_mark_inode_dirty_sync(inode, true);
 
