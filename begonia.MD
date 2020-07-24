@@ -1,5 +1,5 @@
--- 24-07-2020 --
-# Tercydux
+# -- 24-07-2020 --
+# Tercydux-24-07-2020
 * upstream to 4.14.189
 * remove stock sdfat and added back sdfat from https://github.com/cryptomilk/kernel-sdfat
 * remove wireguard due to errors build (server down maybe)
@@ -16,7 +16,7 @@
 * update spectrum profile for Tercydux kernels
 * and more things im forgot
 * move kernels download link :v
-# QuantumKiller
+# QuantumKiller-24-07-2020
 * same as Tercydux,but
 * Remove spectrum profile for QuantumKiller kernels
 * optimize for size for QuantumKiller kernels
