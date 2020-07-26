@@ -1,10 +1,9 @@
-# INFO branch Begonia kernel
+# INFO branch kernel for Begonia
 * 20200706/qk-n
-# INFO about kernel
+# INFO kernel
 * QuantumKiller-L : 
     * Undervolted cpu a little
     * 806Mhz Gpu clock 
-
 * QuantumKiller-N :
     * normal CPU
     * 850Mhz Gpu clock 
