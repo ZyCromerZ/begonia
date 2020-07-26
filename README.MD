@@ -17,5 +17,5 @@
 
 # Notes
 * all kernel BIG cores underclocked minimum freq to 500Mhz
-* open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/README.MD">README.MD</a> to see kernels info
+* open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/begonia.MD">begonia.MD</a> to see changelogs
 * open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/download.MD">download.MD</a> to see all download links
