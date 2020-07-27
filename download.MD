@@ -8,7 +8,7 @@
 # 
 # 
 # -- 24-07-2020 --
-* QuantumKiller-L : https://semawur.com/oo0SZ
-* QuantumKiller-N : https://semawur.com/sLqa77Yg
-* Tercydux : https://semawur.com/JSbA
-* Tercydux-OC : https://semawur.com/kUSUKcyyJ
+* QuantumKiller-L : https://semawur.com/FiMU
+* QuantumKiller-N : https://semawur.com/Txu5jqJ0U
+* Tercydux : https://semawur.com/V2i1L15jl7
+* Tercydux-OC : https://semawur.com/5NS
