@@ -10,4 +10,4 @@ upstream 20200706/Tercydux
 upstream 20200706/Tercydux-OC
 upstream 20200706/qk-n
 upstream 20200706/qk-l
-git push --all origin_private -f
+git push --all origin -f
