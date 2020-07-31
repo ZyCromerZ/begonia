@@ -7,6 +7,12 @@
 * latest DL link list go <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/download.MD#---24-07-2020---">here!! xD</a>
 # 
 # 
+# -- 31-07-2020 --
+* QuantumKiller-L : https://semawur.com/HcU2qVbsfY
+* QuantumKiller-N : https://semawur.com/lbs0Rjk1
+* Tercydux : https://semawur.com/jB3WPioN2
+* Tercydux-OC : https://semawur.com/NY70acc0G
+
 # -- 24-07-2020 --
 * QuantumKiller-L : https://semawur.com/FiMU
 * QuantumKiller-N : https://semawur.com/Txu5jqJ0U
