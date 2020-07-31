@@ -1,3 +1,6 @@
+# -- 01-08-2020 --
+* upstream to 4.14.191
+
 # -- 31-07-2020 --
 * upstream to 4.14.190
 * disable SCHED_HMP in defcofig (@TheMalachite tell me to disable this is if im not wrong xD)
