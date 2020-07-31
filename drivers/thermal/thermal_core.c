@@ -35,7 +35,7 @@
 
 #include "thermal_core.h"
 #include "thermal_hwmon.h"
-#include "../misc/mediatek/base/power/include/ppm_v3/mtk_ppm_api.h"
+#include "../misc/mediatek/base/power/include/mtk_ppm_api.h"
 
 MODULE_AUTHOR("Zhang Rui");
 MODULE_DESCRIPTION("Generic thermal management sysfs support");
