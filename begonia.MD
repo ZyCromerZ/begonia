@@ -1,3 +1,7 @@
+# -- 31-07-2020 --
+* upstream to 4.14.190
+* disable SCHED_HMP in defcofig (@TheMalachite tell me to disable this is if im not wrong xD)
+
 # -- 24-07-2020 --
 * upstream to 4.14.189
 * remove stock sdfat and added back sdfat from https://github.com/cryptomilk/kernel-sdfat
