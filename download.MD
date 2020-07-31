@@ -4,7 +4,7 @@
 # another link with some ads
 * IF U HATE THIS,ignore links bellow
 # 
-* latest DL link list go <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/download.MD#---24-07-2020---">here!! xD</a>
+* latest DL link list go <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/download.MD#---01-08-2020---">here!! xD</a>
 # 
 # 
 # -- 01-08-2020 --
