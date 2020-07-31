@@ -11,5 +11,7 @@
 * stable rc source : https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/log/?h=linux-4.14.y
 * stable source : https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/log/?h=linux-4.14.y
 
+# -- 31-07-2020 --
+* check here : https://semawur.com/fh7cpC0
 # -- 28-07-2020 --
-* check here :  https://semawur.com/ZhR1MK
+* check here : https://semawur.com/ZhR1MK
