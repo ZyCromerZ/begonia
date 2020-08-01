@@ -52,21 +52,30 @@ GetCore=$(nproc --all)
 TANGGAL=$(date +"%m%d")
 AR=aarch64-linux-androidkernel-ar
 OBJCOPY=aarch64-linux-androidkernel-objcopy
-echo "dih . . .";
 MAKE="./makeparallel"
 make -j$(($GetCore)) O=../../begonia/out clean mrproper  && \
 rm -rf ../../begonia/out && \
 make -j$(($GetCore))  O=../../begonia/out ARCH="arm64" SUBARCH="arm64" "$Defconfig" && \
-make -j$(($GetCore))  O=../../begonia/out CC="ccache ../../clang/google-clang/bin/clang" \
+make -j$(($GetCore))  O=../../begonia/out \
                             PATH="../../clang/google-clang/bin:../../gcc/aarch64-linux-android-4.9/bin:../../gccarm-linux-androideabi-4.9/bin:${PATH}" \
                             LD_LIBRARY_PATH="../../clang/google-clang/lib64:${LD_LIBRARY_PATH}" \
+                            CC="ccache clang" \
                             CROSS_COMPILE=aarch64-linux-android- \
-                            CROSS_COMPILE_ARM32=../../gccarm-linux-androideabi-4.9/bin/arm-linux-androideabi- \
+                            CROSS_COMPILE_ARM32=arm-linux-androideabi- \
                             AR=$AR \
                             AS=llvm-as \
                             NM=llvm-nm \
                             OBJCOPY=$OBJCOPY \
                             OBJDUMP=llvm-objdump \
+                            OBJSIZE=llvm-size \
+                            READELF=llvm-readelf \
                             STRIP=llvm-strip \
+                            HOSTCC=clang \
+                            HOSTCXX=clang++ \
+                            HOSTAR=llvm-ar \
+                            HOSTLD=ld.lld \
+                            LD=ld.lld \
+                            LLVM=1 \
+                            LLVM_IAS=1 \
                             CLANG_TRIPLE=aarch64-linux-gnu-
 [ -e ../../begonia/out/arch/arm64/boot/Image.gz-dtb ] && MakeZip
