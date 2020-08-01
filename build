@@ -53,11 +53,10 @@ TANGGAL=$(date +"%m%d")
 AR=aarch64-linux-androidkernel-ar
 OBJCOPY=aarch64-linux-androidkernel-objcopy
 MAKE="./makeparallel"
-make -j$(($GetCore)) O=../../begonia/out clean mrproper  && \
 rm -rf ../../begonia/out && \
 make -j$(($GetCore))  O=../../begonia/out ARCH="arm64" SUBARCH="arm64" "$Defconfig" && \
 make -j$(($GetCore))  O=../../begonia/out \
-                            PATH="../../clang/google-clang/bin:../../gcc/aarch64-linux-android-4.9/bin:../../gccarm-linux-androideabi-4.9/bin:${PATH}" \
+                            PATH="../../clang/google-clang/bin:../../gcc/aarch64-linux-android-4.9/bin:../../gcc/arm-linux-androideabi-4.9/bin:${PATH}" \
                             LD_LIBRARY_PATH="../../clang/google-clang/lib64:${LD_LIBRARY_PATH}" \
                             CC="ccache clang" \
                             CROSS_COMPILE=aarch64-linux-android- \
