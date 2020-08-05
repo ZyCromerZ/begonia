@@ -1,3 +1,16 @@
+# -- 05-08-2020 --
+* add optimization for G90T cpu (only for little core for clang)
+* added back wireguard
+* add build salt to vdso
+* add support __int128 on gcc 5+
+* enable thermal by default
+* f2fs enlarge min_fsync_blocks to 20 for optimize performance
+* add and enable vdso32 (cherry-pick from 4.4.x kernel xD)
+* backport ALMK (credit to @TheMalachite) to Tercydux kernels only (because QK use SLMK) and flash <a href="https://github.com/yc9559/qti-mem-opt/releases">this module</a> to fix ram management (<a href="https://github.com/yc9559/qti-mem-opt/releases/download/7.1/qti-mem-opt-v7.1-20200328.zip">direct link</a>) 
+* compiled using latest clang 9.0.3 instead
+* set kernel timefrequency to 90Hz for Tercydux and Tercydux-OC
+* set kernel timefrequency to 70Hz for QuantumKiller-L
+
 # -- 01-08-2020 --
 * upstream to 4.14.191
 

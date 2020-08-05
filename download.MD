@@ -4,9 +4,15 @@
 # another link with some ads
 * IF U HATE THIS,ignore links bellow
 # 
-* latest DL link list go <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/download.MD#---01-08-2020---">here!! xD</a>
+* latest DL link list go <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/download.MD#---05-08-2020---">here!! xD</a>
 # 
 # 
+# -- 05-08-2020 --
+* QuantumKiller-L : https://semawur.com/QbXG
+* QuantumKiller-N : https://semawur.com/RJTrpGTZuKY
+* Tercydux : https://semawur.com/siFfRfF1
+* Tercydux-OC : https://semawur.com/xpXX
+
 # -- 01-08-2020 --
 * QuantumKiller-L : https://semawur.com/dNErNMZxDptm
 * QuantumKiller-N : https://semawur.com/Xwvs5x76tc
