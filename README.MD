@@ -1,5 +1,9 @@
 # INFO branch kernel for Begonia
-* 20200706/qk-n
+* 20200706/qk-l For QuantumKiller-L kernels
+* 20200706/qk-n For QuantumKiller-N kernels
+* 20200706/Tercydux For Tercydux kernels
+* 20200706/Tercydux-OC For Tercydux-OC kernels
+
 # INFO kernel
 * QuantumKiller-L : 
     * Undervolted cpu a little
