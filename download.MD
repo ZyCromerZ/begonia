@@ -1,32 +1,6 @@
-# pling link 
-* https://www.pling.com/p/1406315/#files-panel
+# Kernel Link 
+* <a href="https://www.pling.com/p/1406315/#files-panel"> >> check here << </a>
 
-# another link with some ads
-* IF U HATE THIS,ignore links bellow
-# 
-* latest DL link list go <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/download.MD#---05-08-2020---">here!! xD</a>
-# 
-# 
-# -- 05-08-2020 --
-* QuantumKiller-L : https://semawur.com/QbXG
-* QuantumKiller-N : https://semawur.com/RJTrpGTZuKY
-* Tercydux : https://semawur.com/siFfRfF1
-* Tercydux-OC : https://semawur.com/xpXX
-
-# -- 01-08-2020 --
-* QuantumKiller-L : https://semawur.com/dNErNMZxDptm
-* QuantumKiller-N : https://semawur.com/Xwvs5x76tc
-* Tercydux : https://semawur.com/GmFW
-* Tercydux-OC : https://semawur.com/fETmq0WY0M
-
-# -- 31-07-2020 --
-* QuantumKiller-L : https://semawur.com/HcU2qVbsfY
-* QuantumKiller-N : https://semawur.com/lbs0Rjk1
-* Tercydux : https://semawur.com/jB3WPioN2
-* Tercydux-OC : https://semawur.com/NY70acc0G
-
-# -- 24-07-2020 --
-* QuantumKiller-L : https://semawur.com/FiMU
-* QuantumKiller-N : https://semawur.com/Txu5jqJ0U
-* Tercydux : https://semawur.com/V2i1L15jl7
-* Tercydux-OC : https://semawur.com/5NS
+# Notes
+* if u like my kernel, please dont share direct link just share pling link :V
+* if u hate my kernel then up to u :V
