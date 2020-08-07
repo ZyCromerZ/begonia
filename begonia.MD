@@ -1,4 +1,9 @@
+# -- 08-08-2020 --
+* upstream to 4.14.193
+* update spectrum profile for tercydux
+
 # -- 05-08-2020 --
+* upstream to 4.14.192
 * add optimization for G90T cpu (only for little core for clang)
 * added back wireguard
 * add build salt to vdso
