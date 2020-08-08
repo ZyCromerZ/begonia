@@ -4,19 +4,22 @@
 
 # INFO kernel
 * QuantumKiller-L : 
-    * Undervolted cpu a little
-    * 806Mhz Gpu clock 
+    * Undervolted CPU a little
+    * Gpu Frequency 806 Mhz (default) 
 * QuantumKiller-N :
-    * normal CPU
-    * 850Mhz Gpu clock 
+    * Normal CPU Frequency
+    * Gpu Frequency 850 Mhz
 * Tercydux :
-    * normal CPU
-    * 1000Mhz Gpu clock
+    * Normal CPU Frequency
+    * Gpu Frequency 1000 Mhz
 * Tercydux-OC : 
-    * overclock CPU BIG cores to 2.5Ghz
-    * 1510Mhz Gpu clock
+    * Overclock CPU BIG cores to 2.5Ghz
+    * Gpu Frequency 1510 Mhz
 
 # Notes
-* all kernel BIG cores underclocked minimum freq to 500Mhz
-* open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/begonia.MD">begonia.MD</a> to see changelogs
-* open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/download.MD">download.MD</a> to see all download links for stable build
+* All BIG core Kernels Are Underclocked With A Minimum Frequency Up To 500 Mhz
+* If U Need More Stable Sps Use QK-N Instead
+* If U Need More Battery Backup Use QK-L Instead
+* The Tercydux Kernels Is Just An More-Overclocked Kernels :V
+* Open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/begonia.MD">begonia.MD file</a> To View The Kernel Changelogs
+* Open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/download.MD">download.MD file</a> To See All Download Links For Stable Build
