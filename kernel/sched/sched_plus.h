@@ -92,6 +92,11 @@ static inline bool is_max_capacity_cpu(int cpu)
 	return capacity_orig_of(cpu) == SCHED_CAPACITY_SCALE;
 }
 
+static inline bool is_min_capacity_cpu(int cpu)
+{
+	return capacity_orig_of(cpu) == 1024;
+}
+
 int select_task_prefer_cpu(struct task_struct *p, int new_cpu);
 int task_prefer_little(struct task_struct *p);
 int task_prefer_big(struct task_struct *p);
