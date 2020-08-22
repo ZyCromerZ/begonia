@@ -235,7 +235,7 @@ struct gf_device {
 #ifdef SUPPORT_REE_SPI
 
 #define HIGH_SPEED 6
-#define LOW_SPEED  1
+#define LOW_SPEED  2
 
 #define ERR_NO_SENSOR    111
 #define ERR_FW_DESTROY   112
