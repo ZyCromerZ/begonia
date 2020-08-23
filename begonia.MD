@@ -2,7 +2,7 @@
 * upstream to 4.14.194
 * update default thermal profile value
 * update spectrum profile for tercydux
-* Enable backlight trigger (credit to @fancypants)
+* Enable backlight trigger to fix offline charging for CFW V2 (credit to @fancypants)
 
 # -- 08-08-2020 --
 * upstream to 4.14.193
