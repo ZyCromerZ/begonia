@@ -864,7 +864,7 @@ static bool unmap_kernel_at_el0(const struct arm64_cpu_capabilities *entry,
 	case MIDR_CORTEX_A72:
 	case MIDR_CORTEX_A73:
 		return false;
-
+	}
 	/* Defer to CPU feature registers */
 	return !cpuid_feature_extract_unsigned_field(pfr0,
 						     ID_AA64PFR0_CSV3_SHIFT);
