@@ -137,13 +137,9 @@ const_debug unsigned int sysctl_sched_migration_cost	= 250000UL;
 unsigned int sysctl_sched_wakeup_granularity		= 1000000UL;
 unsigned int normalized_sysctl_sched_wakeup_granularity	= 1000000UL;
 
-<<<<<<< HEAD
 const_debug unsigned int sysctl_sched_migration_cost	= 33000UL;
-=======
-const_debug unsigned int sysctl_sched_migration_cost	= 1000000UL;
 #endif
 DEFINE_PER_CPU_READ_MOSTLY(int, sched_load_boost);
->>>>>>> 5a4182d3f1c1... ZEN: Implement zen-tune v4.20 over v4.14-arm64
 
 #ifdef CONFIG_SCHED_WALT
 unsigned int sysctl_sched_use_walt_cpu_util = 1;
