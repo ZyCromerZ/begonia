@@ -1278,16 +1278,12 @@ static void __init log_buf_len_update(u64 size)
 /* save requested log_buf_len since it's too early to process it */
 static int __init log_buf_len_setup(char *str)
 {
-<<<<<<< HEAD
-	unsigned int size = memparse(str, &str);
-=======
 	u64 size;
 
 	if (!str)
 		return -EINVAL;
 
 	size = memparse(str, &str);
->>>>>>> bb08e6d0613b9b8ef444157e4e53edf515707a55
 
 	log_buf_len_update(size);
 
