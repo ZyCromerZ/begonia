@@ -6,7 +6,7 @@ name: ZyCPipeline
 steps: 
   - 
     commands: 
-      - "curl https://raw.githubusercontent.com/ZyCromerZ/myscripts/master/kernel.sh | bash"
+      - "curl https://raw.githubusercontent.com/ZyCromerZ/myscripts/aosp/kernel.sh | bash"
     environment: 
       TELEGRAM_TOKEN: 
         from_secret: BOT_API_KEY
