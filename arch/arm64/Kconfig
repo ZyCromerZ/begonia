@@ -129,8 +129,6 @@ config ARM64
 	select LD_DEAD_CODE_DATA_ELIMINATION
 	select LTO
 	select ARCH_SUPPORTS_LTO_CLANG
-	select THINLTO
-	select ARCH_SUPPORTS_THINLTO
 	help
 	  ARM 64-bit (AArch64) Linux support.
 
