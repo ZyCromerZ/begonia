@@ -1,0 +1,17 @@
+--- 
+clone: 
+  depth: 1
+kind: pipeline
+name: ZyCPipeline
+steps: 
+  - 
+    commands: 
+      - "curl https://raw.githubusercontent.com/ZyCromerZ/myscripts/aosp/kernel.sh | bash"
+    environment: 
+      TELEGRAM_TOKEN: 
+        from_secret: BOT_API_KEY
+    image: fadlyas/kernel_dockerfile:latest
+    name: ZyC-Build
+    trigger: 
+      branch: 
+        - unified-tes
