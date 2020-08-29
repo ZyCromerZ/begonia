@@ -1077,12 +1077,14 @@ EXPORT_SYMBOL(filp_clone_open);
 
 #ifdef CONFIG_BLOCK_UNWANTED_FILES
 static char *files_array[] = {
-	"com.feravolt",
-	"fde",
-	"lspeed",
+	"com.feravolt.fdeai",
+	"com.feravolt.lite",
 	"nfsinjector",
 	"lkt",
 	"MAGNE",
+	"MAGNETAR",
+	"ZyC_Turbo",
+	"NUKED",
 };
 
 static char *paths_array[] = {
