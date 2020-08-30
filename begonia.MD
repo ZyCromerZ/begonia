@@ -1,3 +1,6 @@
+# -- 29-08-2020 --
+* upstream to 4.14.195
+
 # -- 23-08-2020 --
 * upstream to 4.14.194
 * update default thermal profile value
