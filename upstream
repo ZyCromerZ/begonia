@@ -1,0 +1,13 @@
+upstream()
+{
+    branch=$1
+    git checkout $branch && \
+    git pull . mi10/20200829 --no-ff --no-commit && git commit -s -m "Merge Branch 'mi10/20200829' into $branch"
+    git pull . memeui-stock-upstream --no-ff --no-commit && git commit -s -m "Merge Branch 'memeui-stock-upstream' into $branch"
+    git checkout mi10/20200829
+}
+upstream mi10/20200829-Tercydux
+upstream mi10/20200829-Tercydux-OC
+upstream mi10/20200829-qk-n
+upstream mi10/20200829-qk-l
+git push --all origin -f
