@@ -1,3 +1,6 @@
+# -- 31-08-2020 --
+* disable modules blocker
+
 # -- 30-08-2020 --
 * upstream from 141 to 195
 * compiled using clang 9.0.4
