@@ -1,4 +1,7 @@
-# -- 29-08-2020 --
+# -- 31-08-2020 --
+* disable ThinLTO, build using FULL LTO instead xD
+
+# -- 27-08-2020 --
 * upstream to 4.14.195
 
 # -- 23-08-2020 --
