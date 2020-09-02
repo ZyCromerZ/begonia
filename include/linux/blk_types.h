@@ -79,6 +79,9 @@ struct bio {
 	unsigned short		bi_write_hint;
 	blk_status_t		bi_status;
 	u8			bi_partno;
+	unsigned long		bi_rw;		/* bottom bits READ/WRITE,
+						 * top bits priority
+						 */
 
 	/* Number of segments in this BIO after
 	 * physical address coalescing is performed.
