@@ -79,6 +79,9 @@ struct bio {
 	unsigned short		bi_write_hint;
 	blk_status_t		bi_status;
 	u8			bi_partno;
+	unsigned long		bi_rw;		/* bottom bits READ/WRITE,
+						 * top bits priority
+						 */
 
 	/* Number of segments in this BIO after
 	 * physical address coalescing is performed.
@@ -268,6 +271,7 @@ enum req_flag_bits {
 #ifdef MTK_UFS_HQA
 	__REQ_POWER_LOSS,	/* MTK PATCH for SPOH */
 #endif
+	__REQ_URGENT,		/* urgent request */
 	__REQ_NR_BITS,		/* stops here */
 };
 
@@ -287,6 +291,7 @@ enum req_flag_bits {
 
 #define REQ_NOUNMAP		(1ULL << __REQ_NOUNMAP)
 #define REQ_NOWAIT		(1ULL << __REQ_NOWAIT)
+#define REQ_URGENT		(1ULL << __REQ_URGENT)
 
 #ifdef MTK_UFS_HQA
 /* MTK PATCH for SPOH */
