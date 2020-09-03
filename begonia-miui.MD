@@ -9,6 +9,7 @@
     * tripndroid
     * zen
 * backport bfq from 4.4.x kernels
+* fix spectrum for some mode, but spectrum not working in memeui :V
 
 # -- 31-08-2020 --
 * disable modules blocker
