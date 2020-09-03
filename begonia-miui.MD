@@ -1,3 +1,15 @@
+# -- 09-03-2020 --
+* upstream to 4.14.196
+* added more i/o scheduler
+    * fifo
+    * fiops
+    * maple
+    * row
+    * sio
+    * tripndroid
+    * zen
+* backport bfq from 4.4.x kernels
+
 # -- 31-08-2020 --
 * disable modules blocker
 
