@@ -332,9 +332,7 @@ static void picachu_get_data(enum mt_picachu_vproc_id vproc_id)
 
 static int __init picachu_init(void)
 {
-	struct picachu_info *p;
 	unsigned int i;
-	unsigned int j;
 
 	eem_base_addr = ioremap(EEM_BASEADDR, EEM_SIZE);
 	if (!eem_base_addr) {

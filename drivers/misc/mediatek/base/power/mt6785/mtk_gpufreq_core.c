@@ -267,7 +267,6 @@ extern GED_LOG_BUF_HANDLE gpufreq_ged_log;
  */
 unsigned int mt_gpufreq_target(unsigned int request_idx, bool is_real_idx)
 {
-	int i;
 	unsigned int target_freq;
 	unsigned int target_vgpu;
 	unsigned int target_vsram_gpu;
@@ -2703,7 +2702,7 @@ static unsigned int __mt_gpufreq_get_cur_vgpu(void)
 /*
  * get OPP table index by voltage (mV * 100)
  */
-static int __mt_gpufreq_get_opp_idx_by_vgpu(unsigned int vgpu)
+static int __maybe_unused __mt_gpufreq_get_opp_idx_by_vgpu(unsigned int vgpu)
 {
 	int i = g_max_opp_idx_num - 1;
 

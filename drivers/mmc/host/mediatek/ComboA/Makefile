@@ -50,8 +50,6 @@ ifeq ($(CONFIG_MTK_HW_FDE_AES),y)
 ccflags-y += -I$(srctree)/drivers/misc/mediatek/fde_aes/$(subst ",,$(CONFIG_MTK_PLATFORM))
 endif
 
-ccflags-y += -Wno-error=unused-function
-
 obj-$(CONFIG_MMC_MTK_PRO) += msdc.o
 
 msdc-y += sd.o

@@ -200,8 +200,8 @@ int __reetime_handle(struct service_handler *handler)
 	int time_type = 0;
 
 	ptr = handler->param_buf;
-	Invalidate_Dcache_By_Area((unsigned long)ptr, ptr + 4);
 	time_type = *((int *)ptr);
+	Invalidate_Dcache_By_Area((unsigned long)ptr, time_type + 4);
 	if (time_type == GET_UPTIME) {
 		get_monotonic_boottime(&tp);
 		tv_sec = tp.tv_sec;
