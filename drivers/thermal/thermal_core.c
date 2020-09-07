@@ -63,7 +63,7 @@ struct screen_monitor sm;
 
 static atomic_t in_suspend;
 static bool power_off_triggered;
-static atomic_t switch_mode = ATOMIC_INIT(-1);
+static atomic_t switch_mode = ATOMIC_INIT(1);
 static atomic_t temp_state = ATOMIC_INIT(0);
 static char boost_buf[128];
 static struct device thermal_message_dev;
@@ -1184,7 +1184,7 @@ static ssize_t
 thermal_sconfig_store(struct device *dev,
 				struct device_attribute *attr, const char *buf, size_t len)
 {
-       int val = -1;
+       int val = 1;
 
        val = simple_strtol(buf, NULL, 10);
 
