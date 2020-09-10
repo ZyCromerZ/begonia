@@ -1,0 +1,55 @@
+#! /bin/bash
+if [ ! -z "$1" ] && [ "$1" == "a" ];then
+    DoFor="Kernel"
+else
+    DoFor="Upstream"
+fi
+if [ ! -z "$2" ];then
+    TAGS="-rc"
+else
+    TAGS=""
+fi
+if [ ! -z "$3" ];then
+    fromTags="$3"
+else
+    fromTags="linux-4.14.y"
+fi
+upstreamStable(){
+    branch=$1
+    git checkout $branch && \
+    git pull . 20200907/main --no-ff --no-commit && git commit -s -m "Merge branch '20200907/main' into $branch"
+    git pull . 20200907/root-upstream --no-ff --no-commit && git commit -s -m "Merge branch '20200907/root-upstream' into $branch"
+    git checkout 20200907/main
+}
+upstreamRc(){
+    branch=$1
+    git checkout $branch && git branch -D $branch$TAGS && git checkout -b $branch$TAGS && \
+    git pull . 20200907/root-upstream-rc --no-ff --no-commit && git commit -s -m "Merge branch '20200907/root-upstream-rc' into $branch"
+    git checkout 20200907/main
+}
+if [ "$DoFor" == "Kernel" ];then
+    for typeKernel in  20200907/Tercydux 20200907/Tercydux-OC 20200907/qk-n 20200907/qk-l 20200907/DeathFlower-a 20200907/DeathFlower-b
+    do
+        if [ "$TAGS" == "-rc" ];then
+            upstreamRc $typeKernel
+        else
+            upstreamStable $typeKernel
+        fi
+    done
+else
+    for typeBranch in 20200907/root-upstream 20200907/root-upstream-mod
+    do
+        if "$TAGS" == "-rc" ;then
+            UpUrl="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git"
+            UpTags="$fromTags"
+        else 
+            UpUrl="https://android.googlesource.com/kernel/common"
+            UpTags="android-4.14-q"
+        fi
+        git fetch $UpUrl $UpTags
+        git merge FETCH_HEAD --no-ff --no-commit
+        KVer=$(make kernelversion)
+        git commit -s -m "Merge tag '$KVer' of into $typeBranch"
+    done
+    git checkout 20200907/main
+fi
