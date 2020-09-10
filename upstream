@@ -39,9 +39,12 @@ if [ "$DoFor" == "Kernel" ];then
 else
     for typeBranch in 20200907/root-upstream 20200907/root-upstream-mod
     do
-        if "$TAGS" == "-rc" ;then
+        git checkout $typeBranch
+        if [ "$TAGS" == "-rc" ];then
             UpUrl="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git"
             UpTags="$fromTags"
+            git branch -D $typeBranch$TAGS
+            git checkout -b $typeBranch$TAGS
         else 
             UpUrl="https://android.googlesource.com/kernel/common"
             UpTags="android-4.14-q"
@@ -49,7 +52,7 @@ else
         git fetch $UpUrl $UpTags
         git merge FETCH_HEAD --no-ff --no-commit
         KVer=$(make kernelversion)
-        git commit -s -m "Merge tag '$KVer' of into $typeBranch"
+        git commit -s -m "Merge tag '$KVer' of $UpUrl into $typeBranch"
     done
     git checkout 20200907/main
 fi
