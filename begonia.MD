@@ -1,3 +1,13 @@
+# -- 09-13-2020 --
+* Re-based from <a href='https://github.com/AgentFabulous/begonia/tree/android-10.0'> stock posp kernel</a> maybe
+* Upstream to 4.14.198
+* Fix offline cpu after going to deepsleep (when when upstream kernel from <a href='https://android.googlesource.com/kernel/common'>here</a>)
+* Added back some feature from previous kernel
+* Add custom clang name support (to decrease clang name :p)
+* Rename all Tercydux kernels :v
+* Decrease Battery Backup for all Tercydux kernel
+* If spectrum not working, then <a href='https://t.me/QknTercyduxGroup/168688'>do this</a> for all Tercydux kernels
+
 # -- 09-03-2020 --
 * upstream to 4.14.196
 * added more i/o scheduler
