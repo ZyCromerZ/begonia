@@ -1,0 +1,65 @@
+MakeZip(){
+    AnykernelPath=../../Anykernel3
+    if [ ! -d $AnykernelPath ];then
+        mkdir $AnykernelPath
+        cd $AnykernelPath
+        git clone https://github.com/ZyCromerZ/AnyKernel3 -b master-begonia .
+        git fetch origin master master-begonia original
+        git checkout origin/master && git checkout -b master
+        git checkout origin/original && git checkout -b original
+        AnykernelPath=$(pwd)
+    else
+        cd $AnykernelPath
+        git reset --hard
+        git fetch origin master-begonia
+        git checkout master-begonia
+        git reset --hard origin/master-begonia
+        AnykernelPath=$(pwd)
+    fi
+    SpectrumPath=../Spectrum
+    if [ ! -d $SpectrumPath ];then
+        mkdir $SpectrumPath
+        cd $SpectrumPath
+        git clone https://github.com/ZyCromerZ/Spectrum -b master .
+        SpectrumPath=$(pwd)
+        cd $AnykernelPath
+    else
+        cd $SpectrumPath
+        git fetch origin master
+        git reset --hard origin/master
+        SpectrumPath=$(pwd)
+        cd $AnykernelPath
+    fi
+    [ ! -z "$SpectrumFile" ] && [ -e "$SpectrumPath/$SpectrumFile" ] && cp -af $SpectrumPath/$SpectrumFile $AnykernelPath/init.spectrum.rc && sed -i "s/persist.spectrum.kernel.*/persist.spectrum.kernel $KERNEL_NAME/g" init.spectrum.rc
+    cp -af $MainPath/../../begonia/out/arch/arm64/boot/Image.gz-dtb $AnykernelPath && rm -f $MainPath/../../begonia/out/arch/arm64/boot/Image.gz-dtb 
+    cp -af anykernel-real.sh anykernel.sh
+    sed -i "s/kernel.string=.*/kernel.string=$KERNEL_NAME-$HeadCommit TEST by ZyCromerZ/g" anykernel.sh
+    zip -r ../kernel/zip/begonia/"[$TANGGAL]$KERNEL_NAME-$ZIP_KERNEL_VERSION.zip" ./ -x .git/**\* ./.git ./anykernel-real.sh ./.gitignore ./LICENSE ./README.md ./*.zip 
+    cd $MainPath
+}
+HeadCommit="$(git log --pretty=format:'%h' -1)"
+export ARCH="arm64"
+export SUBARCH="arm64"
+export KBUILD_BUILD_USER="ZyCromerZ"
+export KBUILD_BUILD_HOST="Lnix-$HeadCommit"
+export CCACHE_DIR="../../begonia/ccache"
+MainPath=$(pwd)
+Defconfig="begonia_user_defconfig"
+SpectrumFile="bego.rc"
+KERNEL_NAME=$(cat "$MainPath/arch/arm64/configs/$Defconfig" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
+ZIP_KERNEL_VERSION="4.14.$(cat "$MainPath/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//g')$(cat "$(pwd)/Makefile" | grep "EXTRAVERSION =" | sed 's/EXTRAVERSION = *//g')"
+GetCore=$(nproc --all)
+TANGGAL=$(date +"%m%d")
+AR=aarch64-linux-androidkernel-ar
+OBJCOPY=aarch64-linux-androidkernel-objcopy
+MAKE="./makeparallel"
+rm -rf ../../begonia/out && \
+make -j$(($GetCore))  O=../../begonia/out ARCH="arm64" SUBARCH="arm64" "$Defconfig" && \
+make -j$(($GetCore))  O=../../begonia/out \
+                            PATH="../../clang/google-clang/bin:../../gcc/aarch64-linux-android-4.9/bin:../../gcc/arm-linux-androideabi-4.9/bin:${PATH}" \
+                            LD_LIBRARY_PATH="../../clang/google-clang/lib64:${LD_LIBRARY_PATH}" \
+                            CC="ccache clang" \
+                            CROSS_COMPILE=aarch64-linux-android- \
+                            CROSS_COMPILE_ARM32=arm-linux-androideabi- \
+                            CLANG_TRIPLE=aarch64-linux-gnu-
+[ -e ../../begonia/out/arch/arm64/boot/Image.gz-dtb ] && MakeZip
