@@ -1,3 +1,25 @@
+# -- 09-23-2020 --
+* Upstream to 4.14.199
+* re-generate defconfig same as latest CN miui kernels (maybe, just check <a href='https://github.com/ZyCromerZ/begonia/commit/0c7e66b775dbfff7a49505c18b47c1ca024ac1a0'>here</a> by ur self)
+* nuke scheduler :
+    * fifo
+    * fiops
+    * maple
+    * row
+    * sio
+    * tripndroid
+    * zen
+    * bfq
+* added back scheduler :
+    * bfq
+    * fiops
+    * sio
+    * zen
+* add AOSP-STOCK link kernels, with
+    * enabled f2fs + some adjustment
+    * add and enable bfq
+    * build all modules in kernel
+
 # -- 09-13-2020 --
 * Re-based from <a href='https://github.com/AgentFabulous/begonia/tree/android-10.0'> stock posp kernel</a> maybe
 * Upstream to 4.14.198
