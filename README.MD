@@ -3,6 +3,7 @@
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/qk-n"> QuantumKiller-N AOSP CFW Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/mi10/20200829-qk-n"> QuantumKiller-N Miui Android 10 Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/root-upstream"> Stock Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/root-upstream-mod"> Modified Stock Kernel Source </a>
 
 # INFO kernel
 * QuantumKiller-L [For More Battery Backup]: 
