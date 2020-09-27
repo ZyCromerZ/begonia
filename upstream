@@ -28,7 +28,7 @@ upstreamRc(){
     git checkout 20200907/main
 }
 if [ "$DoFor" == "Kernel" ];then
-    for typeKernel in  20200907/Tercydux 20200907/Tercydux-OC 20200907/qk-n 20200907/qk-l 20200907/DeathFlower-a 20200907/DeathFlower-b
+    for typeKernel in  20200907/Tercydux 20200907/Tercydux-OC 20200907/qk-n 20200907/qk-l 20200907/DeathFlower-a 20200907/DeathFlower-b 20200907/DeathFlower-c
     do
         if [ "$TAGS" == "-rc" ];then
             upstreamRc $typeKernel
