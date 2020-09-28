@@ -4430,18 +4430,50 @@ static int __handle_mm_fault(struct vm_area_struct *vma, unsigned long address,
 }
 
 #ifdef CONFIG_SPECULATIVE_PAGE_FAULT
+
+#ifndef spf_pxd_flunked
+static inline bool spf_pgd_flunked(pgd_t *pgd)
+{
+	pgd_t pgdval;
+
+	pgdval = READ_ONCE(*pgd);
+	if (pgd_none(pgdval) || unlikely(pgd_bad(pgdval)))
+		return true;
+
+	return false;
+}
+
+static inline bool spf_p4d_flunked(p4d_t *p4d)
+{
+	p4d_t p4dval;
+
+	p4dval = READ_ONCE(*p4d);
+	if (p4d_none(p4dval) || unlikely(p4d_bad(p4dval)))
+		return true;
+
+	return false;
+}
+#endif
+
+#ifndef spf_access_check
+static inline bool spf_access_error(unsigned long access_vm,
+				  unsigned long vma_flags)
+{
+	return vma_flags & access_vm ? false : true;
+}
+#endif
 /*
  * Tries to handle the page fault in a speculative way, without grabbing the
  * mmap_sem.
  */
 int __handle_speculative_fault(struct mm_struct *mm, unsigned long address,
-			       unsigned int flags)
+			       unsigned int flags, unsigned long access_vm)
 {
 	struct vm_fault vmf = {
 		.address = address,
 	};
-	pgd_t *pgd, pgdval;
-	p4d_t *p4d, p4dval;
+	pgd_t *pgd;
+	p4d_t *p4d;
 	pud_t pudval;
 	int seq, ret = VM_FAULT_RETRY;
 	struct vm_area_struct *vma;
@@ -4480,6 +4512,46 @@ int __handle_speculative_fault(struct mm_struct *mm, unsigned long address,
 
 	vmf.vma_flags = READ_ONCE(vma->vm_flags);
 	vmf.vma_page_prot = READ_ONCE(vma->vm_page_prot);
+
+	/* check whether it is an access_error */
+	if (spf_access_error(access_vm, vmf.vma_flags))
+		goto out_put;
+
+	if (vma_is_anonymous(vma)) {
+		/*
+		 * __anon_vma_prepare() requires the mmap_sem to be held
+		 * because vm_next and vm_prev must be safe. This can't be
+		 * guaranteed in the speculative path.
+		 */
+		if (unlikely(!vma->anon_vma))
+			goto out_put;
+	} else {
+#ifdef SPECULATIVE_PAGE_FAULT_SUPPORT_FILEMAP
+		/*
+		 * A file's MAP_PRIVATE vma may be in anon_vma. So let's check
+		 * whether it is ready to avoid __anon_vma_prepare().
+		 * (for details, please find above comments)
+		 */
+		if (((vmf.vma_flags & (VM_SHARED | VM_WRITE)) == VM_WRITE) &&
+				unlikely(!vma->anon_vma))
+			goto out_put;
+
+		/*
+		 * Is it suitable for SPF?
+		 * Now we only support filemap_fault handler or the vm_ops with
+		 * suitable_for_spf set as true
+		 */
+		if (vma->vm_ops->fault != filemap_fault &&
+				!vma->vm_ops->suitable_for_spf)
+			goto out_put;
+#else
+		/*
+		 * Can't call vm_ops service has we don't know what they would
+		 * do with the VMA. This include huge page from hugetlbfs.
+		 */
+		goto out_put;
+#endif
+	}
 
 	/* Can't call userland page fault handler in the speculative path */
 	if (unlikely(vmf.vma_flags & VM_UFFD_MISSING))
@@ -4533,13 +4605,11 @@ int __handle_speculative_fault(struct mm_struct *mm, unsigned long address,
 	 */
 	local_irq_disable();
 	pgd = pgd_offset(mm, address);
-	pgdval = READ_ONCE(*pgd);
-	if (pgd_none(pgdval) || unlikely(pgd_bad(pgdval)))
+	if (spf_pgd_flunked(pgd))
 		goto out_walk;
 
 	p4d = p4d_offset(pgd, address);
-	p4dval = READ_ONCE(*p4d);
-	if (p4d_none(p4dval) || unlikely(p4d_bad(p4dval)))
+	if (spf_p4d_flunked(p4d))
 		goto out_walk;
 
 	vmf.pud = pud_offset(p4d, address);
