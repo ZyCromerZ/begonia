@@ -56,7 +56,7 @@ struct interactive_tunables {
 	unsigned int hispeed_freq;
 
 	/* Go to hi speed when CPU load at or above this value. */
-#define DEFAULT_GO_HISPEED_LOAD 99
+#define DEFAULT_GO_HISPEED_LOAD 75
 	unsigned long go_hispeed_load;
 
 	/* Target load. Lower values result in higher CPU speeds. */
@@ -144,7 +144,7 @@ static cpumask_t speedchange_cpumask;
 static spinlock_t speedchange_cpumask_lock;
 
 /* Target load. Lower values result in higher CPU speeds. */
-#define DEFAULT_TARGET_LOAD 90
+#define DEFAULT_TARGET_LOAD 85
 static unsigned int default_target_loads[] = {DEFAULT_TARGET_LOAD};
 
 #define DEFAULT_SAMPLING_RATE (20 * USEC_PER_MSEC)
