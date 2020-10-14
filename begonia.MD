@@ -1,3 +1,12 @@
+# -- 10-14-2020 --
+* Upstream to 4.14.201
+* remove support TTL fixation (maybe fix for internet upload bugs? xD)
+* decrease GPU clock for Tercydux Hareudang to 1ghz only
+
+# -- 10-03-2020 --
+* Upstream to 4.14.200
+* backport f2fs from cezanne-q-oss (credit to @TheMalachite)
+
 # -- 09-23-2020 --
 * Upstream to 4.14.199
 * re-generate defconfig same as latest CN miui kernels (maybe, just check <a href='https://github.com/ZyCromerZ/begonia/commit/0c7e66b775dbfff7a49505c18b47c1ca024ac1a0'>here</a> by ur self)

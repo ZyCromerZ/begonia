@@ -17,7 +17,7 @@
     * Gpu Frequency 1000 Mhz
 * Tercydux-OC/Tercydux-Hareudang [Gayming Version 2]: 
     * Overclock CPU BIG cores to 2.5Ghz
-    * Gpu Frequency 1510 Mhz
+    * Gpu Frequency 1000 Mhz
 
 # Notes
 * All BIG core Kernels Are Underclocked With A Minimum Frequency Up To 500 Mhz
