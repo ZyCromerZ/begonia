@@ -9,13 +9,13 @@
 * QuantumKiller-L [For More Battery Backup]: 
     * Undervolted CPU a little
     * Gpu Frequency 806 Mhz (default) 
-* QuantumKiller-N [For Normal Between Battery Backup and Performance]:
+* QuantumKiller-N/DeathFlower-Mona [For Normal Between Battery Backup and Performance]:
     * Normal CPU Frequency
     * Gpu Frequency 850 Mhz
-* Tercydux/Tercydux-Santuy [Gayming Version 1]:
+* Tercydux/Tercydux-Santuy/DeathFlower-Keqing [Gayming Version 1]:
     * Normal CPU Frequency
     * Gpu Frequency 1000 Mhz
-* Tercydux-OC/Tercydux-Hareudang [Gayming Version 2]: 
+* Tercydux-OC/Tercydux-Hareudang/DeathFlower-Ayaka [Gayming Version 2]: 
     * Overclock CPU BIG cores to 2.5Ghz
     * Gpu Frequency 1000 Mhz
 
