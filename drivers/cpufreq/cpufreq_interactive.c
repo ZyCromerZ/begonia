@@ -56,7 +56,7 @@ struct interactive_tunables {
 	unsigned int hispeed_freq;
 
 	/* Go to hi speed when CPU load at or above this value. */
-#define DEFAULT_GO_HISPEED_LOAD 99
+#define DEFAULT_GO_HISPEED_LOAD 55
 	unsigned long go_hispeed_load;
 
 	/* Target load. Lower values result in higher CPU speeds. */
@@ -68,7 +68,7 @@ struct interactive_tunables {
 	 * The minimum amount of time to spend at a frequency before we can ramp
 	 * down.
 	 */
-#define DEFAULT_MIN_SAMPLE_TIME (80 * USEC_PER_MSEC)
+#define DEFAULT_MIN_SAMPLE_TIME (40 * USEC_PER_MSEC)
 	unsigned long min_sample_time;
 
 	/* The sample rate of the timer used to increase frequency */
@@ -94,7 +94,7 @@ struct interactive_tunables {
 	 * Max additional time to wait in idle, beyond sampling_rate, at speeds
 	 * above minimum before wakeup to reduce speed, or -1 if unnecessary.
 	 */
-#define DEFAULT_TIMER_SLACK (4 * DEFAULT_SAMPLING_RATE)
+#define DEFAULT_TIMER_SLACK DEFAULT_SAMPLING_RATE
 	unsigned long timer_slack_delay;
 	unsigned long timer_slack;
 	bool io_is_busy;
@@ -144,7 +144,7 @@ static cpumask_t speedchange_cpumask;
 static spinlock_t speedchange_cpumask_lock;
 
 /* Target load. Lower values result in higher CPU speeds. */
-#define DEFAULT_TARGET_LOAD 90
+#define DEFAULT_TARGET_LOAD 75
 static unsigned int default_target_loads[] = {DEFAULT_TARGET_LOAD};
 
 #define DEFAULT_SAMPLING_RATE (20 * USEC_PER_MSEC)
@@ -1339,7 +1339,7 @@ void cpufreq_interactive_limits(struct cpufreq_policy *policy)
 static struct interactive_governor interactive_gov = {
 	.gov = {
 		.name			= "interactive",
-		.dynamic_switching = true,
+		.dynamic_switching = false,
 		.owner			= THIS_MODULE,
 		.init			= cpufreq_interactive_init,
 		.exit			= cpufreq_interactive_exit,
