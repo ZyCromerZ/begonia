@@ -30,6 +30,8 @@
 #include <linux/relay.h>
 #include <linux/slab.h>
 #include <linux/percpu-rwsem.h>
+#include <linux/interrupt.h>
+#include <linux/cpuset.h>
 
 #include <trace/events/power.h>
 #define CREATE_TRACE_POINTS
@@ -1217,8 +1219,8 @@ int freeze_secondary_cpus(int primary)
 {
 	int cpu, error = 0;
 
-	unaffine_perf_irqs();
 	cpu_maps_update_begin();
+	unaffine_perf_irqs();
 	if (!cpu_online(primary))
 		primary = cpumask_first(cpu_online_mask);
 	/*
@@ -1301,9 +1303,9 @@ void enable_nonboot_cpus(void)
 	arch_enable_nonboot_cpus_end();
 
 	cpumask_clear(frozen_cpus);
+	reaffine_perf_irqs();
 out:
 	cpu_maps_update_done();
-	reaffine_perf_irqs();
 }
 
 static int __init alloc_frozen_cpus(void)
@@ -2314,13 +2316,6 @@ const struct cpumask *const cpu_perf_mask = cpu_possible_mask;
 #endif
 EXPORT_SYMBOL(cpu_perf_mask);
 
-#if CONFIG_PRIME_CPU_MASK
-static const unsigned long perfp_cpu_bits = CONFIG_PRIME_CPU_MASK;
-const struct cpumask *const cpu_perfp_mask = to_cpumask(&perfp_cpu_bits);
-#else
-const struct cpumask *const cpu_perfp_mask = cpu_possible_mask;
-#endif
-EXPORT_SYMBOL(cpu_perfp_mask);
 
 void init_cpu_present(const struct cpumask *src)
 {

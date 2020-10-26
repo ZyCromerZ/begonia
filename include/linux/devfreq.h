@@ -153,6 +153,8 @@ struct devfreq {
 
 	unsigned long min_freq;
 	unsigned long max_freq;
+	bool is_boost_device;
+	bool max_boost;
 	bool stop_polling;
 
 	/* information for device frequency transition */
@@ -185,6 +187,14 @@ extern void devm_devfreq_remove_device(struct device *dev,
 /* Supposed to be called by PM callbacks */
 extern int devfreq_suspend_device(struct devfreq *devfreq);
 extern int devfreq_resume_device(struct devfreq *devfreq);
+
+/**
+ * update_devfreq() - Reevaluate the device and configure frequency
+ * @devfreq:	the devfreq device
+ *
+ * Note: devfreq->lock must be held
+ */
+extern int update_devfreq(struct devfreq *devfreq);
 
 /* Helper functions for devfreq user device driver with OPP. */
 extern struct dev_pm_opp *devfreq_recommended_opp(struct device *dev,
@@ -369,6 +379,11 @@ static inline struct devfreq *devfreq_get_devfreq_by_phandle(struct device *dev,
 }
 
 static inline int devfreq_update_stats(struct devfreq *df)
+{
+	return -EINVAL;
+}
+
+static inline int update_devfreq(struct devfreq *devfreq)
 {
 	return -EINVAL;
 }
