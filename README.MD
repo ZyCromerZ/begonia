@@ -80,7 +80,6 @@
 * QuantumKiller is only for non oc(cpu/gpu) kernels !!!
 * Tercydux and DeathFlower is for some oc kernels? maybe
 * DeathFlower using interactive as default, but QuantumKiller Tercydux using schedutil as default
-* pick <a href='https://github.com/ZyCromerZ/begonia/commit/c6b99f9745873ce2838f1129234c0fbf96411044'>this commit</a> to diasble Full LTO when build going failed
 * recomended to flash <a href="https://github.com/yc9559/qti-mem-opt/releases">this module</a> to fix ram management (<a href="https://github.com/yc9559/qti-mem-opt/releases/download/7.1/qti-mem-opt-v7.1-20200328.zip">direct link</a>) for all backported Android LMK, how about slmk one? u can flash this too :p
 * Open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/begonia.MD">begonia.MD file</a> To View The Kernel Changelogs
 * Open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/download.MD">download.MD file</a> To See All Download Links For Stable Build
