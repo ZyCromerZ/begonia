@@ -1,4 +1,4 @@
-# -- 11-10-2020 --
+# -- 11-11-2020 --
 * Upstream to 4.14.205 from https://android.googlesource.com/kernel/common branch android-4.14-q
 * rebased kernels to fix some bugs
 * no more using SLMK for all QuantumKiller (suing default one, same as stock kernel)
@@ -12,3 +12,7 @@
 
 Note:
 * about info rebased kernel, just <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/README.MD">check here</a> for some info
+* and now DF is just a renamed kernels
+* DeathFlower Keqing and mona same as Tercydux-Tiris
+* implement SLMK to DeathFlower Mona (not like Keqing using ALMK)
+* so now DF mona is test kernel xD
