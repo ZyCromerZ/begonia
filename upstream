@@ -37,7 +37,7 @@ if [ "$DoFor" == "Kernel" ];then
         fi
     done
 else
-    for typeBranch in 20201110/root-upstream 20201110/root-upstream-mod
+    for typeBranch in 20200907/root-upstream 20200907/root-upstream-mod
     do
         git checkout $typeBranch
         if [ "$TAGS" == "-rc" ];then
@@ -54,5 +54,5 @@ else
         KVer=$(make kernelversion)
         git commit -s -m "Merge tag '$KVer' of $UpUrl into $typeBranch"
     done
-    git checkout 20200907/main
+    git checkout 20201110/main
 fi
