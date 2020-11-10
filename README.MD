@@ -1,8 +1,7 @@
 # INFO branch kernel for Begonia
-* <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/qk-l"> QuantumKiller-L AOSP CFW Kernel Source </a>
-* <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/qk-n"> QuantumKiller-N AOSP CFW Kernel Source </a>
-* <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/Tercydux-a"> Tercydux-Tiris AOSP CFW Kernel Source </a>
-* <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/Tercydux-b"> Tercydux-Aneh AOSP CFW Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/qk-n"> QuantumKiller-L AOSP CFW Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/qk-n"> QuantumKiller-N AOSP CFW Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/Tercydux-Tiris"> Tercydux-Tiris AOSP CFW Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/mi10/20200829-qk-n"> QuantumKiller-N Miui Android 10 Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/root-upstream"> Stock Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/root-upstream-mod"> Modified Stock Kernel Source </a>
@@ -11,58 +10,26 @@
 * QuantumKiller-L: 
     * Undervolted CPU a little
     * Gpu Frequency 806 Mhz (default)
-    * Using Simple LMK
-    * lower kernel timefrequency
+    * 70Hz kernel timefrequency
 * QuantumKiller-N:
     * Normal CPU Frequency
     * Gpu Frequency 806 Mhz (default)
-    * Using Simple LMK
-    * stock kernel timefrequency
-* Tercydux-Tiris(TEST soon): 
+    * 80Hz kernel timefrequency
+* Tercydux-Tiris: 
     * Normal CPU Frequency
     * Gpu Frequency 850 Mhz
     * Using Simple LMK
-    * higher kernel timefrequency
-* Tercydux-Aneh (TEST soon): 
-    * Normal CPU Frequency
-    * Gpu Frequency 850 Mhz
-    * Using backported Android LMK
-    * higher kernel timefrequency
+    * 500Hz kernel timefrequency
 * Tercydux-Santuy:
     * Normal CPU Frequency
     * Gpu Frequency 1000 Mhz
     * Using backported Android LMK
-    * higher kernel timefrequency
+    * 500Hz kernel timefrequency
 * Tercydux-Hareudang: 
     * Overclock CPU BIG cores to 2.5Ghz
     * Gpu Frequency 1000 Mhz
     * Using backported Android LMK
-    * higher kernel timefrequency
-* DeathFlower-Fischl(TEST soon): 
-    * Normal CPU Frequency
-    * Gpu Frequency 806 Mhz
-    * Using Simple LMK
-    * more higher kernel timefrequency
-* DeathFlower-Qiqi(TEST soon): 
-    * Normal CPU Frequency
-    * Gpu Frequency 850 Mhz
-    * Using backported Android LMK
-    * more higher kernel timefrequency
-* DeathFlower-Mona:
-    * Normal CPU Frequency
-    * Gpu Frequency 850 Mhz
-    * Using Simple LMK
-    * more higher kernel timefrequency
-* DeathFlower-Keqing:
-    * Normal CPU Frequency
-    * Gpu Frequency 1000 Mhz
-    * Using backported Android LMK
-    * more higher kernel timefrequency
-* DeathFlower-Ayaka:
-    * Overclock CPU BIG cores to 2.5Ghz
-    * Gpu Frequency 1000 Mhz
-    * Using backported Android LMK
-    * more higher kernel timefrequency
+    * 500Hz kernel timefrequency
 * StockMod:
     * enabled f2fs
     * using backported bfq from 4.9 kernels and set it as default
@@ -76,10 +43,9 @@
 * AOSP-CFW kernels zip name for AOSP CFW
 * Miui-10 kernels zip name for Miui Android 10 
 * too many kernels? i know, im lazy to made some changes to my previous kernel so i made new one instead so no more request something that only available from from old kernel one maybe xD
-* QuantumKiller, Tercydux, DeathFlower have some little stuff, so what is best? try it by ur self
+* QuantumKiller, Tercydux have some little stuff, so what is best? try it by ur self
 * QuantumKiller is only for non oc(cpu/gpu) kernels !!!
-* Tercydux and DeathFlower is for some oc kernels? maybe
-* DeathFlower using interactive as default, but QuantumKiller Tercydux using schedutil as default
+* Tercydux for some gayming kernels, maybe xD
 * recomended to flash <a href="https://github.com/yc9559/qti-mem-opt/releases">this module</a> to fix ram management (<a href="https://github.com/yc9559/qti-mem-opt/releases/download/7.1/qti-mem-opt-v7.1-20200328.zip">direct link</a>) for all backported Android LMK, how about slmk one? u can flash this too :p
 * Open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/begonia.MD">begonia.MD file</a> To View The Kernel Changelogs
 * Open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/download.MD">download.MD file</a> To See All Download Links For Stable Build
