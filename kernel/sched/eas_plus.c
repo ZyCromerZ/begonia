@@ -105,7 +105,7 @@ update_system_overutilized(struct lb_env *env)
 		 * that considers whole cluster not single cpu
 		 */
 		if (group->group_weight > 1 && (group->sgc->capacity * 1024 <
-						group_util * 1280))  {
+					group_util * capacity_margin)) {
 			intra_overutil = true;
 			break;
 		}
@@ -366,7 +366,7 @@ migrate_running_task(int this_cpu, struct task_struct *p, struct rq *target)
 }
 #endif
 
-inline unsigned long cluster_max_capacity(void)
+unsigned long cluster_max_capacity(void)
 {
 	struct hmp_domain *domain;
 	unsigned int max_capacity = 0;
@@ -396,7 +396,7 @@ inline unsigned long task_uclamped_min_w_ceiling(struct task_struct *p)
 /* Calculte util with DVFS margin */
 inline unsigned int freq_util(unsigned long util)
 {
-	return util * 10 >> 3;
+	return util * capacity_margin / SCHED_CAPACITY_SCALE;
 }
 
 #ifdef CONFIG_MTK_IDLE_BALANCE_ENHANCEMENT
@@ -926,7 +926,6 @@ mtk_cluster_max_usage(int cid, struct energy_env *eenv, int cpu_idx,
 	return max_util;
 }
 
-unsigned int capacity_margin_dvfs = 1280;
 void mtk_cluster_capacity_idx(int cid, struct energy_env *eenv, int cpu_idx)
 {
 	int cpu;
@@ -958,7 +957,7 @@ void mtk_cluster_capacity_idx(int cid, struct energy_env *eenv, int cpu_idx)
 	eenv->cpu[cpu_idx].cap[cid] = sge->cap_states[max_idx].cap;
 
 	/* OPP idx to refer capacity margin */
-	new_capacity = util * capacity_margin_dvfs >> SCHED_CAPACITY_SHIFT;
+	new_capacity = util * capacity_margin >> SCHED_CAPACITY_SHIFT;
 	new_capacity = min(new_capacity,
 		(unsigned long) sge->cap_states[sge->nr_cap_states-1].cap);
 
