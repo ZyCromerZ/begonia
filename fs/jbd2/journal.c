@@ -50,6 +50,7 @@
 
 #include <linux/uaccess.h>
 #include <asm/page.h>
+#include <mt-plat/mtk_io_boost.h>
 
 #ifdef CONFIG_JBD2_DEBUG
 ushort jbd2_journal_enable_debug __read_mostly;
@@ -207,6 +208,7 @@ static int kjournald2(void *arg)
 	/* Record that the journal thread is running */
 	journal->j_task = current;
 	wake_up(&journal->j_wait_done_commit);
+	mtk_iobst_register_tid(current->pid);
 
 	/*
 	 * Make sure that no allocations from this kernel thread will ever
@@ -664,6 +666,8 @@ int jbd2_trans_will_send_data_barrier(journal_t *journal, tid_t tid)
 	int ret = 0;
 	transaction_t *commit_trans;
 
+	if (journal->j_flags & JBD2_NOBARRIER)
+		return 0;
 	if (!(journal->j_flags & JBD2_BARRIER))
 		return 0;
 	read_lock(&journal->j_state_lock);
@@ -1362,7 +1366,9 @@ static int jbd2_write_superblock(journal_t *journal, int write_flags)
 	}
 
 	trace_jbd2_write_superblock(journal, write_flags);
-	if (!(journal->j_flags & JBD2_BARRIER))
+	if (journal->j_flags & JBD2_NOBARRIER)
+		write_flags &= ~(REQ_FUA | REQ_PREFLUSH);
+	else if (!(journal->j_flags & JBD2_BARRIER))
 		write_flags &= ~(REQ_FUA | REQ_PREFLUSH);
 	if (buffer_write_io_error(bh)) {
 		/*
