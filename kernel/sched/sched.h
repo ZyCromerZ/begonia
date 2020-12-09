@@ -52,15 +52,6 @@ struct cpuidle_state;
 
 extern unsigned int capacity_margin_freq;
 
-static inline unsigned long task_util(struct task_struct *p)
-{
-#ifdef CONFIG_SCHED_WALT
-	if (unlikely(!walt_disabled && sysctl_sched_use_walt_task_util))
-		return p->ravg.demand_scaled;
-#endif
-	return READ_ONCE(p->se.avg.util_avg);
-}
-
 extern __read_mostly bool sched_predl;
 extern unsigned int sched_capacity_margin_up[NR_CPUS];
 extern unsigned int sched_capacity_margin_down[NR_CPUS];
@@ -1998,6 +1989,16 @@ extern unsigned int walt_ravg_window;
 extern bool walt_disabled;
 
 #endif /* CONFIG_SMP */
+
+static inline unsigned long task_util(struct task_struct *p)
+{
+#ifdef CONFIG_SCHED_WALT
+	if (unlikely(!walt_disabled && sysctl_sched_use_walt_task_util))
+		return (p->ravg.demand /
+                (walt_ravg_window >> SCHED_CAPACITY_SHIFT));
+#endif
+	return READ_ONCE(p->se.avg.util_avg);
+}
 
 #ifdef CONFIG_MEDIATEK_SOLUTION
 extern void update_sched_hint(int sys_util, int sys_cap);
