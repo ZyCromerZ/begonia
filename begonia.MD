@@ -1,7 +1,10 @@
-# -- 12-02-2020 --
-* Upstream to 4.14.210 from https://android.googlesource.com/kernel/common branch android-4.14-q
-* compiled using using clang, gcc, dtc for all build
-* for kernel changes, just check my kernel commits history, im lazy to type it because only a few changes :p
+# -- 12-09-2020 --
+* Upstream to 4.14.211 from https://android.googlesource.com/kernel/common branch android-4.14-q
+* Drop GCC build, now only Clang and DTC
+* enable WALT scheduler
+* Backport MTK task turbo feature from bomb-q-oss (credit to @TheMalachite)
+* Checkout jbd2,f2fs,sdcardfs from bomb-q-oss (credit to @TheMalachite)
+* Fix some warning n error after enable WALT scheduler (sed)
 
 Note:
 * about info rebased kernel, just <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/README.MD">check here</a> for some info
