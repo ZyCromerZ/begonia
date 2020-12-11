@@ -548,7 +548,7 @@ struct sched_entity {
 #ifdef CONFIG_SCHED_WALT
 
 extern void sched_exit(struct task_struct *p);
-extern int register_cpu_cycle_counter_cb(struct cpu_cycle_counter_cb *cb);
+// extern int register_cpu_cycle_counter_cb(struct cpu_cycle_counter_cb *cb);
 extern void sched_set_io_is_busy(int val);
 extern int sched_set_group_id(struct task_struct *p, unsigned int group_id);
 extern unsigned int sched_get_group_id(struct task_struct *p);
@@ -591,12 +591,15 @@ struct ravg {
 	u32 curr_window, prev_window;
 	u16 active_windows;
 };
-#endif
+
+#else
 
 static inline int sched_set_boost(int enable)
 {
 	return -EINVAL;
 }
+
+#endif
 
 struct sched_rt_entity {
 	struct list_head		run_list;
@@ -1382,6 +1385,13 @@ struct task_struct {
 #ifdef CONFIG_SECURITY
 	/* Used by LSM modules for access restriction: */
 	void				*security;
+#endif
+#ifdef CONFIG_MTK_TASK_TURBO
+	unsigned short turbo:1;
+	unsigned short render:1;
+	unsigned short inherit_cnt:14;
+	short nice_backup;
+	atomic_t inherit_types;
 #endif
 
 #ifdef CONFIG_PREEMPT_MONITOR
