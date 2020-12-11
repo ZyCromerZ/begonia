@@ -27,6 +27,7 @@
 #include "ufshcd.h"
 #include "ufshcd-pltfrm.h"
 #include "unipro.h"
+#include "ufs_quirks.h"
 #include "ufs-mtk.h"
 #include "ufs-mtk-block.h"
 #include "ufs-mtk-platform.h"
@@ -75,6 +76,19 @@ static u16 *LBA_CRC16_ARRAY;
 static u16 *LBA_CRC16_ARRAY_NE;
 /* only do crc to first 32 byte of a 4K block to reduce cpu overhead */
 #define CRC16_CAL_SIZE (32)
+
+static u8 ufs_mtk_di_get_priv(struct scsi_cmnd *cmd)
+{
+	u8 priv;
+	const unsigned char *key = NULL;
+
+	hie_key_payload(&cmd->request->bio->bi_crypt_ctx, &key);
+	priv = key[0];
+	if (!priv)
+		priv++;
+
+	return priv;
+}
 
 /* Init Encryption and No Encryption array and others */
 void ufs_mtk_di_init(struct ufs_hba *hba)
