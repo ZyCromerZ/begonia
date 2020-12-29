@@ -46,6 +46,8 @@
 * QuantumKiller, Tercydux have some little stuff, so what is best? try it by ur self
 * QuantumKiller is only for non oc(cpu/gpu) kernels !!!
 * Tercydux for some gayming kernels, maybe xD
-* recomended to flash <a href="https://github.com/yc9559/qti-mem-opt/releases">this module</a> to fix ram management (<a href="https://github.com/yc9559/qti-mem-opt/releases/download/7.1/qti-mem-opt-v7.1-20200328.zip">direct link</a>) for all backported Android LMK, how about slmk one? u can flash this too :p
-* Open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/begonia.MD">begonia.MD file</a> To View The Kernel Changelogs
+* recomended to flash <a href="https://github.com/yc9559/qti-mem-opt/releases">this module</a> to fix ram management (<a href="https://github.com/yc9559/qti-mem-opt/releases/download/7.1/qti-mem-opt-v7.1-20200328.zip">direct link</a>) for all ALMK, how about SLMK one? try and tell :v
+* Open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/begonia.MD">begonia.MD file</a> To Read The Kernel Changelogs
 * Open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/download.MD">download.MD file</a> To See All Download Links For Stable Build
+* Open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/about-lmk.MD">about-lmk.MD file</a> To View Info LMK
+* Open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/about-compiler.MD">about-compiler.MD file</a> To View Info Compilers
