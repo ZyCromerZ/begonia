@@ -19,10 +19,14 @@
 
 # Function to show an informational message
 # need to defined
-# - branch
-# - spectrumFile
+# - just defined clang and gcc path
 # Then call CompileKernel and done
-
+MainPath=$(pwd)
+CLANG_PATH=$MainPath/../clang/google-clang/bin
+GCC_64=$MainPath/../gcc/aarch64-linux-android-4.9/bin
+GCC_32=$MainPath/../gcc/arm-linux-androideabi-4.9/bin
+CROSS_COMPILE=aarch64-linux-android-
+CROSS_COMPILE_ARM32=arm-linux-androideabi-
 MakeZip(){
     AnykernelPath=Anykernel3
     if [ ! -d $AnykernelPath ];then
@@ -47,41 +51,36 @@ MakeZip(){
     zip -r $MainPath/"[$TANGGAL]$KERNEL_NAME-$ZIP_KERNEL_VERSION.zip" ./ -x .git/**\* ./.git ./anykernel-real.sh ./.gitignore ./LICENSE ./README.md ./*.zip 
     cd $MainPath
 }
-if [ ! -d clang/google-clang ];then
+if [ ! -d $CLANG_PATH ];then
     [ ! -d clang ] && mkdir clang
-    git clone https://github.com/ZyCromerZ/google-clang -b 9.0.3-r353983c1 clang/google-clang
+    git clone https://github.com/ZyCromerZ/google-clang -b 9.0.3-r353983c1 $CLANG_PATH
 fi
-if [ ! -d gcc/aarch64-linux-android-4.9 ];then
+if [ ! -d $GCC_64 ];then
     [ ! -d gcc ] && mkdir gcc
-    git clone https://github.com/ZyCromerZ/aarch64-linux-android-4.9 -b android-10.0.0_r47 gcc/aarch64-linux-android-4.9
+    git clone https://github.com/ZyCromerZ/aarch64-linux-android-4.9 -b android-10.0.0_r47 $GCC_64
 fi
-if [ ! -d gcc/arm-linux-androideabi-4.9 ];then
+if [ ! -d $GCC_32 ];then
     [ ! -d gcc ] && mkdir gcc
-    git clone https://github.com/ZyCromerZ/arm-linux-androideabi-4.9 -b android-10.0.0_r47 gcc/arm-linux-androideabi-4.9
+    git clone https://github.com/ZyCromerZ/arm-linux-androideabi-4.9 -b android-10.0.0_r47 $GCC_32
 fi
 HeadCommit="$(git log --pretty=format:'%h' -1)"
 export ARCH="arm64"
 export SUBARCH="arm64"
 export KBUILD_BUILD_USER="ZyCromerZ"
 export KBUILD_BUILD_HOST="Lnix-$HeadCommit"
-export CCACHE_DIR="begonia/ccache"
-MainPath=$(pwd)
 Defconfig="begonia_user_defconfig"
 KERNEL_NAME=$(cat "$MainPath/arch/arm64/configs/$Defconfig" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
 ZIP_KERNEL_VERSION="4.14.$(cat "$MainPath/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//g')$(cat "$(pwd)/Makefile" | grep "EXTRAVERSION =" | sed 's/EXTRAVERSION = *//g')"
 GetCore=$(nproc --all)
 TANGGAL=$(date +"%m%d")
-
 MAKE="./makeparallel"
-rm -rf/out
+rm -rf out
 make -j$(($GetCore))  O=out ARCH="arm64" SUBARCH="arm64" "$Defconfig"
-
 make -j$(($GetCore))  O=out \
-                            PATH="clang/google-clang/bin:gcc/aarch64-linux-android-4.9/bin:gcc/arm-linux-androideabi-4.9/bin:${PATH}" \
-                            LD_LIBRARY_PATH="clang/google-clang/lib64:${LD_LIBRARY_PATH}" \
-                            CC="ccache clang" \
-                            CROSS_COMPILE=aarch64-linux-android- \
-                            CROSS_COMPILE_ARM32=arm-linux-androideabi- \
+                            PATH="$CLANG_PATH:$GCC_64:$GCC_32:${PATH}" \
+                            CC=clang \
+                            CROSS_COMPILE=$CROSS_COMPILE \
+                            CROSS_COMPILE_ARM32=$CROSS_COMPILE_ARM32 \
                             CLANG_TRIPLE=aarch64-linux-gnu-
 if [ -e/out/arch/arm64/boot/Image.gz-dtb ];then
     MakeZip

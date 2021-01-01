@@ -61,3 +61,4 @@
 * Open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/download.MD">download.MD file</a> To See All Download Links For Stable Build
 * Open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/about-lmk.MD">about-lmk.MD file</a> To View Info LMK
 * Open <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/about-compiler.MD">about-compiler.MD file</a> To View Info Compilers
+* use this <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/build.sh">build.sh</a> To Compile this kernels
