@@ -1297,7 +1297,7 @@ PVRSRV_ERROR OSCopyToUser(void *pvProcess, void __user *pvDest, const void *pvSr
 */ /**************************************************************************/
 PVRSRV_ERROR OSCopyFromUser(void *pvProcess, void *pvDest, const void __user *pvSrc, size_t ui32Bytes);
 
-#if defined(__linux__) || defined(INTEGRITY_OS)
+#if defined(__linux__) || defined(__GNUC__) || defined(INTEGRITY_OS)
 #define OSBridgeCopyFromUser OSCopyFromUser
 #define OSBridgeCopyToUser OSCopyToUser
 #else
