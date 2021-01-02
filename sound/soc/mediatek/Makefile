@@ -10,7 +10,7 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 #
-subdir-ccflags-y += -Werror
+subdir-ccflags-y += -Werror -Wno-implicit-function-declaration
 
 #scp smartpa related code
 obj-$(CONFIG_SND_SOC_MTK_SCP_SMARTPA) += scp_spk/
