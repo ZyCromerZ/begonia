@@ -50,7 +50,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define DEVICES_WATCHDOG_POWER_OFF_SLEEP_TIMEOUT (3600000)
 #define WAIT_TRY_COUNT                           (10000)
 
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 #define SYS_RGX_DEV_NAME    "rgxnohw"
 #endif
 

@@ -48,7 +48,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "osfunc.h"
 
 
-#if defined(__linux__) || defined(__QNXNTO__) || defined(INTEGRITY_OS)
+#if defined(__linux__) || defined(__GNUC__) || defined(__QNXNTO__) || defined(INTEGRITY_OS)
 PVRSRV_ERROR OSConnectionPrivateDataInit(IMG_HANDLE *phOsPrivateData, void *pvOSData);
 PVRSRV_ERROR OSConnectionPrivateDataDeInit(IMG_HANDLE hOsPrivateData);
 
