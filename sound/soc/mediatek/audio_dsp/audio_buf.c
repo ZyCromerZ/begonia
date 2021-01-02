@@ -3,7 +3,7 @@
 // Copyright (C) 2018 MediaTek Inc.
 
 /* linux include path*/
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 #include <linux/uaccess.h>
 #include <sound/pcm.h>
 #include <sound/core.h>
@@ -24,7 +24,7 @@
 #endif
 
 #ifdef CFG_AUDIO_SUPPORT
-#include <audio_type.h>
+// #include <audio_type.h>
 #include <audio_ringbuf.h>
 #include <dma.h>
 #include "audio_hw_reg.h"
@@ -420,7 +420,7 @@ void dump_audio_dsp_dram(struct audio_dsp_dram *dsp_dram)
 		dsp_dram->phy_addr, dsp_dram->size);
 }
 
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 
 int release_snd_dmabuffer(struct snd_dma_buffer *dma_buffer)
 {
@@ -742,28 +742,28 @@ void Ringbuf_Bridge_Check(struct ringbuf_bridge *buf_bridge)
 {
 	if (buf_bridge->pRead > buf_bridge->pBufBase + buf_bridge->bufLen) {
 		dump_rbuf_bridge(buf_bridge);
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 		dump_stack();
 #endif
 		AUD_ASSERT(0);
 	}
 	if (buf_bridge->pWrite > buf_bridge->pBufBase + buf_bridge->bufLen) {
 		dump_rbuf_bridge(buf_bridge);
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 		dump_stack();
 #endif
 		AUD_ASSERT(0);
 	}
 	if (buf_bridge->pWrite < buf_bridge->pBufBase) {
 		dump_rbuf_bridge(buf_bridge);
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 		dump_stack();
 #endif
 		AUD_ASSERT(0);
 	}
 	if (buf_bridge->pRead < buf_bridge->pBufBase) {
 		dump_rbuf_bridge(buf_bridge);
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 		dump_stack();
 #endif
 		AUD_ASSERT(0);
@@ -778,7 +778,7 @@ void Ringbuf_Check(struct RingBuf *RingBuf1)
 		if (RingBuf1->datacount != 0 && RingBuf1->datacount
 		    != RingBuf1->bufLen) {
 			dump_ring_bufinfo(RingBuf1);
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 			dump_stack();
 #endif
 			AUD_ASSERT(0);
@@ -789,7 +789,7 @@ void Ringbuf_Check(struct RingBuf *RingBuf1)
 		if ((RingBuf1->pWrite - RingBuf1->pRead)
 		     != RingBuf1->datacount) {
 			dump_ring_bufinfo(RingBuf1);
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 			dump_stack();
 #endif
 			AUD_ASSERT(0);
@@ -800,7 +800,7 @@ void Ringbuf_Check(struct RingBuf *RingBuf1)
 		if ((RingBuf1->bufLen - (RingBuf1->pRead - RingBuf1->pWrite))
 		     != RingBuf1->datacount) {
 			dump_ring_bufinfo(RingBuf1);
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 			dump_stack();
 #endif
 			AUD_ASSERT(0);
@@ -810,7 +810,7 @@ void Ringbuf_Check(struct RingBuf *RingBuf1)
 	if (RingBuf1->pWrite < RingBuf1->pBufBase ||
 	    RingBuf1->pWrite > RingBuf1->pBufEnd) {
 		dump_rbuf(RingBuf1);
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 		dump_stack();
 #endif
 		AUD_ASSERT(0);
@@ -818,14 +818,14 @@ void Ringbuf_Check(struct RingBuf *RingBuf1)
 	if (RingBuf1->pRead < RingBuf1->pBufBase ||
 	    RingBuf1->pRead > RingBuf1->pBufEnd) {
 		dump_rbuf(RingBuf1);
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 		dump_stack();
 #endif
 		AUD_ASSERT(0);
 	}
 	if (RingBuf1->datacount < 0) {
 		dump_ring_bufinfo(RingBuf1);
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 		dump_stack();
 #endif
 		AUD_ASSERT(0);
@@ -1088,7 +1088,7 @@ void dump_rbuf_bridge(struct ringbuf_bridge *ring_buffer_bridge)
 {
 	if (ring_buffer_bridge == NULL)
 		return;
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 	pr_info("%s pBufBase = 0x%llx pBufEnd = 0x%llx pRead = 0x%llx pWrite = 0x%llx bufLen=%llu readidx = %llu writeidx = %llu\n",
 		 __func__, ring_buffer_bridge->pBufBase,
 		 ring_buffer_bridge->pBufEnd, ring_buffer_bridge->pRead,
@@ -1118,7 +1118,7 @@ void dump_rbuf_bridge_s(const char *appendingstring,
 {
 	if (ring_buffer_bridge == NULL)
 		return;
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 	pr_info("%s %s pBufBase = 0x%llx pBufEnd = 0x%llx pRead = 0x%llx pWrite = 0x%llx bufLen=%llu readidx = %llu writeidx = %llu\n",
 		appendingstring, __func__, ring_buffer_bridge->pBufBase,
 		ring_buffer_bridge->pBufEnd, ring_buffer_bridge->pRead,
@@ -1147,7 +1147,7 @@ void dump_rbuf(struct RingBuf *ring_buffer)
 {
 	if (ring_buffer == NULL)
 		return;
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 	pr_info("%s Base[%p] End[%p] R[%p] w[%p] Len[%d] count[%d]\n",
 		__func__,
 		ring_buffer->pBufBase,
@@ -1172,7 +1172,7 @@ void dump_rbuf_s(const char *appendingstring, struct RingBuf *ring_buffer)
 {
 	if (ring_buffer == NULL)
 		return;
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 	pr_info("%s %s Base[%p] End[%p] R[%p] w[%p] Len[%d] count[%d]\n",
 		appendingstring, __func__,
 		ring_buffer->pBufBase,
@@ -1234,7 +1234,7 @@ void dump_audio_hwbuffer(struct audio_hw_buffer *audio_hwbuf)
 
 void dump_ring_bufinfo(struct RingBuf *buf)
 {
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 	pr_info(
 		"pBufBase = %p pBufEnd = %p  pread = %p p write = %p DataCount = %u freespace = %u\n",
 		buf->pBufBase, buf->pBufEnd, buf->pRead, buf->pWrite,
