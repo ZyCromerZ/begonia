@@ -3,6 +3,9 @@
 
 # DTC
 * performance based
+# GCC
+* battery backup based (or maybe same as clang one)
+* still not tested yet !!
 
 # Some QnA
 Q: best performance ?<br>
