@@ -213,8 +213,8 @@ void _show_t_CM_ary(void)
 /*get region from SSMR*/
 static int ssmr_get(u64 *pa, u32 *size, u32 feat)
 {
-	phys_addr_t ssmr_pa;
-	unsigned long ssmr_size;
+	phys_addr_t ssmr_pa = 0;
+	unsigned long ssmr_size = 0;
 
 	if (ssmr_offline(&ssmr_pa, &ssmr_size, true, feat)) {
 		KREE_ERR("ssmr offline failed (feat:%d)!\n", feat);
