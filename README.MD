@@ -14,7 +14,7 @@
 * QuantumKiller-N:
     * Normal CPU Frequency
     * Gpu Frequency 806 Mhz (default)
-    * 80Hz kernel timefrequency
+    * 100Hz kernel timefrequency
 * Tercydux-Tiris: 
     * Normal CPU Frequency
     * Gpu Frequency 850 Mhz
