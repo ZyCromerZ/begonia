@@ -1078,7 +1078,18 @@ static int cpu_down_maps_locked(unsigned int cpu, enum cpuhp_state target)
 
 static int do_cpu_down(unsigned int cpu, enum cpuhp_state target)
 {
+	struct cpumask newmask;
 	int err;
+
+	preempt_disable();
+	cpumask_andnot(&newmask, cpu_online_mask, cpumask_of(cpu));
+	preempt_enable();
+
+	/* One big, LITTLE, and prime CPU must remain online */
+	if (!cpumask_intersects(&newmask, cpu_lp_mask) ||
+	    !cpumask_intersects(&newmask, cpu_perf_mask) ||
+	    !cpumask_intersects(&newmask, cpu_prime_mask))
+		return -EINVAL;
 
 	cpu_maps_update_begin();
 	err = cpu_down_maps_locked(cpu, target);
@@ -1336,7 +1347,7 @@ void enable_nonboot_cpus(void)
 	arch_enable_nonboot_cpus_end();
 
 	cpumask_clear(frozen_cpus);
-	reaffine_perf_irqs();
+	reaffine_perf_irqs(false);
 out:
 	cpu_maps_update_done();
 }
