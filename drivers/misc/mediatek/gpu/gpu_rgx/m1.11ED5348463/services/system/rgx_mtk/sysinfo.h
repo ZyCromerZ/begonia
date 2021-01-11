@@ -76,7 +76,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #else
 #endif
 
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 /*
  * Use the static bus ID for the platform DRM device.
  */

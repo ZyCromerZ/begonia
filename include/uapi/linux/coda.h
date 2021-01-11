@@ -97,7 +97,7 @@ typedef unsigned long long u_quad_t;
 #endif /* !DJGPP */
 
 
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 #include <linux/time.h>
 #define cdev_t u_quad_t
 #ifndef __KERNEL__

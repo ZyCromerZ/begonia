@@ -51,7 +51,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #define SYS_RGX_OF_COMPATIBLE "arm,rogue-G6110"
 
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 #define SYS_RGX_DEV_NAME "rgxrk3368"
 #endif
 
