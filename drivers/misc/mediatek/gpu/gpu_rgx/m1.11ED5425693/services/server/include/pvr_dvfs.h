@@ -103,7 +103,7 @@ typedef struct _IMG_DVFS_GOVERNOR_CFG_
 } IMG_DVFS_GOVERNOR_CFG;
 #endif
 
-#if defined(__linux__)
+#if defined(__linux__) || defined(__GNUC__)
 #if defined(PVR_DVFS)
 typedef struct _IMG_DVFS_DEVICE_
 {

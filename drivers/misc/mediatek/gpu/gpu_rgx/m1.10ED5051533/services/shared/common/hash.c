@@ -74,14 +74,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define	KEY_COMPARE(pHash, pKey1, pKey2) \
 	((pHash)->pfnKeyComp((pHash)->uKeySize, (pKey1), (pKey2)))
 
-#if defined(__linux__) && defined(__KERNEL__)
+#if defined(__linux__) || defined(__GNUC__)
+#if defined(__KERNEL__)
 #define _AllocMem OSAllocMemNoStats
 #define _AllocZMem OSAllocZMemNoStats
 #define _FreeMem OSFreeMemNoStats
-#else
+#endif
+#endif
+#if !defined(__linux__) || !defined(__GNUC__)
+#if !defined(__KERNEL__)
 #define _AllocMem OSAllocMem
 #define _AllocZMem OSAllocZMem
 #define _FreeMem OSFreeMem
+#endif
 #endif
 
 #define NO_SHRINK 0
