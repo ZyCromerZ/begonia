@@ -40,6 +40,11 @@
     * Gpu Frequency 850 Mhz
     * Using Simple LMK
     * higher than Tercydux kernels
+* DeathFlower-Ganyu
+    * Normal CPU Frequency
+    * Gpu Frequency 850 Mhz
+    * Using Stock LMK
+    * higher than Tercydux kernels
 * StockMod:
     * enabled f2fs
     * using backported bfq from 4.9 kernels and set it as default
