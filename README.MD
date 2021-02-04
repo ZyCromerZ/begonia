@@ -2,9 +2,10 @@
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/qk-n"> QuantumKiller-L AOSP CFW Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/qk-n"> QuantumKiller-N AOSP CFW Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/Tercydux-Tiris"> Tercydux-Tiris AOSP CFW Kernel Source </a>
-* <a href="https://github.com/ZyCromerZ/begonia/tree/mi10/20200829-qk-n"> QuantumKiller-N Miui Android 10 Kernel Source </a>
-* <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/root-upstream"> Stock Kernel Source </a>
-* <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/root-upstream-mod"> Modified Stock Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/root-upstream"> Stock Kernel CFW AOSP Android 10/11 Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/root-upstream-mod"> Modified Stock Kernel CFW AOSP Android 10/11 Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/q-oos-upstream"> Stock Kernel Non CFW AOSP Android 11 Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/q-oos-upstream-mod"> Stock Kernel Non CFW AOSP Android 11 Kernel Source </a>
 
 # INFO kernel
 * QuantumKiller-L: 
@@ -45,10 +46,14 @@
     * Gpu Frequency 850 Mhz
     * Using Stock LMK
     * higher than Tercydux kernels
-* StockMod:
+* StockMod AOSP CFW:
     * enabled f2fs
     * using backported bfq from 4.9 kernels and set it as default
     * plus have script to remove spectrum from my other kernels :v 
+    * can be builded using gcc 10.0.2
+* StockMod Mod AOSP CFW:
+    * have script to remove spectrum from my other kernels :v 
+    * can be builded using gcc 10.0.2
 
 # Notes
 * All BIG core Kernels Are Underclocked With A Minimum Frequency Up To 500 Mhz
