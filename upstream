@@ -1,0 +1,58 @@
+#! /bin/bash
+if [ ! -z "$1" ] && [ "$1" == "a" ];then
+    DoFor="Kernel"
+else
+    DoFor="Upstream"
+fi
+if [ ! -z "$2" ];then
+    TAGS="-rc"
+else
+    TAGS=""
+fi
+if [ ! -z "$3" ];then
+    fromTags="$3"
+else
+    fromTags="linux-4.14.y"
+fi
+upstreamStable(){
+    branch=$1
+    git checkout $branch && \
+    git pull . 20210205/main --no-ff --no-commit && git commit -s -m "Merge branch '20210205/main' into $branch"
+    git pull . q-oss-upstream --no-ff --no-commit && git commit -s -m "Merge branch 'q-oss-upstream' into $branch"
+    git checkout 20210205/main
+}
+upstreamRc(){
+    branch=$1
+    git checkout $branch && git branch -D $branch$TAGS && git checkout -b $branch$TAGS && \
+    git pull . q-oss-upstream-rc --no-ff --no-commit && git commit -s -m "Merge branch 'q-oss-upstream-rc' into $branch"
+    git checkout 20210205/main
+}
+if [ "$DoFor" == "Kernel" ];then
+    for typeKernel in 20210205/qk-l 20210205/qk-n 20210205/Tercydux-Tiris 20210205/Tercydux-Santuy 20210205/Tercydux-Hareudang 20210205/df-keqing 20210205/df-mona 20210205/df-ganyu
+    do
+        if [ "$TAGS" == "-rc" ];then
+            upstreamRc $typeKernel
+        else
+            upstreamStable $typeKernel
+        fi
+    done
+else
+    for typeBranch in q-oss-upstream q-oss-upstream-mod
+    do
+        git checkout $typeBranch
+        if [ "$TAGS" == "-rc" ];then
+            UpUrl="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git"
+            UpTags="$fromTags"
+            git branch -D $typeBranch$TAGS
+            git checkout -b $typeBranch$TAGS
+        else 
+            UpUrl="https://android.googlesource.com/kernel/common"
+            UpTags="android-4.14-q"
+        fi
+        git fetch $UpUrl $UpTags
+        git merge FETCH_HEAD --no-ff --no-commit
+        KVer=$(make kernelversion)
+        git commit -s -m "Merge tag '$KVer' of $UpUrl into $typeBranch"
+    done
+    git checkout 20210205/main
+fi
