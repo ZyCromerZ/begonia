@@ -1,9 +1,12 @@
 # INFO branch kernel for Begonia
-* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/qk-n"> QuantumKiller-L AOSP CFW Kernel Source </a>
-* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/qk-n"> QuantumKiller-N AOSP CFW Kernel Source </a>
-* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/Tercydux-Tiris"> Tercydux-Tiris AOSP CFW Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/qk-n"> QuantumKiller-L CFW AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/qk-n"> QuantumKiller-N CFW AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/Tercydux-Tiris"> Tercydux-Tiris CFW AOSP Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/root-upstream"> Stock Kernel CFW AOSP Android 10/11 Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/root-upstream-mod"> Modified Stock Kernel CFW AOSP Android 10/11 Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/qk-n"> QuantumKiller-L Non CFW AOSP Android 11 Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/qk-n"> QuantumKiller-N Non CFW AOSP Android 11 Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/Tercydux-Tiris"> Tercydux-Tiris Non CFW AOSP Android 11 Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/q-oos-upstream"> Stock Kernel Non CFW AOSP Android 11 Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/q-oos-upstream-mod"> Stock Kernel Non CFW AOSP Android 11 Kernel Source </a>
 
@@ -46,12 +49,12 @@
     * Gpu Frequency 850 Mhz
     * Using Stock LMK
     * higher than Tercydux kernels
-* StockMod AOSP CFW:
+* StockMod CFW AOSP:
     * enabled f2fs
     * using backported bfq from 4.9 kernels and set it as default
     * plus have script to remove spectrum from my other kernels :v 
     * can be builded using gcc 10.0.2
-* StockMod Mod AOSP CFW:
+* StockMod Mod CFW AOSP:
     * have script to remove spectrum from my other kernels :v 
     * can be builded using gcc 10.0.2
 
@@ -60,7 +63,8 @@
 * If U Need More Stable Use QK-N Instead
 * If U Need More Battery Backup Use QK-L Instead
 * The Tercydux Kernels Is Just An More-Overclocked Kernels :V
-* AOSP-CFW kernels zip name for AOSP CFW
+* AOSP-CFW kernels zip name for CFW AOSP
+* AOSP-RIPCFW kernels zip name for NON CFW AOSP, how about flashed on memeui? <a href="https://github.com/ZyCromerZ/begonia/blob/changelogs/rip.cfw.info.MD">check this</a>
 * Miui-10 kernels zip name for Miui Android 10 
 * too many kernels? i know, im lazy to made some changes to my previous kernel so i made new one instead so no more request something that only available from from old kernel one maybe xD
 * QuantumKiller, Tercydux have some little stuff, so what is best? try it by ur self
