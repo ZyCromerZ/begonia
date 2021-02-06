@@ -1,3 +1,9 @@
+# -- 02-06-2021 --
+* rebuild all aosp cfw/non cfw for qk tercy df
+* fix df tercy not booted
+* fix qk-n clang stock lmk variant not compiled using clang stock lmk (it wass gcc slmk previous one)
+* last build for cfw kernels
+
 # -- 02-05-2021 --
 * fix auto download kernel link for all stock aosp cfw/non cfw
 * initial build for non cfw roms for qk df tercydux
