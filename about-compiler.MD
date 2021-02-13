@@ -5,14 +5,13 @@
 * performance based
 # GCC
 * battery backup based (or maybe same as clang one)
-* still not tested yet !!
 
 # Some QnA
 Q: best performance ?<br>
 A: DTC one<br>
 
 Q: Best Battery Backup ?<br>
-A: Clang one<br>
+A: GCC one<br>
 
 Q: balanced ?<br>
 A: Clang one<br>
