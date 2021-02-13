@@ -1,6 +1,9 @@
 # Kernel Link 
 * <a href="https://www.pling.com/p/1406315/#files-panel"> >> check here << </a>
 
+# for DF and tercydux links
+* link moved, check this post : https://t.me/QknTercyduxGroup/224447
+
 # if u want only stock kernel and have franco kernel manager
 * just load this link from franco kernel manager on flasher > import a kernel configuraion > paste link here
     * stock CFW clang link : https://raw.githubusercontent.com/ZyCromerZ/kernel-download-generator/stock-clang/begonia-stock-clang.json
