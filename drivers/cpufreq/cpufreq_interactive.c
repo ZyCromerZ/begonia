@@ -1339,7 +1339,7 @@ void cpufreq_interactive_limits(struct cpufreq_policy *policy)
 static struct interactive_governor interactive_gov = {
 	.gov = {
 		.name			= "interactive",
-		.dynamic_switching = false,
+		.dynamic_switching = true,
 		.owner			= THIS_MODULE,
 		.init			= cpufreq_interactive_init,
 		.exit			= cpufreq_interactive_exit,

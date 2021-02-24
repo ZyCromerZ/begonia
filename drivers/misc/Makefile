@@ -63,7 +63,8 @@ obj-$(CONFIG_MEMORY_STATE_TIME)	+= memory_state_time.o
 obj-$(CONFIG_MEDIATEK_SOLUTION) += mediatek/
 obj-$(CONFIG_SPI_XIAOMI_TP) += spi-xiaomi-tp.o
 
-lkdtm-$(CONFIG_LKDTM)		+= lkdtm_core.o
+obj-$(CONFIG_BATTERY_SAVER)	+= battery_saver.o
+lkdtm-$(CONFIG_LKDTM)       += lkdtm_core.o
 lkdtm-$(CONFIG_LKDTM)		+= lkdtm_bugs.o
 lkdtm-$(CONFIG_LKDTM)		+= lkdtm_heap.o
 lkdtm-$(CONFIG_LKDTM)		+= lkdtm_perms.o

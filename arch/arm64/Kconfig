@@ -1265,6 +1265,13 @@ config COMPAT
 
 	  If you want to execute 32-bit userspace applications, say Y.
 
+config COMPAT_VDSO
+	def_bool y
+
+config KUSER_HELPERS
+	bool "Enable kuser helpers in vector page"
+	default y
+
 config SYSVIPC_COMPAT
 	def_bool y
 	depends on COMPAT && SYSVIPC

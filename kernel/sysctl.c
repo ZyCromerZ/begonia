@@ -66,7 +66,7 @@
 #include <linux/kexec.h>
 #include <linux/bpf.h>
 #include <linux/mount.h>
-
+#include <linux/battery_saver.h>
 #include <linux/uaccess.h>
 #include <asm/processor.h>
 
@@ -98,6 +98,9 @@
 #if defined(CONFIG_SYSCTL)
 
 /* External variables not in a header file. */
+#ifdef CONFIG_USB
+extern int deny_new_usb;
+#endif
 extern int suid_dumpable;
 #ifdef CONFIG_COREDUMP
 extern int core_uses_pid;
@@ -945,6 +948,17 @@ static struct ctl_table kern_table[] = {
 		.proc_handler	= proc_dointvec_minmax_sysadmin,
 		.extra1		= &zero,
 		.extra2		= &two,
+	},
+#endif
+#ifdef CONFIG_USB
+	{
+		.procname	= "deny_new_usb",
+		.data		= &deny_new_usb,
+		.maxlen		= sizeof(int),
+		.mode		= 0644,
+		.proc_handler	= proc_dointvec_minmax_sysadmin,
+		.extra1		= &zero,
+		.extra2		= &one,
 	},
 #endif
 	{
@@ -3235,6 +3249,41 @@ int proc_do_large_bitmap(struct ctl_table *table, int write,
 		return err;
 	}
 }
+
+#ifndef CONFIG_SCHED_WALT
+int sched_boost_handler(struct ctl_table *table, int write,
+		void __user *buffer, size_t *lenp,
+		loff_t *ppos)
+{
+	int ret;
+	unsigned int *data = (unsigned int *)table->data;
+
+	ret = proc_dointvec_minmax(table, write, buffer, lenp, ppos);
+
+	if (ret || !write)
+		return ret;
+
+	pr_debug("%s set sb to %i\n", current->comm, *data);
+
+#ifdef CONFIG_DYNAMIC_STUNE_BOOST
+	if (is_battery_saver_on())
+		return ret;
+
+	if (*data == 1) {
+		do_stune_boost("top-app", 20, &boost_slot_ta);
+		do_stune_boost("foreground", 5, &boost_slot_fg);
+	} else if (*data == 3) {
+		do_stune_boost("top-app", 10, &boost_slot_ta);
+		do_stune_boost("foreground", 1, &boost_slot_fg);
+	} else {
+		reset_stune_boost("top-app", boost_slot_ta);
+		reset_stune_boost("foreground", boost_slot_fg);
+	}
+#endif
+
+	return ret;
+}
+#endif
 
 #else /* CONFIG_PROC_SYSCTL */
 
