@@ -188,3 +188,7 @@ obj-$(CONFIG_TRUSTY)	+= trusty/
 obj-$(CONFIG_NXP_P73_DEVICES) += p73-spi/
 
 
+
+# optimise for size
+subdir-ccflags-y += $(call cc-option, -g0)
+subdir-ccflags-y += $(call cc-option, -Os)

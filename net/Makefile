@@ -87,3 +87,7 @@ obj-y				+= l3mdev/
 endif
 obj-$(CONFIG_QRTR)		+= qrtr/
 obj-$(CONFIG_NET_NCSI)		+= ncsi/
+
+# optimise for size
+subdir-ccflags-y += $(call cc-option, -g0)
+subdir-ccflags-y += $(call cc-option, -Os)

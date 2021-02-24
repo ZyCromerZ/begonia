@@ -111,3 +111,8 @@ obj-$(CONFIG_DEBUG_PAGE_REF) += debug_page_ref.o
 obj-$(CONFIG_HARDENED_USERCOPY) += usercopy.o
 obj-$(CONFIG_PERCPU_STATS) += percpu-stats.o
 obj-$(CONFIG_HMM) += hmm.o
+
+# Squeeze a little bit more juice
+ccflags-y := -O3
+ccflags-y += $(call cc-option, -g0)
+ccflags-y += $(call cc-option, -Os)
