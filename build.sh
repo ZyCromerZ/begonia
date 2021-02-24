@@ -22,9 +22,9 @@
 # - just defined clang and gcc path
 # Then call CompileKernel and done
 MainPath=$(pwd)
-CLANG_PATH=$MainPath/../clang/google-clang/bin
-GCC_64=$MainPath/../gcc/aarch64-linux-android-4.9/bin
-GCC_32=$MainPath/../gcc/arm-linux-androideabi-4.9/bin
+CLANG_PATH=$MainPath/../clang
+GCC_64=$MainPath/../gcc
+GCC_32=$MainPath/../gcc
 CROSS_COMPILE=aarch64-linux-android-
 CROSS_COMPILE_ARM32=arm-linux-androideabi-
 MakeZip(){
@@ -53,7 +53,7 @@ MakeZip(){
 }
 if [ ! -d $CLANG_PATH ];then
     [ ! -d clang ] && mkdir clang
-    git clone https://github.com/ZyCromerZ/google-clang -b 9.0.3-r353983c1 $CLANG_PATH
+    git clone https://github.com/ZyCromerZ/google-clang -b 9.0.4-r353983d $CLANG_PATH
 fi
 if [ ! -d $GCC_64 ];then
     [ ! -d gcc ] && mkdir gcc
@@ -77,7 +77,7 @@ MAKE="./makeparallel"
 rm -rf out
 make -j$(($GetCore))  O=out ARCH="arm64" SUBARCH="arm64" "$Defconfig"
 make -j$(($GetCore))  O=out \
-                            PATH="$CLANG_PATH:$GCC_64:$GCC_32:${PATH}" \
+                            PATH="$CLANG_PATH/bin:$GCC_64/bin:$GCC_32/bin:${PATH}" \
                             CC=clang \
                             CROSS_COMPILE=$CROSS_COMPILE \
                             CROSS_COMPILE_ARM32=$CROSS_COMPILE_ARM32 \
