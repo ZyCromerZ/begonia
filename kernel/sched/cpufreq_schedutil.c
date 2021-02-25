@@ -538,10 +538,7 @@ static ssize_t up_rate_limit_us_store(struct gov_attr_set *attr_set,
 {
 	struct sugov_tunables *tunables = to_sugov_tunables(attr_set);
 	struct sugov_policy *sg_policy;
-	unsigned int rate_limit_us;
-
-	if (kstrtouint(buf, 10, &rate_limit_us))
-		return -EINVAL;
+	unsigned int rate_limit_us = CONFIG_SCHEDUTIL_UP_RATE_LIMIT;
 
 	tunables->up_rate_limit_us = rate_limit_us;
 
@@ -558,10 +555,7 @@ static ssize_t down_rate_limit_us_store(struct gov_attr_set *attr_set,
 {
 	struct sugov_tunables *tunables = to_sugov_tunables(attr_set);
 	struct sugov_policy *sg_policy;
-	unsigned int rate_limit_us;
-
-	if (kstrtouint(buf, 10, &rate_limit_us))
-		return -EINVAL;
+	unsigned int rate_limit_us = CONFIG_SCHEDUTIL_DOWN_RATE_LIMIT;
 
 	tunables->down_rate_limit_us = rate_limit_us;
 
@@ -579,6 +573,7 @@ int schedutil_set_down_rate_limit_us(int cpu, unsigned int rate_limit_us)
 	struct sugov_policy *sg_policy;
 	struct sugov_tunables *tunables;
 	struct gov_attr_set *attr_set;
+	rate_limit_us = CONFIG_SCHEDUTIL_UP_RATE_LIMIT;
 
 	policy = cpufreq_cpu_get(cpu);
 	if (!policy)
@@ -619,6 +614,7 @@ int schedutil_set_up_rate_limit_us(int cpu, unsigned int rate_limit_us)
 	struct sugov_policy *sg_policy;
 	struct sugov_tunables *tunables;
 	struct gov_attr_set *attr_set;
+	rate_limit_us = CONFIG_SCHEDUTIL_UP_RATE_LIMIT;
 
 	policy = cpufreq_cpu_get(cpu);
 	if (!policy)
@@ -804,8 +800,8 @@ static int sugov_init(struct cpufreq_policy *policy)
 		goto stop_kthread;
 	}
 
-	tunables->up_rate_limit_us = cpufreq_policy_transition_delay_us(policy);
-	tunables->down_rate_limit_us = cpufreq_policy_transition_delay_us(policy);
+	tunables->up_rate_limit_us = CONFIG_SCHEDUTIL_UP_RATE_LIMIT;
+	tunables->down_rate_limit_us = CONFIG_SCHEDUTIL_DOWN_RATE_LIMIT;
 
 	policy->governor_data = sg_policy;
 	sg_policy->tunables = tunables;
