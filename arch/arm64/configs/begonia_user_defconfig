@@ -4408,6 +4408,11 @@ CONFIG_NVMEM=y
 #
 # CONFIG_FSI is not set
 # CONFIG_TEE is not set
+CONFIG_OPCHAIN=y
+CONFIG_DEFRAG_HELPER=y
+CONFIG_CRPL_HELPER=y
+CONFIG_ADJ_CHAIN=y
+CONFIG_HOUSTON=y
 
 #
 # Near Field Communication (NFC) devices

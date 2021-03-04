@@ -216,3 +216,5 @@ source "drivers/nfc/Kconfig"
 source "drivers/p73-spi/Kconfig"
 
 endmenu
+
+source "coretech/Kconfig"
