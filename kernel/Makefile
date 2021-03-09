@@ -134,7 +134,9 @@ targets += config_data.h
 $(obj)/config_data.h: $(obj)/config_data.gz FORCE
 	$(call filechk,ikconfiggz)
 
+ifeq ($(cc-name),clang)
 # Squeeze a little bit more juice
 ccflags-y := -O3
 ccflags-y += $(call cc-option, -g0)
 ccflags-y += $(call cc-option, -Os)
+endif
