@@ -5,6 +5,8 @@ obj-$(CONFIG_SAMPLES)	+= kobject/ kprobes/ trace_events/ livepatch/ \
 			   configfs/ connector/ v4l/ trace_printk/ blackfin/ \
 			   vfio-mdev/ statx/
 
+ifeq ($(cc-name),clang)
 # optimise for size
 subdir-ccflags-y += $(call cc-option, -g0)
 subdir-ccflags-y += $(call cc-option, -Os)
+endif
