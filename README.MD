@@ -1,14 +1,28 @@
 # INFO branch kernel for Begonia
-* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/qk-n"> QuantumKiller-L CFW AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/qk-l"> QuantumKiller-L CFW AOSP Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/qk-n"> QuantumKiller-N CFW AOSP Kernel Source </a>
-* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/Tercydux-Tiris"> Tercydux-Tiris CFW AOSP Kernel Source </a>
-* <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/root-upstream"> Stock Kernel CFW AOSP Android 10/11 Kernel Source </a>
-* <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/root-upstream-mod"> Modified Stock Kernel CFW AOSP Android 10/11 Kernel Source </a>
-* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/qk-n"> QuantumKiller-L Non CFW AOSP Android 11 Kernel Source </a>
-* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/qk-n"> QuantumKiller-N Non CFW AOSP Android 11 Kernel Source </a>
-* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/Tercydux-Tiris"> Tercydux-Tiris Non CFW AOSP Android 11 Kernel Source </a>
-* <a href="https://github.com/ZyCromerZ/begonia/tree/q-oss-upstream"> Stock Kernel Non CFW AOSP Android 11 Kernel Source </a>
-* <a href="https://github.com/ZyCromerZ/begonia/tree/q-oss-upstream-mod"> Stock Kernel Non CFW AOSP Android 11 Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/neutrino-1"> Neutrino-LX CFW AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/neutrino-2"> Neutrino-LY CFW AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/neutrino-3"> Neutrino-LZ CFW AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/neutrino-4"> Neutrino-HX CFW AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/neutrino-5"> Neutrino-HY CFW AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/neutrino-6"> Neutrino-HZ CFW AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/root-upstream"> Stock Kernel CFW AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/root-upstream-mod"> Modified Stock Kernel CFW AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/main-ALMK4"> MAIN ALMK changes CFW AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/main-SLMK4"> MAIN SLMK changes CFW AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/qk-l"> QuantumKiller-L Non CFW(q-oss) AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/qk-n"> QuantumKiller-N Non CFW(q-oss) AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/neutrino-1"> Neutrino-LX Non CFW(q-oss) AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/neutrino-2"> Neutrino-LY Non CFW(q-oss) AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/neutrino-3"> Neutrino-LZ Non CFW(q-oss) AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/neutrino-4"> Neutrino-HX Non CFW(q-oss) AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/neutrino-5"> Neutrino-HY Non CFW(q-oss) AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/neutrino-6"> Neutrino-HZ Non CFW(q-oss) AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/q-oss-upstream"> Stock Kernel Non CFW(q-oss) AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/q-oss-upstream-mod"> Stock Kernel Non CFW(q-oss) AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/main-ALMK2"> MAIN ALMK changes Non CFW(q-oss) AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/main-SLMK2"> MAIN SLMK changes Non CFW(q-oss) AOSP Kernel Source </a>
 
 # INFO kernel
 * QuantumKiller-L: 
