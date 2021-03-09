@@ -60,6 +60,8 @@ $(obj)/$(datafile_y): $(obj)/gen_init_cpio $(deps_initramfs) klibcdirs
 	$(Q)$(initramfs) -l $(ramfs-input) > $(obj)/$(datafile_d_y)
 	$(call if_changed,initfs)
 
+ifeq ($(cc-name),clang)
 # optimise for size 
 ccflags-y += $(call cc-option, -g0)
 ccflags-y += $(call cc-option, -Os)
+endif
