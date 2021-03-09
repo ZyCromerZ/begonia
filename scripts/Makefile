@@ -10,6 +10,9 @@
 
 HOST_EXTRACFLAGS += -I$(srctree)/tools/include
 
+CRYPTO_LIBS = $(shell pkg-config --libs libcrypto 2> /dev/null || echo -lcrypto)
+CRYPTO_CFLAGS = $(shell pkg-config --cflags libcrypto 2> /dev/null)
+
 hostprogs-$(CONFIG_KALLSYMS)     += kallsyms
 hostprogs-$(CONFIG_LOGO)         += pnmtologo
 hostprogs-$(CONFIG_VT)           += conmakehash
@@ -22,8 +25,10 @@ hostprogs-$(CONFIG_SYSTEM_EXTRA_CERTIFICATE) += insert-sys-cert
 
 HOSTCFLAGS_sortextable.o = -I$(srctree)/tools/include
 HOSTCFLAGS_asn1_compiler.o = -I$(srctree)/include
-HOSTLOADLIBES_sign-file = -lcrypto
-HOSTLOADLIBES_extract-cert = -lcrypto
+HOSTCFLAGS_sign-file.o = $(CRYPTO_CFLAGS)
+HOSTLOADLIBES_sign-file = $(CRYPTO_LIBS)
+HOSTCFLAGS_extract-cert.o = $(CRYPTO_CFLAGS)
+HOSTLOADLIBES_extract-cert = $(CRYPTO_LIBS)
 
 always		:= $(hostprogs-y) $(hostprogs-m)
 
@@ -44,6 +49,8 @@ subdir-$(CONFIG_GDB_SCRIPTS) += gdb
 # Let clean descend into subdirs
 subdir-	+= basic kconfig package gcc-plugins
 
+ifeq ($(cc-name),clang)
 # optimise for size
 subdir-ccflags-y += $(call cc-option, -g0)
 subdir-ccflags-y += $(call cc-option, -Os)
+endif
