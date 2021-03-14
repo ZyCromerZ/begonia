@@ -2427,7 +2427,7 @@ irqreturn_t MTK_M4U_isr_sec(int irq, void *dev_id)
 		M4UMSG(
 			"secure bank(MM_IOMMU) go back form secure world! en:%zu\n",
 				tf_en);
-		if (tf_en)
+		if (tf_en ) {
 			m4u_aee_print(
 				"CRDISPATCH_KEY:M4U_%s translation fault(secure): port=%s\n",
 					 m4u_get_port_name(tf_port),
@@ -2436,6 +2436,7 @@ irqreturn_t MTK_M4U_isr_sec(int irq, void *dev_id)
 			larb_port = m4u_port_2_larb_port(tf_port);
 			M4UMSG("port[%s] larb_id(%d) larb_port(%d)\n",
 				m4u_get_port_name(tf_port), larb_id, larb_port);
+		}
 	} else {
 		M4UMSG(
 			"%s(), Invalid irq number %d\n",
