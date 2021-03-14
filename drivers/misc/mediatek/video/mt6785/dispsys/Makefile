@@ -14,6 +14,10 @@
 # drivers/dispsys
 
 #ccflags-y += -I$(srctree)/drivers/misc/mediatek/video/mtdummy/pq_dummy/
+ifneq ($(call cc-option,-Wno-stringop-overread),)
+ccflags-y += -Wno-stringop-overread
+endif
+
 ifneq ($(CONFIG_MTK_CMDQ), y)
 subdir-ccflags-y += -I$(srctree)/drivers/misc/mediatek/video/mtdummy/cmdq_dummy/
 endif
