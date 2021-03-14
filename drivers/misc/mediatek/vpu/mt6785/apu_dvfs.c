@@ -609,9 +609,10 @@ int vpu_get_hw_vvpu_opp(int core)
 		opp_value = 1;
 	else if (get_vvpu_value > vvpu_opp_3_vol)
 		opp_value = 2;
-	else
+	else {
 		opp_value = 3;
-		LOG_DVFS("[vpu_%d] vvpu(%d->%d)\n",
+	}
+	LOG_DVFS("[vpu_%d] vvpu(%d->%d)\n",
 			core, get_vvpu_value, opp_value);
 	return opp_value;
 

@@ -141,11 +141,12 @@ void kpd_init_keymap_state(u16 keymap_state[])
 {
 	int i = 0;
 
-	for (i = 0; i < KPD_NUM_MEMS; i++)
+	for (i = 0; i < KPD_NUM_MEMS; i++) {
 		keymap_state[i] = kpd_keymap_state[i];
-		kpd_info("init_keymap_state done: %x %x %x %x %x!\n",
-			keymap_state[0], keymap_state[1], keymap_state[2],
-		 keymap_state[3], keymap_state[4]);
+	}
+	kpd_info("init_keymap_state done: %x %x %x %x %x!\n",
+		keymap_state[0], keymap_state[1], keymap_state[2],
+		keymap_state[3], keymap_state[4]);
 }
 
 void kpd_set_debounce(u16 val)
