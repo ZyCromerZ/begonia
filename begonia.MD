@@ -1,6 +1,7 @@
 # -- 04-04-2021 --
 * Upstream to 4.14.228 from https://android.googlesource.com/kernel/common branch android-4.14-q
 * Just some changes on schedutil
+* Drop all neutrino H* kernels
 * For more changelogs, check commits history on main branch, idk how to type it btw xD
 
 NOTE:
