@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 4.14.224 Kernel Configuration
+# Linux/arm64 4.14.228 Kernel Configuration
 #
 CONFIG_ARM64=y
 CONFIG_64BIT=y
@@ -44,7 +44,7 @@ CONFIG_THREAD_INFO_IN_TASK=y
 #
 # General setup
 #
-CONFIG_ZEN_INTERACTIVE=y
+# CONFIG_ZEN_INTERACTIVE is not set
 CONFIG_INIT_ENV_ARG_LIMIT=32
 CONFIG_CROSS_COMPILE="aarch64-linux-gnu-"
 # CONFIG_COMPILE_TEST is not set
