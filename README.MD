@@ -1,12 +1,14 @@
 # INFO branch kernel for Begonia
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/qk-l"> QuantumKiller-L CFW AOSP Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/qk-n"> QuantumKiller-N CFW AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/neutrino-1"> Neutrino-LX CFW AOSP Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/root-upstream"> Stock Kernel CFW AOSP Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20200907/root-upstream-mod"> Modified Stock Kernel CFW AOSP Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/main-ALMK4"> MAIN ALMK changes CFW AOSP Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20201110/main-SLMK4"> MAIN SLMK changes CFW AOSP Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/qk-l"> QuantumKiller-L Non CFW(q-oss) AOSP Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/qk-n"> QuantumKiller-N Non CFW(q-oss) AOSP Kernel Source </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/neutrino-1"> Neutrino-LX Non CFW(q-oss) AOSP Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/q-oss-upstream"> Stock Kernel Non CFW(q-oss) AOSP Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/q-oss-upstream-mod"> Stock Kernel Non CFW(q-oss) AOSP Kernel Source </a>
 * <a href="https://github.com/ZyCromerZ/begonia/tree/20210205/main-ALMK2"> MAIN ALMK changes Non CFW(q-oss) AOSP Kernel Source </a>

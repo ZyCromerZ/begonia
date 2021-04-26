@@ -1,8 +1,12 @@
-# -- 04-04-2021 --
-* Upstream to 4.14.228 from https://android.googlesource.com/kernel/common branch android-4.14-q
-* Just some changes on schedutil
-* Drop all neutrino H* kernels
-* For more changelogs, check commits history on main branch, idk how to type it btw xD
+# -- 04-27-2021 --
+* Upstream to 4.14.231 from https://android.googlesource.com/kernel/common branch android-4.14-q
+* disable some debuging
+* Neutrino-LZ = decrease GPU from 895 to 884
+* add mtk task turbo to non cfw kernels
+* drop all dtc kernels
+* change GCC version from GCC 11 to GCC 12
+* use ThinLTO optimization only for neutrino kernels
+* remove kernel source for Neutrino-LZ Neutrino-LY because nobody need it (<a href="https://t.me/dreamsupportbegonia/192408">and check this one :p</a>)
 
 NOTE:
 * for more detail about changelogs, just read all changes from its kernel source code (<a href='https://github.com/ZyCromerZ/begonia/blob/changelogs/README.MD#info-branch-kernel-for-begonia'>i mean this one</a>)
