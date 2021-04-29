@@ -1,3 +1,8 @@
+# -- 04-29-2021 --
+* Upstream to 4.14.232 from https://android.googlesource.com/kernel/common branch android-4.14-q
+* re-build all dtc kernels (user dtc koar koar napa ga ada versi dtc katanya)
+* for latest memeui android 10 / custom roms with new cam sensor fix, need to flash <a href='https://t.me/QKNeu_Chat/256870'>this module</a> after flash non cfw kernels
+
 # -- 04-27-2021 --
 * Upstream to 4.14.231 from https://android.googlesource.com/kernel/common branch android-4.14-q
 * disable some debuging
