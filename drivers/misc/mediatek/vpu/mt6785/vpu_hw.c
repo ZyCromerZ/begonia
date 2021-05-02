@@ -6457,7 +6457,7 @@ int vpu_dump_mesg(struct seq_file *s)
 			((uintptr_t)vpu_service_cores[core_index].work_buf->va +
 						VPU_OFFSET_LOG);
 	if (g_vpu_log_level > 8) {
-		pr_info("=== VPU_%d Hex Log Buffer ===\n", core_index);
+		pr_debug("=== VPU_%d Hex Log Buffer ===\n", core_index);
 		print_hex_dump(KERN_INFO, "", DUMP_PREFIX_ADDRESS, 32, 1,
 			log_buf, VPU_SIZE_LOG_BUF, 1);
 	}
