@@ -52,7 +52,7 @@ static int qos_ipi_recv_thread(void *arg)
 		pr_err("[SSPM] IPIR_I_QOS ipi_register fail, ret %d\n", ret);
 		return -1;
 	}
-	pr_info("SSPM is ready to service IPI\n");
+	pr_debug("SSPM is ready to service IPI\n");
 
 	qos_sspm_enable();
 
