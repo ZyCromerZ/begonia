@@ -551,19 +551,19 @@ static ssize_t golden_test_proc_write(struct file *file,
 						REMAP_SIZE_MASK + 1);
 
 				if (!table[br.table_pos].va)
-					pr_info("Power_gs: va(0x%x, 0x%x)\n"
+					pr_debug("Power_gs: va(0x%x, 0x%x)\n"
 						, base, REMAP_SIZE_MASK + 1);
 
 				if (br.table_pos < br.table_size)
 					br.table_pos++;
 				else
-					pr_info("Power_gs: base_remap full\n");
+					pr_debug("Power_gs: base_remap full\n");
 			}
 		} else {
 			if (!pmd.addr_array)
-				pr_info("Power_gs: pmd init fail\n");
+				pr_debug("Power_gs: pmd init fail\n");
 			else
-				pr_info("Power_gs: pmd array is full\n");
+				pr_debug("Power_gs: pmd array is full\n");
 		}
 	}
 	/* XXX: 63 = sizeof(cmd) - 1 */
@@ -828,13 +828,13 @@ void mt_power_gs_pmic_manual_dump(void)
 				_golden_read_reg(pmd.addr_array[i]));
 
 			if (dump_cnt && ((dump_cnt % PER_LINE_TO_PRINT) == 0)) {
-				pr_notice("%s", buf);
+				pr_debug("%s", buf);
 				p = buf;
 				p += snprintf(p, sizeof(buf), "\n");
 			}
 		}
 		if (dump_cnt % PER_LINE_TO_PRINT)
-			pr_notice("%s", buf);
+			pr_debug("%s", buf);
 	}
 }
 
@@ -876,7 +876,7 @@ void mt_power_gs_compare(char *scenario, char *pmic_name,
 
 				if (dump_cnt &&
 					((dump_cnt % PER_LINE_TO_PRINT) == 0)) {
-					pr_notice("%s", buf);
+					pr_debug("%s", buf);
 					p = buf;
 					p += snprintf(p, sizeof(buf), "\n");
 				}
@@ -884,7 +884,7 @@ void mt_power_gs_compare(char *scenario, char *pmic_name,
 
 		}
 		if (dump_cnt % PER_LINE_TO_PRINT)
-			pr_notice("%s", buf);
+			pr_debug("%s", buf);
 
 	/* dump raw data mode */
 	} else {
@@ -902,12 +902,12 @@ void mt_power_gs_compare(char *scenario, char *pmic_name,
 				scenario, pmic_name, pmic_gs[i], val0);
 
 			if (dump_cnt && ((dump_cnt % PER_LINE_TO_PRINT) == 0)) {
-				pr_notice("%s", buf);
+				pr_debug("%s", buf);
 				p = buf;
 				p += snprintf(p, sizeof(buf), "\n");
 			}
 		}
 		if (dump_cnt % PER_LINE_TO_PRINT)
-			pr_notice("%s", buf);
+			pr_debug("%s", buf);
 	}
 }
