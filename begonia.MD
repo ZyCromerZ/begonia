@@ -1,3 +1,10 @@
+# -- 06-06-2021 --
+* Upstream to 4.14.235 from https://android.googlesource.com/kernel/common branch android-4.14-q
+* no needed to flash module to fix cam broken on memeui
+* and more changes check at kernel source by ur self because im lazy to write it :D
+UPDATE
+* still need <a href="https://t.me/QKNeu_UP/336">this module</a> to fix crash on new memeui, because im forgot to update builder for it xD
+
 # -- 04-29-2021 --
 * Upstream to 4.14.232 from https://android.googlesource.com/kernel/common branch android-4.14-q
 * re-build all dtc kernels (user dtc koar koar napa ga ada versi dtc katanya)
