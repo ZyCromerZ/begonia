@@ -600,7 +600,7 @@ static int smb1351_read_reg(struct smb1351_charger *chip, int reg, u8 *val)
 		*val = ret;
 	}
 	pm_relax(chip->dev);
-	pr_info("Reading 0x%02x=0x%02x\n", reg, *val);
+	pr_debug("Reading 0x%02x=0x%02x\n", reg, *val);
 	return 0;
 }
 
