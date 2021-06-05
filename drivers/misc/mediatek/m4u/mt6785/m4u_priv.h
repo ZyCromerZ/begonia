@@ -288,7 +288,7 @@ extern int gM4U_log_to_uart;
 
 #ifdef CONFIG_MTK_AEE_FEATURE
 #define M4UERR(string, args...) do {\
-	pr_info("[M4U] error:"string, ##args);  \
+	pr_err("[M4U] error:"string, ##args);  \
 		aee_kernel_exception("M4U", "[M4U] error:"string, ##args);  \
 	} while (0)
 
@@ -298,7 +298,7 @@ extern int gM4U_log_to_uart;
 	aee_kernel_warning_api(__FILE__, __LINE__, \
 		DB_OPT_MMPROFILE_BUFFER | DB_OPT_DUMP_DISPLAY, \
 		m4u_name, "[M4U] error"string, ##args); \
-	pr_info("[M4U] error:"string, ##args);  \
+	pr_err("[M4U] error:"string, ##args);  \
 	} while (0)
 /*aee_kernel_warning(m4u_name, "[M4U] error:"string,##args); */
 #else

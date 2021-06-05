@@ -756,7 +756,7 @@ config ARCH_HAS_CACHE_LINE_SIZE
 	def_bool y
 
 config BOOT_INFO
-	def_bool y
+	def_bool n
 
 source "mm/Kconfig"
 
