@@ -1388,6 +1388,13 @@ struct task_struct {
 	/* Used by LSM modules for access restriction: */
 	void				*security;
 #endif
+#ifdef CONFIG_MTK_TASK_TURBO
+	unsigned short turbo:1;
+	unsigned short render:1;
+	unsigned short inherit_cnt:14;
+	short nice_backup;
+	atomic_t inherit_types;
+#endif
 
 #ifdef CONFIG_PREEMPT_MONITOR
 	unsigned long preempt_dur;

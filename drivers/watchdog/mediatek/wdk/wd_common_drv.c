@@ -55,8 +55,8 @@
 #define dbgmsg(...)
 #endif
 #define msg(msg...) pr_info(PFX msg)
-#define warnmsg(msg...) pr_info(PFX msg)
-#define errmsg(msg...) pr_notice(PFX msg)
+#define warnmsg(msg...) pr_warn(PFX msg)
+#define errmsg(msg...) pr_err(PFX msg)
 
 #define WK_MAX_MSG_SIZE (128)
 #define MIN_KICK_INTERVAL	 1
@@ -499,10 +499,6 @@ static void kwdt_process_kick(int local_bit, int cpu,
 	 * do not print message with spinlock held to
 	 *  avoid bulk of delayed printk happens here
 	 */
-	snprintf(msg_buf, WK_MAX_MSG_SIZE,
-		"[wdk-c] cpu=%d,lbit=0x%x,cbit=0x%x,%d,%d,%lld,[%lld,%ld]\n",
-		cpu, local_bit, wk_check_kick_bit(), lasthpg_cpu, lasthpg_act,
-		lasthpg_t, sched_clock(), curInterval);
 
 	if (local_bit == wk_check_kick_bit()) {
 		msg_buf[5] = 'k';

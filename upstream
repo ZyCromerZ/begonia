@@ -28,7 +28,7 @@ upstreamRc(){
     git checkout 20210205/main
 }
 if [ "$DoFor" == "Kernel" ];then
-    for typeKernel in 20210205/qk-l 20210205/qk-n 20210205/neutrino-1 20210205/neutrino-2 20210205/neutrino-3 20210205/neutrino-4 20210205/neutrino-5 20210205/neutrino-6
+    for typeKernel in 20210205/qk-l 20210205/qk-n 20210205/neutrino-1 20210205/neutrino-2 20210205/neutrino-3
     do
         if [ "$TAGS" == "-rc" ];then
             upstreamRc $typeKernel
