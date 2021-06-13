@@ -619,10 +619,6 @@ static ssize_t mode_rate_limit_us_store(struct gov_attr_set *attr_set,
 		// performance
 		tunables->down_rate_limit_us = 90000;
 		tunables->up_rate_limit_us = 500;
-	} else {
-		// same as defined
-		tunables->down_rate_limit_us = CONFIG_SCHEDUTIL_DOWN_RATE_LIMIT;
-		tunables->up_rate_limit_us = CONFIG_SCHEDUTIL_UP_RATE_LIMIT;
 	}
 	return count;
 }
@@ -662,9 +658,6 @@ int schedutil_set_down_rate_limit_us(int cpu, unsigned int rate_limit_us)
 	} else if (tunables->mode_rate_limit_us == 3) {
 		// performance
 		rate_limit_us = 90000;
-	} else {
-		// same as defined
-		rate_limit_us = CONFIG_SCHEDUTIL_DOWN_RATE_LIMIT;
 	}
 	tunables->down_rate_limit_us = rate_limit_us;
 	attr_set = &tunables->attr_set;
@@ -718,9 +711,6 @@ int schedutil_set_up_rate_limit_us(int cpu, unsigned int rate_limit_us)
 	} else if (tunables->mode_rate_limit_us == 3) {
 		// performance
 		rate_limit_us = 500;
-	} else {
-		// same as defined
-		rate_limit_us = CONFIG_SCHEDUTIL_UP_RATE_LIMIT;
 	}
 	tunables->up_rate_limit_us = rate_limit_us;
 	attr_set = &tunables->attr_set;
