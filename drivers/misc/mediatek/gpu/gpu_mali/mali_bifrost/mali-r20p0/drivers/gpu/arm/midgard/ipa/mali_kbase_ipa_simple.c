@@ -264,7 +264,7 @@ static int kbase_simple_power_model_init(struct kbase_ipa_model *model)
 	model->model_data = (void *) model_data;
 
 	model_data->current_temperature = FALLBACK_STATIC_TEMPERATURE;
-	model_data->poll_temperature_thread = kthread_run(poll_temperature,
+	model_data->poll_temperature_thread = kthread_run_perf_critical(cpu_perf_mask, poll_temperature,
 							  (void *) model_data,
 							  "mali-simple-power-model-temp-poll");
 	if (IS_ERR(model_data->poll_temperature_thread)) {
