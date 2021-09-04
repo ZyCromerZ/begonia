@@ -552,7 +552,7 @@ struct sched_entity {
 #ifdef CONFIG_SCHED_WALT
 
 extern void sched_exit(struct task_struct *p);
-extern int register_cpu_cycle_counter_cb(struct cpu_cycle_counter_cb *cb);
+// extern int register_cpu_cycle_counter_cb(struct cpu_cycle_counter_cb *cb);
 extern void sched_set_io_is_busy(int val);
 extern int sched_set_group_id(struct task_struct *p, unsigned int group_id);
 extern unsigned int sched_get_group_id(struct task_struct *p);
@@ -595,12 +595,15 @@ struct ravg {
 	u32 curr_window, prev_window;
 	u16 active_windows;
 };
-#endif
+
+#else
 
 static inline int sched_set_boost(int enable)
 {
 	return -EINVAL;
 }
+
+#endif
 
 struct sched_rt_entity {
 	struct list_head		run_list;
@@ -846,6 +849,7 @@ struct task_struct {
 	unsigned int			policy;
 	int				nr_cpus_allowed;
 	cpumask_t			cpus_allowed;
+	cpumask_t			cpus_requested;
 
 #ifdef CONFIG_PREEMPT_RCU
 	int				rcu_read_lock_nesting;
@@ -1989,6 +1993,7 @@ static inline void set_task_cpu(struct task_struct *p, unsigned int cpu)
 # define vcpu_is_preempted(cpu)	false
 #endif
 
+extern long msm_sched_setaffinity(pid_t pid, struct cpumask *new_mask);
 extern long sched_setaffinity(pid_t pid, const struct cpumask *new_mask);
 extern long sched_getaffinity(pid_t pid, struct cpumask *mask);
 
