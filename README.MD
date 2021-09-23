@@ -5,7 +5,9 @@
 * Stock : minimal tweak,should be close to same as stock
 * Q-OSS : for miui/aosp based fw miui A10 (miui 12/miui 11 a10) + added new front cam drivers
 * R-OSS : for miui/aosp based fw miui A11 (miui 12.5)
-* Neutrino-Q and Neutrino-R : gpu freq can be changed (only need to rename zip file)
+* non Stock kernels : gpu freq can be changed (only need to rename zip file) and underclok minimum Big clusters from 774Mhz to 530Mhz
+* QueenFlex/ReFlex : Overlock Big cluster from 2.05Mhz to 2.14Mhz
+
 
 ## How To Changes GPU freq
 * Example File Name </br>
@@ -33,7 +35,16 @@ Just change 806Mhz to 850Mhz for change it
 * <code>806Mhz</code> (default)
 
 ## Repo
-* still not pushed yet (for now)
+* <a href="https://github.com/ZyCromerZ/begonia/tree/new-q-oss"> Base Neutrino-Stock for Q-OSS kernel source code </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/new-q-oss-up"> Upstreamed Neutrino-Stock for Q-OSS kernel source code </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/q-oss-base-public"> Base Neutrino-Q for Q-OSS kernel source code </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/r-oss"> Base Neutrino-Stock for R-OSS kernel source code </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/r-oss-up"> Upstreamed Neutrino-Stock for R-OSS kernel source code </a>
+* <a href="https://github.com/ZyCromerZ/begonia/tree/r-oss-base-public"> Base Neutrino-R for R-OSS kernel source code </a>
+
+## Notes
+* im not included any commits about Overclock CPU/GPU to here, because nobody need it, only all of main changes
+* and for kernel only have diference about cpu n gpu clock not pushed to this repo too
 
 ## Link Downloads
-* still not released yet
+* <a href="https://www.pling.com/p/1406315/#files-panel"> >> check here << </a>
