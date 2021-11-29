@@ -23,8 +23,8 @@
 # Then call CompileKernel and done
 MainPath=$(pwd)
 CLANG_PATH=$MainPath/../clang
-GCC_64=$MainPath/../gcc
-GCC_32=$MainPath/../gcc
+GCC_64=$MainPath/../gcc64
+GCC_32=$MainPath/../gcc32
 CROSS_COMPILE=aarch64-linux-android-
 CROSS_COMPILE_ARM32=arm-linux-androideabi-
 MakeZip(){
